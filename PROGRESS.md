@@ -3971,6 +3971,12 @@ Per-round log (newest last). All work in /root/workspace/research.
   now fails if any `/.pi/` path is ever tracked again. Suite re-confirmed
   130. (GH API + WSL box both unavailable this round.)
 
+## Round 15 — CI-command + README example replication (offline gates)
+- The exact CI test invocation (`--no-fail-fast -- --test-threads=1`) passes
+  130/130 locally, the hygiene guard passes, and the README's documented
+  one-shot command works verbatim. External channels (GH API + WSL) still
+  down; all local truth verified.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
