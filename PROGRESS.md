@@ -4222,6 +4222,11 @@ Per-round log (newest last). All work in /root/workspace/research.
   Valid packages still install (30-point matrix passes). 133 tests, clippy 0;
   release + static rebuilt with the fix.
 
+## Round 58 — v1.0.6 security release shipped
+- The tar-slip fix released as v1.0.6 (latest): pipeline green, static asset
+  verified ELF64 x86_64. Seven releases now (v1.0.0–v1.0.6); docs counts at
+  133.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
