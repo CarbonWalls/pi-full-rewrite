@@ -44,7 +44,9 @@ jobs:
           ./scripts/verify.sh
           git diff --exit-code --stat   # no build artifacts may leak into the tree
 
+  # manual-only: helpful when CI misbehaves again (uploads the test log)
   diagnose:
+    if: github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4

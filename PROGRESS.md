@@ -3879,6 +3879,13 @@ Per-round log (newest last). All work in /root/workspace/research.
 - v1.0.0 moved to the green commit so the tag-release workflow builds its
   GitHub Release from the verified state.
 
+## Round 1 (goal restored) — release asset verified end to end
+- Downloaded `pi-linux-amd64-static` from the live GitHub release and ran it
+  on the real amd64 Debian/WSL box: ELF64 x86_64, no interpreter (static),
+  banner reports build sha b0b0220 (== tag commit). Source → CI → tag →
+  release → verified binary: the full loop is closed.
+- Diagnose job (CI debugging aid) is now manual (`workflow_dispatch`).
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
