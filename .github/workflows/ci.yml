@@ -23,7 +23,7 @@ jobs:
         # reduced threads: cold runners are slower than a dev box.
         run: |
           set +e
-          ./build.sh test --no-fail-fast -- --test-threads=4 2>&1 | tee /tmp/test.log
+          ./build.sh test --no-fail-fast -- --test-threads=1 2>&1 | tee /tmp/test.log
           rc=${PIPESTATUS[0]}
           set -e
           if [ $rc -ne 0 ]; then
@@ -90,7 +90,7 @@ jobs:
             exit 1
           fi
           echo "::error::file(1) says: $(file "$BIN")"
-          if ! file "$BIN" | grep -q "statically linked"; then
+          if ! file "$BIN" | grep -qiE "statically linked|static-pie linked"; then
             echo "::error::NOT static"
             exit 1
           fi

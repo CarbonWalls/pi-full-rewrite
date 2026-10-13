@@ -242,6 +242,9 @@ fn apply_diff_applies_git_diff() {
             .success()
     };
     assert!(git(&["init", "-q"]));
+    // hermetic identity (CI runners ship none)
+    assert!(git(&["config", "user.name", "ci test"]));
+    assert!(git(&["config", "user.email", "ci@example.invalid"]));
     std::fs::write(dir.join("f.txt"), "alpha\nbeta\ngamma\n").unwrap();
     assert!(git(&["add", "f.txt"]));
     assert!(git(&["commit", "-qm", "init"]));
@@ -284,8 +287,9 @@ fn bash_timeout_kills_process_group() {
         .trim()
         .parse()
         .expect("leader pid file");
-    // give the kernels a moment, then both must be gone
-    std::thread::sleep(std::time::Duration::from_millis(300));
+    // give the kernels a moment, then both must be gone (loaded CI runners
+    // reap /proc entries slower than a dev box)
+    std::thread::sleep(std::time::Duration::from_millis(1500));
     let alive = |pid: u32| std::path::Path::new(&format!("/proc/{pid}")).exists();
     assert!(!alive(grand), "grandchild {grand} must be killed");
     assert!(!alive(leader), "leader {leader} must be killed");
