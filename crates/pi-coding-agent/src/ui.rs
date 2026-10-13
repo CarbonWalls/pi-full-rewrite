@@ -15,6 +15,7 @@ use std::time::Duration;
 
 const SHIFT: u8 = 0x01;
 const CONTROL: u8 = 0x02;
+const ALT: u8 = 0x04;
 
 fn truncate(s: &str, n: usize) -> String {
     if s.chars().count() <= n {
@@ -303,14 +304,21 @@ commands*\n",
                     .append(true)
                     .open(&path)
                 {
-                    let _ = writeln!(f, "{:?}", ev.key);
+                    let _ = writeln!(f, "{:?} mods={}", ev.key, ev.mods);
                 }
             }
             match &ev.key {
                 // crossterm reports real Ctrl-C (0x03) as Char('c')+CONTROL.
                 Key::Code(KeyCode::Char('c')) if ev.mods & CONTROL == CONTROL => {
-                    // Ctrl-C: abort an in-flight turn, else quit.
+                    // Ctrl-C: abort an in-flight turn (hard-quit on the 2nd),
+                    // else quit outright.
                     if turn.is_some() {
+                        if abort_handle.load(std::sync::atomic::Ordering::Relaxed) {
+                            // already aborting: force-quit even if the turn
+                            // is stuck in a tool that ignores abort
+                            let _ = tui.stop();
+                            std::process::exit(130);
+                        }
                         abort_handle.store(true, std::sync::atomic::Ordering::Relaxed);
                         transcript.push_str("\n⟳ aborting… (Ctrl-C again to quit)\n");
                     } else {
@@ -337,6 +345,26 @@ commands*\n",
                     continue;
                 }
                 let was_single_line = editor.lines.len() == 1;
+                // Ctrl/Alt-letter must not insert a literal letter (audit);
+                // Ctrl-D on an empty prompt exits like a terminal EOF.
+                if (ev.mods & (CONTROL | ALT)) != 0 && c == KeyCode::Char('d') && ev.mods & CONTROL != 0 {
+                    if editor.is_empty() {
+                        break 'main; // Ctrl-D on an empty prompt = EOF/exit
+                    }
+                    continue;
+                }
+                if (ev.mods & (CONTROL | ALT)) != 0 {
+                    // ignore literal inserts of other control chords (audit),
+                    // but never swallow Enter/Tab/PgUp/PgDn (which are what
+                    // the LF↔Ctrl+J relay maps Enter to — mods=CONTROL).
+                    if c != KeyCode::Enter
+                        && c != KeyCode::Tab
+                        && c != KeyCode::PageUp
+                        && c != KeyCode::PageDown
+                    {
+                        continue;
+                    }
+                }
                 if c == KeyCode::Enter && ev.mods & SHIFT != 0 {
                     editor.newline();
                 } else {
@@ -454,6 +482,27 @@ commands*\n",
     Ok(())
 }
 
+/// Strip terminal control bytes (ESC, CSI, other C0) from model output
+/// before it reaches the diff renderer — a hostile or prompt-injected
+/// sequence must not be able to drive the terminal (audit CRITICAL).
+/// Newlines and tabs survive; other bytes below 0x20 (and C1 0x7F..0x9F)
+/// are rendered visibly instead of executed.
+fn sanitize_tui_text(t: &str) -> String {
+    let mut out = String::with_capacity(t.len());
+    for c in t.chars() {
+        let cp = c as u32;
+        if c == '\n' || c == '\t' || c == '\r' {
+            out.push(c);
+        } else if cp < 0x20 || (0x7F..=0x9F).contains(&cp) {
+            // render control bytes visibly instead of executing them
+            out.push_str(&format!("[U+{cp:02X}]"));
+        } else {
+            out.push(c);
+        }
+    }
+    out
+}
+
 fn apply_event(transcript: &mut String, ev: AgentEvent) {
     match ev {
         AgentEvent::UserMessage(m) => {
@@ -462,8 +511,8 @@ fn apply_event(transcript: &mut String, ev: AgentEvent) {
         AgentEvent::AssistantStart { model } => {
             transcript.push_str(&format!("\n✻ {model}…\n"));
         }
-        AgentEvent::TextDelta(t) => transcript.push_str(&t),
-        AgentEvent::ReasoningDelta(t) => transcript.push_str(&t),
+        AgentEvent::TextDelta(t) => transcript.push_str(&sanitize_tui_text(&t)),
+        AgentEvent::ReasoningDelta(t) => transcript.push_str(&sanitize_tui_text(&t)),
         AgentEvent::ToolCallStart(c) => {
             let args = c.arguments.to_string();
             let shown: String = args.chars().take(120).collect();
