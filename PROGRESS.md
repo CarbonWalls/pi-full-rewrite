@@ -4136,6 +4136,10 @@ Per-round log (newest last). All work in /root/workspace/research.
   with a bounded error. 131 tests, clippy 0; release + static rebuilt with
   the fix (dist refreshed).
 
+## Round 42 — CI green with 131 tests; counts refreshed
+- The pi-mcp hardening commit passed CI (badge: ci - passing). README,
+  RELEASING and the verification snapshot now all say 131 tests / 131 / 131.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)

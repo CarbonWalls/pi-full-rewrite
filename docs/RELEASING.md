@@ -23,7 +23,7 @@ Everything runs from this directory; nothing is installed elsewhere.
                             #   TUI (PTY, frame-decoded), user-journey tour,
                             #   static binary. Must print
                             #   "29 passed, 0 failed".
-./build.sh test             # 130 tests across 6 crates
+./build.sh test             # 131 tests across 6 crates
 ./build.sh clippy           # zero warnings
 ```
 
@@ -43,6 +43,6 @@ Everything runs from this directory; nothing is installed elsewhere.
 
 ## Current release state (round 64)
 
-- 130 tests green, clippy 0, sign-off 28/28, `--version` ≈ 13 ms,
+- 131 tests green, clippy 0, sign-off 28/28, `--version` ≈ 13 ms,
   release 4.6 MB, static 4.7 MB.
 - Full history: `PROGRESS.md`, `CHANGELOG.md`.
