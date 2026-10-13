@@ -1,5 +1,8 @@
 # pi-rs
 
+[![CI](https://github.com/CarbonWalls/pi-full-rewrite/actions/workflows/ci.yml/badge.svg)](https://github.com/CarbonWalls/pi-full-rewrite/actions/workflows/ci.yml)
+[![Release](https://img.shields.io/github/v/release/CarbonWalls/pi-full-rewrite)](https://github.com/CarbonWalls/pi-full-rewrite/releases)
+
 A from-scratch Rust rewrite of the **pi** coding agent
 (`earendil-works/pi`, TypeScript) — faster, smaller, and with more features.
 No code was reused from the reference; everything here is original Rust.

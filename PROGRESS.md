@@ -3907,6 +3907,11 @@ Per-round log (newest last). All work in /root/workspace/research.
   cannot cross-link aarch64 (x86_64-only), so the arm64 static binary stays a
   local build step (noted in the workflow).
 
+## Round 5 — static rebuilt + README badges
+- Static aarch64 binary rebuilt with the kill-order fixes (4,656,760 bytes);
+  dist refreshed (glibc + static).
+- README now carries live CI + release badges for the public repo.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
