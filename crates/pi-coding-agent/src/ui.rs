@@ -482,6 +482,28 @@ commands*\n",
     Ok(())
 }
 
+/// Soft cap on the transcript so an endless session cannot grow without
+/// bound (audit MAJOR): past the cap, older content is elided to a marker.
+const TRANSCRIPT_CAP: usize = 2_000_000;
+
+fn ensure_transcript_bounded(transcript: &mut String) {
+    if transcript.len() <= TRANSCRIPT_CAP {
+        return;
+    }
+    const KEEP: usize = TRANSCRIPT_CAP / 2;
+    let start = transcript.len() - KEEP;
+    let head = match transcript[start..].char_indices().next() {
+        Some((i, _)) => start + i,
+        None => start,
+    };
+    let tail = transcript.split_off(head);
+    *transcript = format!(
+        "
+…(earlier content compacted — {KEEP} chars kept; use /replay to re-read the session)…
+{tail}"
+    );
+}
+
 /// Strip terminal control bytes (ESC, CSI, other C0) from model output
 /// before it reaches the diff renderer — a hostile or prompt-injected
 /// sequence must not be able to drive the terminal (audit CRITICAL).
@@ -504,6 +526,7 @@ fn sanitize_tui_text(t: &str) -> String {
 }
 
 fn apply_event(transcript: &mut String, ev: AgentEvent) {
+    ensure_transcript_bounded(transcript);
     match ev {
         AgentEvent::UserMessage(m) => {
             transcript.push_str(&format!("\n❯ {}\n", m.text()));
@@ -511,8 +534,14 @@ fn apply_event(transcript: &mut String, ev: AgentEvent) {
         AgentEvent::AssistantStart { model } => {
             transcript.push_str(&format!("\n✻ {model}…\n"));
         }
-        AgentEvent::TextDelta(t) => transcript.push_str(&sanitize_tui_text(&t)),
-        AgentEvent::ReasoningDelta(t) => transcript.push_str(&sanitize_tui_text(&t)),
+        AgentEvent::TextDelta(t) => {
+            transcript.push_str(&sanitize_tui_text(&t));
+            ensure_transcript_bounded(transcript);
+        }
+        AgentEvent::ReasoningDelta(t) => {
+            transcript.push_str(&sanitize_tui_text(&t));
+            ensure_transcript_bounded(transcript);
+        }
         AgentEvent::ToolCallStart(c) => {
             let args = c.arguments.to_string();
             let shown: String = args.chars().take(120).collect();
