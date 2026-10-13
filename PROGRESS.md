@@ -4059,6 +4059,12 @@ Per-round log (newest last). All work in /root/workspace/research.
   "28-point" reference to 29 (README, ARCHITECTURE, RELEASING, snapshot, CI +
   release workflows). The matrix grows as its invariants do.
 
+## Round 30 — CI caught a portability bug in my new check; fixed
+- The 29-point verify check (installer-quiet) broke CI: it required
+  `dist/pi`, which CI runners never build. The badge exposed the failure.
+  The check now stages `dist/pi` from the release binary (saving/restoring
+  any pre-existing one) and passes both with and without it. Local 29/29.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)

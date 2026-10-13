@@ -145,10 +145,16 @@ else
   bad "user journey tour"; echo "$TOUR_OUT" | tail -6
 fi
 
-# installer: quiet by default — never edits shell profiles (round 28)
+# installer: quiet by default — never edits shell profiles (round 28).
+# CI has no dist/pi, so stage one from the release binary (save/restore any
+# pre-existing dist/pi so this stays non-destructive).
 IVHOME=$(mktemp -d /tmp/pi-insthome.XXXXXX)
 IPT=$(mktemp -d /tmp/pi-instprefix.XXXXXX)
+HAD_DIST=0
+if [ -f dist/pi ]; then cp dist/pi /tmp/pi-dist-save.$$; HAD_DIST=1; fi
+mkdir -p dist && cp "$R" dist/pi
 INS_OUT=$(HOME="$IVHOME" PREFIX="$IPT" scripts/install.sh 2>&1 || true)
+if [ "$HAD_DIST" = "1" ]; then mv -f /tmp/pi-dist-save.$$ dist/pi; else rm -f dist/pi; fi
 if echo "$INS_OUT" | grep -q "installed pi to $IPT/pi"    && [ ! -f "$IVHOME/.profile" ] && [ ! -f "$IVHOME/.bashrc" ]; then
   ok "installer quiet (no profile edits by default)"
 else
