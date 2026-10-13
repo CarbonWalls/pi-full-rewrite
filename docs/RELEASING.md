@@ -23,7 +23,7 @@ Everything runs from this directory; nothing is installed elsewhere.
                             #   TUI (PTY, frame-decoded), user-journey tour,
                             #   static binary. Must print
                             #   "28 passed, 0 failed".
-./build.sh test             # 103 tests across 6 crates
+./build.sh test             # 128 tests across 6 crates
 ./build.sh clippy           # zero warnings
 ```
 
