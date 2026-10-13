@@ -4037,6 +4037,11 @@ Per-round log (newest last). All work in /root/workspace/research.
   remain the measured numbers since the comparison round. All documented
   counts are truthful to the binary.
 
+## Round 26 — JSON mode audit
+- All `--json` outputs verified parseable: `--sessions`, `--cost`, `--info`
+  as documents; `--json --mode ask` as streaming JSONL (each line valid; my
+  initial validator wrongly expected a single document). WSL remains offline.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
