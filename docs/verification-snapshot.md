@@ -6,7 +6,7 @@ The exact state verified for the current release:
 |---|---|
 | Unit + integration tests | **130 / 130** |
 | Clippy (all targets) | **0 warnings** |
-| Release sign-off (`scripts/verify.sh`) | **28 / 28** |
+| Release sign-off (`scripts/verify.sh`) | **29 / 29** |
 | User journey (`scripts/tour.sh`) | **12 / 12** |
 | GitHub Actions CI (`ci.yml`, pinned 1.99.0) | **passing** (test + static-musl jobs) |
 | Commit hygiene | no `target/`, `dist/`, `.rustup/`, `.pi/` tracked (CI-enforced) |

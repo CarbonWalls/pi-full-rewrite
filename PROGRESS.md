@@ -4053,6 +4053,12 @@ Per-round log (newest last). All work in /root/workspace/research.
   that edit immediately). Quiet-by-default installs can no longer surprise
   anyone's shell config. Verified both opt-in and default paths.
 
+## Round 29 — verify matrix 28 -> 29 points
+- Added the "installer quiet (no profile edits by default)" check to
+  scripts/verify.sh (29 passed, 0 failed), and refreshed every current-state
+  "28-point" reference to 29 (README, ARCHITECTURE, RELEASING, snapshot, CI +
+  release workflows). The matrix grows as its invariants do.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)

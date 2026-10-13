@@ -145,6 +145,17 @@ else
   bad "user journey tour"; echo "$TOUR_OUT" | tail -6
 fi
 
+# installer: quiet by default — never edits shell profiles (round 28)
+IVHOME=$(mktemp -d /tmp/pi-insthome.XXXXXX)
+IPT=$(mktemp -d /tmp/pi-instprefix.XXXXXX)
+INS_OUT=$(HOME="$IVHOME" PREFIX="$IPT" scripts/install.sh 2>&1 || true)
+if echo "$INS_OUT" | grep -q "installed pi to $IPT/pi"    && [ ! -f "$IVHOME/.profile" ] && [ ! -f "$IVHOME/.bashrc" ]; then
+  ok "installer quiet (no profile edits by default)"
+else
+  bad "installer quiet"; echo "$INS_OUT" | tail -4
+fi
+rm -rf "$IVHOME" "$IPT"
+
 # static musl, if present
 MS=target/aarch64-unknown-linux-musl/release/pi
 if [ -x "$MS" ]; then

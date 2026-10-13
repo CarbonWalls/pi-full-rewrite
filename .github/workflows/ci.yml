@@ -45,7 +45,7 @@ jobs:
         env:
           PI_BUILD_SHA: ${{ github.sha }}
         run: ./build.sh build --release --locked -p pi-coding-agent
-      - name: Release sign-off (28-point matrix incl. TUI + user journey)
+      - name: Release sign-off (29-point matrix incl. TUI + user journey)
         run: |
           ./build.sh build --release --locked -p pi-coding-agent
           ./scripts/verify.sh

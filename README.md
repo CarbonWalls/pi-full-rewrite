@@ -28,7 +28,7 @@ No code was reused from the reference; everything here is original Rust.
 ```sh
 ./build.sh build --release -p pi-coding-agent   # → target/release/pi
 ./build.sh test                                 # 130 tests, clippy-clean
-./scripts/verify.sh                            # 28-point release sign-off
+./scripts/verify.sh                            # 29-point release sign-off
 ```
 
 Everything (toolchain, caches, targets) stays inside this directory; `build.sh`
