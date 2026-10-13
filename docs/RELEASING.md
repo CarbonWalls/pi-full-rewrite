@@ -43,6 +43,6 @@ Everything runs from this directory; nothing is installed elsewhere.
 
 ## Current release state (round 64)
 
-- 117 tests green, clippy 0, sign-off 28/28, `--version` ≈ 13 ms,
+- 122 tests green, clippy 0, sign-off 28/28, `--version` ≈ 13 ms,
   release 4.6 MB, static 4.7 MB.
 - Full history: `PROGRESS.md`, `CHANGELOG.md`.
