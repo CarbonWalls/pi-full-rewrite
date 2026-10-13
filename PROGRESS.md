@@ -4350,6 +4350,10 @@ Per-round log (newest last). All work in /root/workspace/research.
   `..` rejection). Now resolved through the shared `resolve_under` (rejected
   with a clear error). Locked as the 31st verify check; suite 133, clippy 0.
 
+## Round 81 — v1.0.9 released (confinement fix)
+- `--out` confinement shipped as v1.0.9 (pipeline green; static asset
+  verified). CI badge still passing with the 31-point matrix. Ten releases.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
