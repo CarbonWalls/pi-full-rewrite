@@ -4209,6 +4209,10 @@ Per-round log (newest last). All work in /root/workspace/research.
 - Badge: ci — passing for the fallback-infusion commit. User-facing docs now
   all say 132 tests.
 
+## Round 56 — scenario error rule documented
+- README's scenario section now documents the deliberate `error` rule and
+  the offline `--fallback` exercise recipe.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)

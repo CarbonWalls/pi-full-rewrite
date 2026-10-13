@@ -130,7 +130,10 @@ either a tool call or a plain answer:
 ```
 
 `echo "create a file" | PI_MOCK_SCENARIO=… pi` drives a full write → read →
-verify agent loop — used by the integration tests.
+verify agent loop — used by the integration tests. A rule may instead emit a
+deliberate provider error (`{"error":"primary down"}`), consumed once per run
+so `--fallback` can be exercised fully offline:
+`{"contains":"x","error":"primary down"}` + `pi -m mock/echo --fallback …`.
 
 ## Dependencies (self-contained by design)
 
