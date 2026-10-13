@@ -4092,6 +4092,11 @@ Per-round log (newest last). All work in /root/workspace/research.
   installer-quiet invariant all verified against the shipped amd64 binary
   on real hardware. Round 33 in the restored goal.
 
+## Round 34 — amd64 numbers confirmed current
+- Re-measured the CURRENT release binary on the Debian/WSL box: --version
+  best 2 ms, mock turn avg 6 ms — the published cross-arch numbers are
+  accurate to the shipped artifact. Leftover CI-clone cleaned from the box.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
