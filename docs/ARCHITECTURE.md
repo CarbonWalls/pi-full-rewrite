@@ -109,7 +109,7 @@ resume, plan, diff, timeout, framing, fuzz). TUI tests run under a real PTY.
 
 The published repo (github.com/CarbonWalls/pi-full-rewrite) self-releases:
 
-1. **CI (every push):** pinned toolchain (1.99.0) → 130 tests, clippy 0,
+1. **CI (every push):** pinned toolchain (1.99.0) → 131 tests, clippy 0,
    29-point sign-off (`scripts/verify.sh`), tree-cleanliness guard — plus a
    separate job that builds and verifies the static musl binary.
 2. **Tag-release (every `v*` tag):** runs the same gates, builds glibc

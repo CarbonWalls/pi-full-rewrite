@@ -59,7 +59,7 @@ All notable work on pi-rs (the Rust rewrite of pi).
   process group, then the child — covers job-control sub-groups too.
 - The ancestry walk runs before the `pkill -P` net (pkill first would
   reparent deeper descendants out of reach). Two regression tests lock both
-  axes. CI green on GitHub Actions; 130 tests.
+  axes. CI green on GitHub Actions; 131 tests.
 
 ### Reliability
 - 111 automated tests: provider E2E against fake servers, binary-level

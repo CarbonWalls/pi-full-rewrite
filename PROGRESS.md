@@ -4166,6 +4166,10 @@ Per-round log (newest last). All work in /root/workspace/research.
   export/gc/cost/tree/stats, templates/theme/skills, etc.). The doc now
   covers the complete surface.
 
+## Round 48 — last stale counts swept
+- ARCHITECTURE + CHANGELOG still said 130 tests; both now 131. Zero stale
+  references remain anywhere in the docs/workflows.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
