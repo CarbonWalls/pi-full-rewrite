@@ -2,6 +2,10 @@
 # Build a self-contained release bundle under dist/ (both binaries + docs).
 # Everything stays inside this directory (no installs elsewhere).
 set -euo pipefail
+# stamp the exact git commit into the binaries
+if [ -d .git ]; then
+  export PI_BUILD_SHA="$(git rev-parse --short HEAD 2>/dev/null || echo dev)"
+fi
 cd "$(dirname "$0")/.."
 
 DIST="${1:-dist}"

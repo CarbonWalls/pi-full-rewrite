@@ -479,6 +479,7 @@ async fn run(cli: Cli) -> Result<()> {
                     "models": pi_ai::Catalog::builtin().all().len(),
                     "tools": 15,
                     "providers": ["mock", "custom", "openai", "anthropic", "gemini", "deepseek", "openrouter", "mistral", "groq"],
+                    "build_sha": option_env!("PI_BUILD_SHA").unwrap_or("dev"),
                 })
             );
         } else {
@@ -488,6 +489,7 @@ async fn run(cli: Cli) -> Result<()> {
                 env!("CARGO_PKG_RUST_VERSION")
             };
             println!("{}\nrust {rust_ver}\ntarget {} · fs-{}", long_version(), std::env::consts::ARCH, std::env::consts::FAMILY);
+            println!("build: {} (set via PI_BUILD_SHA at compile time)", option_env!("PI_BUILD_SHA").unwrap_or("dev"));
             println!("models: {} builtin", pi_ai::Catalog::builtin().all().len());
             println!("tools: 15 builtin (mcp/ext dynamic); sessions: jsonl; providers: mock/custom/openai/anthropic/gemini/deepseek/openrouter/mistral/groq");
         }
