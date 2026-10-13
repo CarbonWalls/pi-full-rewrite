@@ -4150,6 +4150,10 @@ Per-round log (newest last). All work in /root/workspace/research.
   (MCP bounded reads). The WSL box was offline for an on-hardware v1.0.5
   check (the same asset class was already accepted there in rounds 31–38).
 
+## Round 45 — capstone at the 131-test state
+- Full local gates: 131 tests, clippy 0, 29/29 sign-off, 12/12 tour,
+  --version ~22 ms. The exact current commit is fully verified locally.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
