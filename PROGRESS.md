@@ -3997,6 +3997,11 @@ Per-round log (newest last). All work in /root/workspace/research.
   **Zero panics** — every case exits cleanly (0/1/2 as appropriate). The
   robust-exit discipline holds under adversarial input.
 
+## Round 19 — session lifecycle E2E
+- Created 3 sessions; `--resume <id>` grew the SAME file 3→6 entries (id
+  preserved, no new file); `--gc --gc-dry-run` predicted exactly the file
+  that the real GC removed; final state 2 files. Dry-run and real GC agree.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
