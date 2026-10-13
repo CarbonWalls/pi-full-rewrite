@@ -25,8 +25,8 @@ jobs:
           ./build.sh test --no-fail-fast -- --test-threads=4 2>&1 | tee /tmp/test.log
           rc=${PIPESTATUS[0]}
           if [ $rc -ne 0 ]; then
-            # surface the failure as GitHub annotations (readable via the API)
-            grep -E -B2 -A10 "FAILED|panicked|failures:" /tmp/test.log | tail -n 120 | sed 's/^/::error::/'
+            # surface the full failure tail as GitHub annotations (API-readable)
+            tail -n 150 /tmp/test.log | sed 's/^/::error::/'
             exit $rc
           fi
           ./build.sh test --doc
