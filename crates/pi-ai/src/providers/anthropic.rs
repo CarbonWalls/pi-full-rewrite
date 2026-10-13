@@ -15,6 +15,7 @@ pub fn stream_to(
 ) -> Result<(), ApiError> {
     let model = &req.model;
     let base = model.base_url();
+    crate::http::check_base_scheme(&base)?;
     let url = format!("{base}/messages");
 
     let key = api_key
@@ -90,7 +91,10 @@ pub fn stream_to(
             crate::types::ThinkingLevel::Off => 0,
         };
         let cap = model.max_output_tokens as u32;
-        let b = budget.min(cap.saturating_sub(1).max(budget));
+        // budget_tokens must stay strictly below max_tokens (the audit found
+        // this clamp was a no-op when budget > cap-1, breaking the request).
+        let room = cap.saturating_sub(1).max(1);
+        let b = budget.min(room);
         body["thinking"] = json!({"type":"enabled","budget_tokens": b});
     }
 
@@ -122,6 +126,11 @@ pub fn stream_to(
     let mut stop_reason = StopReason::Stop;
 
     let result = for_each_sse(resp, &mut |ev, data| {
+        // tolerated keepalive/empty frames (audit MINOR: these killed the
+        // stream before via from_str("")?)
+        if data.trim().is_empty() && ev != "message_start" && ev != "message_delta" {
+            return Ok(());
+        }
         match ev {
             "message_start" => {
                 let v: Value = serde_json::from_str(data)?;
@@ -165,8 +174,9 @@ pub fn stream_to(
                                 acc.push_str(t);
                             }
                         }
+                        let delta_idx = calls.len().saturating_sub(1) as u32;
                         if !on_event(StreamEvent::ToolDelta {
-                            index: calls.len() as u32,
+                            index: delta_idx,
                             id: None,
                             name: None,
                             arguments_delta: t.to_string(),

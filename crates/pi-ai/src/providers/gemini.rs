@@ -26,6 +26,7 @@ pub fn stream_to(
         format!("models/{}", model.id)
     };
     let base = model.base_url();
+    crate::http::check_base_scheme(&base)?;
     let url = format!("{base}/{model_ref}:streamGenerateContent?alt=sse");
 
     let mut headers: Vec<(String, String)> =

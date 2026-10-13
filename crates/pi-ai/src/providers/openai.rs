@@ -10,17 +10,23 @@ use crate::types::{ApiError, ChatMessage, ChatRequest, ContentPart, Role, Stream
 
 fn parse_usage(chunk: &Value) -> Usage {
     let u = &chunk["usage"];
+    let details = u
+        .get("prompt_tokens_details")
+        .map(|d| d.clone())
+        .unwrap_or_else(|| json!({}));
     Usage {
         input: u["prompt_tokens"].as_u64().unwrap_or(0),
         output: u["completion_tokens"].as_u64().unwrap_or(0),
-        cache_read: u
-            .get("prompt_tokens_details")
-            .and_then(|d| d["cached_tokens"].as_u64())
+        // OpenAI: prompt_tokens_details.cached_tokens; DeepSeek: _prompt_cache_hit_tokens
+        cache_read: details["cached_tokens"]
+            .as_u64()
+            .or_else(|| details["prompt_cache_hit_tokens"].as_u64())
             .unwrap_or(0),
-        cache_write: u
-            .get("completion_tokens_details")
-            .and_then(|d| d["reasoning_tokens"].as_u64())
-            .unwrap_or(0),
+        // cache write = newly cached prompt tokens (DeepSeek
+        // prompt_cache_miss_tokens). Audit: was wrongly set from
+        // completion_tokens_details.reasoning_tokens, billing reasoning as
+        // input-priced cache writes.
+        cache_write: details["prompt_cache_miss_tokens"].as_u64().unwrap_or(0),
         reasoning: u
             .get("completion_tokens_details")
             .and_then(|d| d["reasoning_tokens"].as_u64())
@@ -102,6 +108,7 @@ pub fn stream_to(
 ) -> Result<(), ApiError> {
     let model = &req.model;
     let base = model.base_url();
+    crate::http::check_base_scheme(&base)?;
     let url = format!("{base}/chat/completions");
 
     let mut headers: Vec<(String, String)> = vec![
@@ -294,10 +301,11 @@ pub fn stream_to(
         Ok(())
     })?;
 
-    let mut tool_calls: Vec<ToolCall> = calls.into_values().collect();
-    tool_calls.sort_by_key(|tc| {
-        tc.id.clone()
-    });
+    // deterministic order by tool index (a sort by id is unstable for
+    // providers that omit ids — audit MINOR)
+    let mut items: Vec<(u32, ToolCall)> = calls.into_iter().collect();
+    items.sort_by_key(|(idx, _)| *idx);
+    let mut tool_calls: Vec<ToolCall> = items.into_iter().map(|(_, tc)| tc).collect();
     // rebuild arguments from JSON strings into values
     for tc in &mut tool_calls {
         if let Value::String(raw) = &tc.arguments {
