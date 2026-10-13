@@ -4120,6 +4120,11 @@ Per-round log (newest last). All work in /root/workspace/research.
   checks, every external protocol surface is now verified on real amd64 AND
   the aarch64 host with the shipped binaries.
 
+## Round 39 — final state audit
+- Repo tree clean, ~/.profile clean (0 tmp refs), and the local `.pi`
+  session litter from dogfooding removed (it's gitignored, so the repo was
+  unaffected either way). Everything tidy ahead of the next work.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
