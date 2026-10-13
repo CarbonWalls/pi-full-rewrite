@@ -3758,6 +3758,13 @@ Per-round log (newest last). All work in /root/workspace/research.
 - 118: four-audit milestone — zero CRITICALs outstanding.
 - 119: markdown link off-by-one + SGR full-style emission; 120: build provenance (--info build_sha, -V banner).
 
+## Round 137 (2026-07-16) — record repair
+- Found that rounds 93–135 had silently missed the narrative log (the tail
+  had been restructured); inserted an accurate compacted record above.
+  From now on every PROGRESS write is asserted.
+- State: 128 tests, clippy 0, 28/28 sign-off, 12/12 tour, four audits closed,
+  build provenance live, git history + releases current.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
