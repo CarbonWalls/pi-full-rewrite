@@ -40,7 +40,7 @@ impl Tui {
         terminal::enable_raw_mode()?;
         let mut out = std::io::stdout();
         let _ = queue!(out, terminal::EnterAlternateScreen);
-        let _ = out.write_all(b"\x1b[?25l"); // hide cursor
+        let _ = out.write_all(b"\x1b[?2004h\x1b[?25l"); // bracketed paste + hide cursor
         let _ = out.flush();
         let (w, h) = terminal::size()?;
         let cur = Buffer::new(w as usize, h as usize);
@@ -58,7 +58,7 @@ impl Tui {
     pub fn stop(self) -> io::Result<()> {
         let mut out = std::io::stdout();
         let _ = queue!(out, terminal::LeaveAlternateScreen);
-        let _ = out.write_all(b"\x1b[?25h\x1b[0m");
+        let _ = out.write_all(b"\x1b[?2004l\x1b[?25h\x1b[0m"); // paste off, cursor, reset
         let _ = out.flush();
         terminal::disable_raw_mode()?;
         Ok(())

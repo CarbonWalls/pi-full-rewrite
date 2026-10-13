@@ -675,7 +675,7 @@ async fn run(cli: Cli) -> Result<()> {
         }
     }
 
-    let session = build_session(&cli, &session_dir);
+    let session = build_session(&cli, &session_dir).map_err(|e| anyhow::anyhow!("{e}"))?;
 
     let mut tools = ToolRegistry::new();
     // `ask` mode disables tools (conversation only).
@@ -792,6 +792,23 @@ async fn run(cli: Cli) -> Result<()> {
     let mut agent = Agent::new(llm, config, tools, session);
     agent.session_dir = Some(session_dir0.clone());
 
+    // Conflict detection: mutually exclusive modes shouldn't silently win.
+    {
+        let mods: Vec<(&str, bool)> = vec![
+            ("--mcp-server", cli.mcp_server),
+            ("--rpc", cli.rpc),
+            ("--serve", cli.serve),
+            ("-i/--interactive", cli.interactive),
+        ];
+        let active: Vec<&str> = mods.iter().filter(|(_, on)| *on).map(|(n, _)| *n).collect();
+        if active.len() > 1 {
+            return Err(anyhow::anyhow!(
+                "conflicting modes: {} (choose one)",
+                active.join(", ")
+            ));
+        }
+    }
+
     // MCP server mode owns stdin/stdout for JSON-RPC.
     if cli.mcp_server {
         // re-own the registry from the agent's tools
@@ -890,7 +907,7 @@ async fn run(cli: Cli) -> Result<()> {
     if let Some(p) = prompt {
         if p.trim().is_empty() && !cli.interactive {
             eprintln!("no prompt given (use -i for interactive mode)");
-            return Ok(());
+            return Err(anyhow::anyhow!("no prompt given")); // honest exit code
         }
         if !p.trim().is_empty() {
             let parts = build_user_parts(&cli, &p, &root)?;
@@ -1160,30 +1177,31 @@ changes and verify edits with a build or test when available.",
     vec![pi_ai::ContentPart::Text { text: base }]
 }
 
-fn build_session(cli: &Cli, session_dir: &std::path::Path) -> Session {
+fn build_session(cli: &Cli, session_dir: &std::path::Path) -> Result<Session, String> {
     // `--no-session`: fully in-memory, nothing written to disk.
     if cli.no_session {
-        return Session::new(None);
+        return Ok(Session::new(None));
     }
     // `--resume <id>`: load (or start) a specific session.
     if let Some(id) = &cli.resume {
         let mut s = Session::new(Some(id.clone()));
         s.attach_path(session_dir, true);
-        return s;
+        return Ok(s);
     }
-    // `--continue`: pick the most recent session file by mtime.
+    // `--continue`: pick the most recent session file by mtime. Refusing to
+    // silently run a fresh session keeps the exit code honest (audit).
     if cli.continue_ {
         if let Some(id) = newest_session_id(session_dir) {
             let mut s = Session::new(Some(id));
             s.attach_path(session_dir, true);
-            return s;
+            return Ok(s);
         }
-        eprintln!("--continue: no previous session found in {session_dir:?}");
+        return Err(format!("--continue: no previous session found in {session_dir:?}"));
     }
     // Default: a fresh session, but always attached so it persists on disk.
     let mut s = Session::new(None);
     s.attach_path(session_dir, true);
-    s
+    Ok(s)
 }
 
 /// Newest `.jsonl` session id in `dir` by modification time (ignores subdirs).
