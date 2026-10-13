@@ -24,12 +24,20 @@ trap 'rm -f "$TMP"' EXIT
 echo "downloading $URL"
 curl -fL --retry 3 -o "$TMP" "$URL"
 
-if file "$TMP" | grep -q "statically linked"; then
-  mkdir -p "$PREFIX"
-  install -m 0755 "$TMP" "$PREFIX/pi"
-  echo "installed static pi -> $PREFIX/pi"
-  "$PREFIX/pi" --info | head -2
+if command -v file >/dev/null 2>&1; then
+  if ! file "$TMP" | grep -qiE "statically linked|static-pie linked"; then
+    echo "error: downloaded binary does not look static: $(file "$TMP")" >&2
+    exit 1
+  fi
+elif od -An -tx1 -N5 "$TMP" | grep -qE "7f 45 4c 46 02"; then
+  # file(1) missing: verify ELF64 magic (7f ELF, class=02) as a best effort
+  echo "note: file(1) not installed; verified ELF64 magic only"
 else
-  echo "error: downloaded file is not a static binary (release not built yet?)" >&2
+  echo "error: downloaded file is not an ELF64 binary (install file(1) for a deeper check)" >&2
   exit 1
 fi
+
+mkdir -p "$PREFIX"
+install -m 0755 "$TMP" "$PREFIX/pi"
+echo "installed static pi -> $PREFIX/pi"
+"$PREFIX/pi" --info | head -2
