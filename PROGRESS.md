@@ -4312,6 +4312,12 @@ Per-round log (newest last). All work in /root/workspace/research.
   system isn't persisted to sessions by design — the loader messages confirm
   both paths.
 
+## Round 74 — pi-to-pi MCP self-interop
+- `pi --mcp-server` exposed 15 tools to a second `pi` running as an MCP
+  client; a scenario-driver tool call round-tripped client → server → host
+  bash → result ("[mcp] self: 15 tool(s)" + "tool result seen"). The MCP
+  stack works against itself end to end.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
