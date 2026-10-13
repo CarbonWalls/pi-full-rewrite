@@ -4170,6 +4170,12 @@ Per-round log (newest last). All work in /root/workspace/research.
 - ARCHITECTURE + CHANGELOG still said 130 tests; both now 131. Zero stale
   references remain anywhere in the docs/workflows.
 
+## Round 49 — pi --doctor verified
+- The current binary's environment diagnostics run cleanly: tool checks
+  (git/sh/python3/node), cwd/repo/disk, terminal- and API-key advisories,
+  pi.json/session/cost status — a tidy operator aid (rc=0 for a successful
+  diagnostic).
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
