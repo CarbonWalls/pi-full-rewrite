@@ -4,7 +4,7 @@ The exact state verified for the current release:
 
 | gate | result |
 |---|---|
-| Unit + integration tests | **132 / 132** |
+| Unit + integration tests | **133 / 133** |
 | Clippy (all targets) | **0 warnings** |
 | Release sign-off (`scripts/verify.sh`) | **30 / 30** |
 | User journey (`scripts/tour.sh`) | **12 / 12** |
