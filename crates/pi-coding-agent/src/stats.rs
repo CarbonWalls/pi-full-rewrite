@@ -343,13 +343,18 @@ pub fn render_list(rows: &[SessionRow]) -> String {
 }
 
 /// Keep the newest `keep` sessions, deleting older ones. Returns deleted ids.
-pub fn gc(dir: &Path, keep: usize) -> Result<Vec<String>, String> {
+/// Which sessions would `gc` remove (the `keep` newest stay).
+pub fn gc_candidates(dir: &Path, keep: usize) -> Vec<SessionRow> {
     let rows = list(dir);
     if rows.len() <= keep {
-        return Ok(Vec::new());
+        return Vec::new();
     }
+    rows.into_iter().skip(keep).collect()
+}
+
+pub fn gc(dir: &Path, keep: usize) -> Result<Vec<String>, String> {
     let mut deleted = Vec::new();
-    for r in rows.iter().skip(keep) {
+    for r in gc_candidates(dir, keep) {
         match std::fs::remove_file(&r.path) {
             Ok(_) => deleted.push(r.id.clone()),
             Err(e) => return Err(format!("remove {}: {e}", r.path.display())),

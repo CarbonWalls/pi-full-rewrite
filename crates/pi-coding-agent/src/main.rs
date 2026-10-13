@@ -287,6 +287,10 @@ struct Cli {
     #[arg(long, value_name = "N")]
     gc_sessions: Option<usize>,
 
+    /// With `--gc-sessions`: print what would be pruned without deleting.
+    #[arg(long)]
+    gc_dry_run: bool,
+
     /// Use a prompt template by name from `<root>/.pi/templates/<name>.md`.
     #[arg(long, value_name = "NAME")]
     template: Option<String>,
@@ -613,6 +617,18 @@ async fn run(cli: Cli) -> Result<()> {
         return Ok(());
     }
     if let Some(keep) = cli.gc_sessions {
+        if cli.gc_dry_run {
+            let cands = stats::gc_candidates(&session_dir0, keep);
+            println!(
+                "gc_sessions (dry-run): kept {} newest, would remove {} file(s)",
+                keep,
+                cands.len()
+            );
+            for r in &cands {
+                println!("  would remove {} ({} msgs)", r.id, r.messages);
+            }
+            return Ok(());
+        }
         match stats::gc(&session_dir0, keep) {
             Ok(deleted) => {
                 println!(
