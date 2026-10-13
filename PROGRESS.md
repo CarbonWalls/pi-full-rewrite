@@ -4002,6 +4002,12 @@ Per-round log (newest last). All work in /root/workspace/research.
   preserved, no new file); `--gc --gc-dry-run` predicted exactly the file
   that the real GC removed; final state 2 files. Dry-run and real GC agree.
 
+## Round 20 — remote channels back; CI confirmed green
+- The GitHub API recovered after its rate window: **CI has passed for the
+  last four commits** — including the current HEAD with the `.pi` hygiene
+  guard. Releases v1.0.0–v1.0.3 all present with the verified asset sets.
+  The WSL box stayed offline for the one-liner acceptance (7th attempt).
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
