@@ -3793,6 +3793,12 @@ Per-round log (newest last). All work in /root/workspace/research.
   repo's CI (tests + clippy + 28-point sign-off + static musl) will run
   against the pushed state.
 
+## Round 143 (2026-07-16)
+- **GitHub tag-release workflow** (`.github/workflows/release.yml`): on every
+  `v*` tag push, CI runs the full verification (tests, clippy, sign-off),
+  builds glibc + static musl binaries, bundles dist/, and publishes a
+  GitHub Release with the binaries. The published repo now self-releases.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
