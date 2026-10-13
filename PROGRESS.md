@@ -4176,6 +4176,13 @@ Per-round log (newest last). All work in /root/workspace/research.
   pi.json/session/cost status — a tidy operator aid (rc=0 for a successful
   diagnostic).
 
+## Round 50 — --install-package verified end-to-end
+- A properly-formed package tar (entries under .pi/pi.json, skills/,
+  templates/) installed cleanly: "installed 5 entries", all files landed in
+  <root>/.pi, and the installed template rendered with {{root}}. The
+  validator's rejection of my FIRST (malformed) package was correct security
+  behavior — unsafe paths like `.`/.. are refused.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
