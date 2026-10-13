@@ -331,7 +331,12 @@ impl Session {
                     s.push('\n');
                 }
             }
-            std::fs::write(p, s).ok();
+            // atomic replace: a kill between truncate and write can no
+            // longer leave a half-empty session file (audit NIT).
+            let tmp = p.with_extension("jsonl.tmp");
+            if std::fs::write(&tmp, s).is_ok() {
+                let _ = std::fs::rename(&tmp, p);
+            }
         }
     }
 

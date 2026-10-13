@@ -126,7 +126,10 @@ impl AccessLog {
             .duration_since(std::time::UNIX_EPOCH)
             .map(|d| d.as_millis())
             .unwrap_or(0);
-        self.push(format!("{code} {method} {path} @ {now}ms"));
+        // cap the logged path so a hostile 10 MB URL can't balloon the log
+        let p: String = path.chars().take(400).collect();
+        let p = if path.len() > 400 { format!("{p}…") } else { p };
+        self.push(format!("{code} {method} {p} @ {now}ms"));
     }
     pub fn dump(&self) -> String {
         self.lines.lock().unwrap().iter().cloned().collect::<Vec<_>>().join("\n") + "\n"
