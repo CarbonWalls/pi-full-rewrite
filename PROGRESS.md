@@ -4113,6 +4113,13 @@ Per-round log (newest last). All work in /root/workspace/research.
   ELF64 x86_64 static asset). The current matrix is now what every release
   gate runs.
 
+## Round 38 — protocol matrix complete on both architectures
+- On the Debian/WSL box with the shipped v1.0.4 binary: MCP server
+  handshake (initialize → pi 0.1.0, tools/list = 15 tools) and `--review`
+  (all three sections) verified. Combined with the earlier agent/serve/install
+  checks, every external protocol surface is now verified on real amd64 AND
+  the aarch64 host with the shipped binaries.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
