@@ -31,7 +31,7 @@ Measured 2026-07-16 with the binaries downloaded from the GitHub release
 | metric | aarch64 host | x86_64 (release asset) |
 |---|---|---|
 | `--version` (best of 5) | ~15 ms | **2 ms** |
-| full mock turn (avg) | ~44 ms | **6 ms** |
+| full mock turn (avg) | ~24 ms | **6 ms** |
 
 Both shipped binaries pass `--info` build-provenance checks (banner reports
 the exact tag commit `b0b0220`) and complete a full offline agent loop

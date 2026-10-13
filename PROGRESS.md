@@ -4013,6 +4013,11 @@ Per-round log (newest last). All work in /root/workspace/research.
   (test + static-musl jobs). CI is now green across five consecutive
   commits. WSL remains offline (the one-liner acceptance stays pending).
 
+## Round 22 — benchmark refresh
+- Current binary measured: `--version` ~15 ms, full mock turn ~24 ms (best of
+  5) — the turn number improved from 44 ms; docs/benchmarks.md +
+  verification-snapshot updated to the fresh numbers.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)

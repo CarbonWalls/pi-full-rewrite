@@ -18,7 +18,7 @@ The exact state verified for the current release:
   README, VERSION. arm64-static is a maintainer-aarch64-host build.
 
 ## Benchmarks (release binary, real hardware)
-- aarch64 dev host: `--version` ~15–19 ms; full mock turn ~26–44 ms.
+- aarch64 dev host: `--version` ~15–19 ms; full mock turn ~24 ms (current binary).
 - x86_64 Debian/WSL (Ryzen AI 7): `--version` **2 ms**; mock turn **6 ms**.
 
 ## Notes for the next maintainer
