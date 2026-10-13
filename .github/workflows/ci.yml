@@ -44,6 +44,27 @@ jobs:
           ./scripts/verify.sh
           git diff --exit-code --stat   # no build artifacts may leak into the tree
 
+  diagnose:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@1.99.0
+      - name: Run failing test step, capture everything
+        if: always()
+        run: |
+          set +e
+          ./build.sh test --no-fail-fast -- --test-threads=1 > /tmp/test.log 2>&1
+          rc=$?
+          echo "EXIT CODE: $rc" >> /tmp/test.log
+          tail -n 200 /tmp/test.log
+          exit 0   # never fail this job; the log is the artifact
+      - name: Upload log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-log
+          path: /tmp/test.log
+
   static-musl:
     runs-on: ubuntu-latest
     steps:
