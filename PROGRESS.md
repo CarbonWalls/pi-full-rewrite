@@ -4197,6 +4197,14 @@ Per-round log (newest last). All work in /root/workspace/research.
   user → assistant → usage → forked turn, with ▶ head-branch markers and
   entry ids visible. The fork visualization works as documented.
 
+## Round 54 — offline fallback testing infusion
+- The scenario language gained a deliberate `error` rule
+  ({"contains":…,"error":"…"}), the mock now streams errors from it, and —
+  matching the real providers — the mock's stream wraps with the SAME
+  fallback logic (consume-once: a fallback re-stream does not re-trip the
+  error). A new binary-level test proves `--fallback` recovers offline while
+  no-fallback runs fail loudly. 132 tests, clippy 0; release + static rebuilt.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)

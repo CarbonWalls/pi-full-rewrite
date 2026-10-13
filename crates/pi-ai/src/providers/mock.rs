@@ -15,7 +15,32 @@ use crate::types::{
     Usage,
 };
 
+// consume-once for `error` scenario rules: a fallback re-stream within the
+// same process must not trip the same deliberate error again.
+static ERROR_FIRED: std::sync::atomic::AtomicBool = std::sync::atomic::AtomicBool::new(false);
+
 pub fn stream_to(
+    req: &ChatRequest,
+    mut on_event: impl FnMut(StreamEvent) -> bool,
+) -> Result<(), ApiError> {
+    ERROR_FIRED.store(false, std::sync::atomic::Ordering::Relaxed);
+    // fallback wrapper, mirroring the real providers: an error in the
+    // scenario-driven mock streams can switch to the fallback model (kept
+    // offline-testable via the `error` scenario rule).
+    if let Some(fb) = &req.fallback_model {
+        if let Err(e) = stream_to_core(req, &mut |ev| on_event(ev)) {
+            eprintln!("[pi] provider error ({e}), falling back to {}/{}", fb.provider, fb.id);
+            let mut fb_req = req.clone();
+            fb_req.model = fb.clone();
+            fb_req.fallback_model = None;
+            return stream_to_core(&fb_req, &mut |ev| on_event(ev));
+        }
+        return Ok(());
+    }
+    stream_to_core(req, &mut |ev| on_event(ev))
+}
+
+fn stream_to_core(
     req: &ChatRequest,
     mut on_event: impl FnMut(StreamEvent) -> bool,
 ) -> Result<(), ApiError> {
@@ -173,6 +198,10 @@ fn emit_response(
     last_user: &str,
     on_event: &mut impl FnMut(StreamEvent) -> bool,
 ) -> Result<(), ApiError> {
+    if let crate::scenario::Response::Error(e) = &rule.response {
+        ERROR_FIRED.store(true, std::sync::atomic::Ordering::Relaxed);
+        return Err(ApiError::Stream(format!("mock scenario error: {e}")));
+    }
     if rule.delay_ms > 0 {
         std::thread::sleep(std::time::Duration::from_millis(rule.delay_ms));
     }
@@ -247,6 +276,10 @@ fn emit_response(
                 return Ok(());
             }
         }
+        // handled earlier; unreachable here but needs the arm for the match
+        crate::scenario::Response::Error(_) => {
+            return Err(ApiError::Stream("mock scenario error".into()));
+        }
     }
     Ok(())
 }
@@ -266,6 +299,11 @@ fn scenario_rule(
     let rules = crate::scenario::load(std::path::Path::new(&path))
         .map_err(crate::types::ApiError::Other)?;
     for r in rules {
+        if matches!(r.response, crate::scenario::Response::Error(_))
+            && ERROR_FIRED.load(std::sync::atomic::Ordering::Relaxed)
+        {
+            continue; // already consumed the deliberate error this run
+        }
         match r.kind {
             crate::scenario::MatchKind::OnUser => {
                 // only when the last message is a user message

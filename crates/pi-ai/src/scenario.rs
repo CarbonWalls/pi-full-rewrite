@@ -16,6 +16,8 @@ pub enum MatchKind {
 pub enum Response {
     Text(String),
     Tool { name: String, args: Value },
+    /// A deliberate provider error (for offline fallback/error-path tests).
+    Error(String),
 }
 
 #[derive(Debug, Clone, PartialEq)]
@@ -63,9 +65,11 @@ pub fn load(path: &Path) -> Result<Vec<Rule>, String> {
                 name: name.to_string(),
                 args,
             }
+        } else if let Some(e) = v.get("error").and_then(|x| x.as_str()) {
+            Response::Error(e.to_string())
         } else {
             return Err(format!(
-                "scenario line {}: need 'text' or 'tool'",
+                "scenario line {}: need 'text' or 'tool' or 'error'",
                 i + 1
             ));
         };
