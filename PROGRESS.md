@@ -3855,6 +3855,14 @@ Per-round log (newest last). All work in /root/workspace/research.
   override e2e tolerate cold-runner startup while still failing loudly if
   the override is ignored. Clippy 0, tests 128.
 
+## Round 151 (2026-07-16)
+- CI bash-timeout wrangling: `bash_per_call_timeout_override` passes with
+  the startup-tolerant form; `bash_timeout_kills_process_group` still fails
+  on the runner (passes on real Linux incl. WSL). Added a `pkill -9 -P`
+  direct-children net to the reaper and made the test check the grandchild's
+  actual `comm` (a recycled pid must not fake it alive) — the failure message
+  now reports the real comm for final diagnosis.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)

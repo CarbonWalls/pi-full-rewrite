@@ -240,6 +240,10 @@ pub fn reap_process_tree(root: u32) -> usize {
         }
         map
     }
+    // extra net: direct children by parent (independent of /proc parsing)
+    let _ = std::process::Command::new("pkill")
+        .args(["-9", "-P", &root.to_string()])
+        .status();
     let mut killed = 0;
     for _ in 0..2 {
         let parent = parent_map();

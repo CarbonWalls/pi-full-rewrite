@@ -288,11 +288,19 @@ fn bash_timeout_kills_process_group() {
         .parse()
         .expect("leader pid file");
     // give the kernels a moment, then both must be gone (loaded CI runners
-    // reap /proc entries slower than a dev box)
+    // reap /proc entries slower than a dev box; and a recycled pid must not
+    // fake the grandchild as alive)
     std::thread::sleep(std::time::Duration::from_millis(1500));
-    let alive = |pid: u32| std::path::Path::new(&format!("/proc/{pid}")).exists();
-    assert!(!alive(grand), "grandchild {grand} must be killed");
-    assert!(!alive(leader), "leader {leader} must be killed");
+    let helper = |pid: u32| -> (bool, String) {
+        match std::fs::read_to_string(format!("/proc/{pid}/comm")) {
+            Ok(c) => (true, c.trim().to_string()),
+            Err(_) => (false, String::new()),
+        }
+    };
+    let (galive, gcomm) = helper(grand);
+    assert!(!galive || gcomm != "sleep", "grandchild {grand} must be killed (comm={gcomm:?})");
+    let (lalive, _) = helper(leader);
+    assert!(!lalive, "leader {leader} must be killed");
 }
 
 #[test]
