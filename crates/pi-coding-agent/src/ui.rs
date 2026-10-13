@@ -33,6 +33,7 @@ pub async fn interactive(
     initial_model: String,
     theme_spec: Option<String>,
     initial_input: Option<String>,
+    resolved_session_dir: &std::path::Path,
 ) -> Result<()> {
     // Shared submit path for editor Enter, pasted, and queued input.
     // Many refs are unavoidable — this is the single funnel for input.
@@ -199,10 +200,9 @@ commands*\n",
     ));
 
     let mut model_ref = initial_model;
-    let session_dir = cli
-        .session_dir
-        .clone()
-        .unwrap_or_else(|| cli.root.join(".pi").join("sessions"));
+    // use the SAME session dir the agent writes to (canonical root + pi.json
+    // override from main) — audit: this used to resolve differently.
+    let session_dir = resolved_session_dir.to_path_buf();
     let cli_root = cli.root.clone();
     let mut theme = pi_tui::Theme::resolve(theme_spec.as_deref());
     let mut scroll_back = 0usize;

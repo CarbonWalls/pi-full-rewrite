@@ -602,10 +602,20 @@ async fn run(cli: Cli) -> Result<()> {
 
     let root = std::fs::canonicalize(&cli.root).unwrap_or_else(|_| cli.root.clone());
 
+    // Project config (pi.json), loaded once so every surface (--sessions,
+    // --gc, --cost, the TUI) sees the same session dir.
+    let fc = config::FileConfig::load(&root).unwrap_or_default();
+
     // Session listing / GC need only the session dir.
     let session_dir0 = cli
         .session_dir
         .clone()
+        .or_else(|| {
+            fc.session_dir.as_deref().map(|d| {
+                let p = PathBuf::from(d);
+                if p.is_absolute() { p } else { root.join(p) }
+            })
+        })
         .unwrap_or_else(|| root.join(".pi").join("sessions"));
     if cli.sessions {
         if cli.json {
@@ -646,14 +656,6 @@ async fn run(cli: Cli) -> Result<()> {
     }
 
     // project config: CLI flags override <root>/.pi/pi.json
-    let fc = match config::FileConfig::load(&root) {
-        Ok(c) => c,
-        Err(e) => {
-            eprintln!("warning: {e} (ignoring config)");
-            config::FileConfig::default()
-        }
-    };
-
     // `pi --init`: scaffold .pi/ and exit
     if cli.init {
         config::FileConfig::init(&root)?;
@@ -663,7 +665,12 @@ async fn run(cli: Cli) -> Result<()> {
     let session_dir = cli
         .session_dir
         .clone()
-        .or_else(|| fc.session_dir.clone().map(PathBuf::from))
+        .or_else(|| {
+            fc.session_dir.clone().map(|d| {
+                let p = PathBuf::from(&d);
+                if p.is_absolute() { p } else { root.join(p) }
+            })
+        })
         .unwrap_or_else(|| root.join(".pi").join("sessions"));
 
     let llm = build_llm(&cli)?;
@@ -900,6 +907,7 @@ async fn run(cli: Cli) -> Result<()> {
             effective_model(&cli, &fc),
             theme_spec.clone(),
             initial_input,
+            &session_dir0,
         )
         .await;
     }
@@ -923,6 +931,7 @@ async fn run(cli: Cli) -> Result<()> {
         effective_model(&cli, &fc),
         theme_spec.clone(),
         None,
+        &session_dir0,
     )
     .await
 }
