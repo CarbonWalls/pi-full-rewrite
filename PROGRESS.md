@@ -3900,6 +3900,13 @@ Per-round log (newest last). All work in /root/workspace/research.
 - The tag-release workflow now also ships `pi-linux-arm64-static` (aarch64
   musl) — the installer already handles that asset name. 128 tests, clippy 0.
 
+## Round 4 — v1.0.1 released with verified binaries
+- Tagged v1.0.1 → full release pipeline ran green: CI passed from the tag,
+  and a live GitHub Release now carries pi-linux-amd64 + pi-linux-amd64-static
+  + README + VERSION (ELF64 x86_64 verified). Learned: the runner's musl-gcc
+  cannot cross-link aarch64 (x86_64-only), so the arm64 static binary stays a
+  local build step (noted in the workflow).
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
