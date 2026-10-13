@@ -4192,6 +4192,11 @@ Per-round log (newest last). All work in /root/workspace/research.
 - Badge: ci — passing for the commit carrying the package-install check;
   dist refreshed so the shipped verify.sh is the 30-point one.
 
+## Round 53 — --tree verified on a forked session
+- `pi --tree <session.jsonl>` renders the entry tree of a forked session:
+  user → assistant → usage → forked turn, with ▶ head-branch markers and
+  entry ids visible. The fork visualization works as documented.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
