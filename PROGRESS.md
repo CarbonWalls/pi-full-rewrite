@@ -4318,6 +4318,12 @@ Per-round log (newest last). All work in /root/workspace/research.
   bash → result ("[mcp] self: 15 tool(s)" + "tool result seen"). The MCP
   stack works against itself end to end.
 
+## Round 75 — extension protocol (--ext) verified live
+- A tiny ext server (`hello`→`ready` with a ping tool) attached via
+  `--ext "demo python3 …"`; a scenario drove `ext:demo_ping` → "pong from
+  ext" → loop closed ("ext result seen"). Both agent extension mechanisms
+  (MCP in round 74, ext now) are verified with real subprocess servers.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
