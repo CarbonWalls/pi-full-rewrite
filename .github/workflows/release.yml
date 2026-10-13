@@ -24,20 +24,23 @@ jobs:
           ./scripts/verify.sh
       - name: Install musl cross tooling
         run: sudo apt-get update && sudo apt-get install -y musl-tools clang
-      - name: Add musl target + build static
+      - name: Add musl targets
         uses: dtolnay/rust-toolchain@stable
         with:
-          target: x86_64-unknown-linux-musl
+          target: x86_64-unknown-linux-musl, aarch64-unknown-linux-musl
       - name: Build static + bundle
         env:
           CC_x86_64_unknown_linux_musl: musl-gcc
+          CC_aarch64_unknown_linux_musl: musl-gcc
           PI_BUILD_SHA: ${{ github.sha }}
         run: |
           ./build.sh build --release --target x86_64-unknown-linux-musl -p pi-coding-agent
+          ./build.sh build --release --target aarch64-unknown-linux-musl -p pi-coding-agent
           ./build.sh build --release -p pi-coding-agent
           mkdir -p dist
           cp target/release/pi dist/pi-linux-amd64
           cp target/x86_64-unknown-linux-musl/release/pi dist/pi-linux-amd64-static
+          cp target/aarch64-unknown-linux-musl/release/pi dist/pi-linux-arm64-static
           cp README.md dist/ && cp -r docs dist/ && cp -r scripts dist/
           printf 'pi %s (%s)\n' "${{ github.ref_name }}" "${{ github.sha }}" > dist/VERSION
       - name: Create GitHub release

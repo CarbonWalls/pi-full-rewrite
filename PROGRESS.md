@@ -3893,6 +3893,13 @@ Per-round log (newest last). All work in /root/workspace/research.
   `--version` **2 ms**, full mock turn **6 ms** (vs 15/44 ms on the aarch64
   dev host) — recorded in docs/benchmarks.md.
 
+## Round 3 — bg_kill reap-first + arm64 release asset
+- `bg_kill` now uses the same kill ordering as bash.rs (descendant tree →
+  group → child) via the shared `reap_process_tree` — background jobs can no
+  longer orphan grandchildren on timeout/kill, on any shell.
+- The tag-release workflow now also ships `pi-linux-arm64-static` (aarch64
+  musl) — the installer already handles that asset name. 128 tests, clippy 0.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)

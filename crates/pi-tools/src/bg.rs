@@ -191,15 +191,24 @@ impl BgRegistry {
         let mut g = self.jobs.lock().unwrap();
         if let Some(j) = g.get_mut(id) {
             if let Some(mut c) = j.child.take() {
-                let _ = c.kill();
-                // reap the whole process group so grandchildren die too
                 #[cfg(unix)]
                 {
+                    // same ordering lesson as bash.rs: reap the descendant
+                    // tree FIRST (killing the shell first would reparent its
+                    // children to init and strand them), then the group, then
+                    // the direct child.
+                    let _ = crate::bash::reap_process_tree(c.id());
                     let pgid = c.id() as i32;
                     let _ = std::process::Command::new("kill")
                         .args(["-KILL", &format!("-{pgid}")])
                         .status();
+                    let _ = c.kill();
                     let _ = c.wait(); // no zombie
+                }
+                #[cfg(not(unix))]
+                {
+                    let _ = c.kill();
+                    let _ = c.wait();
                 }
                 j.done = true;
                 j.exit = Some(-1);
