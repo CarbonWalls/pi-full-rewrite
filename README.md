@@ -119,6 +119,15 @@ either a tool call or a plain answer:
 `echo "create a file" | PI_MOCK_SCENARIO=… pi` drives a full write → read →
 verify agent loop — used by the integration tests.
 
+## Dependencies (self-contained by design)
+
+Only mainstream, tried-and-tested crates — 13 direct:
+`tokio`, `clap` (+`clap_complete`, `clap_mangen`), `serde`/`serde_json`,
+`ureq` (HTTP client), `regex`, `sha2`, `hex`, `walkdir`, `glob`, `anyhow`,
+`unicode-width`. No unsafe-leaning or exotic crates; the HTTP server, SSE
+parser, TUI diff renderer, markdown, and JSONL session engine are all
+hand-rolled. 171 packages total in Cargo.lock.
+
 ## Testing & hardening
 
 - 128 tests across 6 crates, clippy-clean, `panic=abort` release profile.

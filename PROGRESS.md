@@ -3770,6 +3770,11 @@ Per-round log (newest last). All work in /root/workspace/research.
   to 1.0 MB) — no memory leak in the long-lived worker. Suite re-confirmed
   128/128, clippy 0.
 
+## Round 139 (2026-07-16)
+- **Dependency inventory audit:** 13 direct deps, all mainstream; 171 locked
+  packages; no exotic/unsafe-leaning crates. Documented in README.
+- **Hygiene:** 128 tests, clippy 0.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
