@@ -21,3 +21,18 @@ Notes
   dominated by the provider round-trip.
 - The static musl build runs on any Linux without shared-library
   dependencies (no glibc/Node/cargo needed at deploy time).
+
+## Cross-architecture (real hardware, released binaries)
+
+Measured 2026-07-16 with the binaries downloaded from the GitHub release
+(`pi-linux-amd64-static` / the glibc asset), on a Debian/WSL x86_64 box
+(AMD Ryzen AI 7, RTX 5060 laptop) — full offline mock turn included:
+
+| metric | aarch64 host | x86_64 (release asset) |
+|---|---|---|
+| `--version` (best of 5) | ~15 ms | **2 ms** |
+| full mock turn (avg) | ~44 ms | **6 ms** |
+
+Both shipped binaries pass `--info` build-provenance checks (banner reports
+the exact tag commit `b0b0220`) and complete a full offline agent loop
+(streaming → session JSONL written) on real amd64 hardware.

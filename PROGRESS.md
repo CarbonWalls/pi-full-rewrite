@@ -3886,6 +3886,13 @@ Per-round log (newest last). All work in /root/workspace/research.
   release → verified binary: the full loop is closed.
 - Diagnose job (CI debugging aid) is now manual (`workflow_dispatch`).
 
+## Round 2 — cross-arch release verification + benchmarks
+- Both release assets (`pi-linux-amd64` glibc and `-static`) verified on the
+  real amd64 Debian/WSL box: full offline agent loop works (mock turn →
+  session wrote), provenance banner correct. Benchmarks on real hardware:
+  `--version` **2 ms**, full mock turn **6 ms** (vs 15/44 ms on the aarch64
+  dev host) — recorded in docs/benchmarks.md.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
