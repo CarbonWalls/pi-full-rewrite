@@ -4242,6 +4242,10 @@ Per-round log (newest last). All work in /root/workspace/research.
   the configured Allow-Origin/Methods; a different origin receives NO CORS
   header (0 occurrences) — origin confinement holds in the current binary.
 
+## Round 62 — serve-token auth contract verified live
+- `--serve-token`: no token → 401, wrong token → 401, `Bearer <token>` →
+  200, and /healthz stays open (200) — exactly the documented contract.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
