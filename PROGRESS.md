@@ -4284,6 +4284,12 @@ Per-round log (newest last). All work in /root/workspace/research.
   the 1.0.6 (tar-slip) and 1.0.7 (framing) entries. Every published item
   now points at the newest state.
 
+## Round 69 — CLI adversarial sweep
+- 10 odd invocations (empty model/root, /dev/null session dir, non-numeric
+  port, missing export file, bad completion shell, value-less --set,
+  conflicting modes, no-session+resume, review without a repo) — zero panics,
+  clean exit codes throughout.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
