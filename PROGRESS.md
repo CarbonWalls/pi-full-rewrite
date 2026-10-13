@@ -4329,6 +4329,11 @@ Per-round log (newest last). All work in /root/workspace/research.
   (content flows to the model per the documented paging model; no crash, no
   memory issue).
 
+## Round 77 — dashboard HTML wiring verified
+- The served dashboard page embeds the full client wiring: streaming rpc,
+  the abort (stop button) path, /info and /sessions endpoints. The browser
+  surface is complete.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
