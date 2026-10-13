@@ -15,11 +15,14 @@ mkdir -p "$PREFIX"
 install -m 0755 "$BIN" "$PREFIX/pi"
 echo "installed pi to $PREFIX/pi"
 
-# convenience: append a PATH line to .profile if not already present
-PROFILE="${HOME}/.profile"
-if ! grep -q "$PREFIX" "$PROFILE" 2>/dev/null; then
-  echo "export PATH=\"$PREFIX:\$PATH\"" >> "$PROFILE"
-  echo "added $PREFIX to PATH in $PROFILE (open a new shell)"
+# PATH convenience is OPT-IN (UPDATE_PROFILE=1): nobody's shell settings are
+# edited without their say-so.
+if [ "${UPDATE_PROFILE:-0}" = "1" ]; then
+  PROFILE="${HOME}/.profile"
+  if ! grep -q "$PREFIX" "$PROFILE" 2>/dev/null; then
+    echo "export PATH=\"$PREFIX:\$PATH\"" >> "$PROFILE"
+    echo "added $PREFIX to PATH in $PROFILE (open a new shell)"
+  fi
 fi
 
 "$PREFIX/pi" --info | head -1

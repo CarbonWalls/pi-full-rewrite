@@ -4047,6 +4047,12 @@ Per-round log (newest last). All work in /root/workspace/research.
   (currency confirmed). Full local gates at HEAD: 130 tests, clippy 0,
   sign-off 28/28, tour 12/12. CI green already confirmed remotely.
 
+## Round 28 — installer now leaves profiles alone by default
+- `install.sh` only touches `~/.profile` with EXPLICIT `UPDATE_PROFILE=1`
+  (found it editing the host's profile during a local E2E — and reverted
+  that edit immediately). Quiet-by-default installs can no longer surprise
+  anyone's shell config. Verified both opt-in and default paths.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
