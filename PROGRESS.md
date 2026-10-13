@@ -3938,6 +3938,13 @@ Per-round log (newest last). All work in /root/workspace/research.
   and reap-first notes for future maintainers. (The WSL box was offline for
   a remote one-liner acceptance — re-attempt later.)
 
+## Round 10 — arm64 coverage in releases
+- The tag-release workflow now also cross-builds a GLIBC arm64 binary
+  (`pi-linux-arm64` via gcc-aarch64-linux-gnu; musl-aarch64 still can't
+  cross-link — that static binary stays a local-aarch64-host build).
+  `install-remote.sh` now serves aarch64 the glibc asset. Verified on the
+  next tag push (v1.0.3).
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)

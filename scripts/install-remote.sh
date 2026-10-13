@@ -12,7 +12,7 @@ PREFIX="${PREFIX:-$HOME/.local/bin}"
 
 case "$(uname -s)-$(uname -m)" in
   Linux-x86_64) ASSET="pi-linux-amd64-static" ;;
-  Linux-aarch64|Linux-arm64) ASSET="pi-linux-arm64-static" ;;
+  Linux-aarch64|Linux-arm64) ASSET="pi-linux-arm64" ;;
   *) echo "unsupported platform: $(uname -s)-$(uname -m)" >&2; exit 1 ;;
 esac
 
