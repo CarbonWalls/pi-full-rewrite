@@ -4227,6 +4227,11 @@ Per-round log (newest last). All work in /root/workspace/research.
   verified ELF64 x86_64. Seven releases now (v1.0.0–v1.0.6); docs counts at
   133.
 
+## Round 59 — tar-slip defense verified complete
+- CI badge: ci — passing for the v1.0.6-era commit. Defense-in-depth check:
+  hard links (`tar -tvf` → `hrw...`) are also rejected by the type parser,
+  closing the symlink AND hardlink slip vectors for package install.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
