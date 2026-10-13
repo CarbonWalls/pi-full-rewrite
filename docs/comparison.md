@@ -39,7 +39,8 @@ single static binary.
 | **Session tooling** | `--tree`, `--sessions`, `--gc-sessions`, `--export md/txt/html/json`, `--export-all`, `--grep-sessions`, `--stats`, *all* with `--json` |
 | **HTTP auth + observability** | `--serve-token` bearer auth, CORS, status-coded `/access-log`, Prometheus-style `/metrics` |
 | **`pi --info`** | Build banner with model/tool counts and target |
-| **Release sign-off** | `scripts/verify.sh`: 27-check matrix incl. a DEC screen decoder that asserts live TUI content |
+| **Release sign-off** | `scripts/verify.sh`: 28-check matrix incl. a DEC screen decoder that asserts live TUI content |
+| **Four independent audits, all findings closed** | serve/session, tool layer, provider layer, and TUI/CLI reviewed by fresh eyes: framing, CORS, connection caps, path/symlink confinement, retry semantics, SSE caps, control-char sanitization, bounded transcripts, wide chars, honest exit codes |
 
 ## Resource use (host: aarch64 release builds)
 
