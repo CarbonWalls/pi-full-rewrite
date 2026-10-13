@@ -3780,6 +3780,11 @@ Per-round log (newest last). All work in /root/workspace/research.
   sign-off, four audits closed); dist VERSION carries both the version and
   the full build banner (23 models · 15 tools · sha).
 
+## Round 141 (2026-07-16)
+- **v1.0.0 tag verified as a release:** tagged source tree is identical to
+  HEAD, builds clean from a fresh checkout with the pinned toolchain (the
+  resulting binary reports the full banner). The milestone is reproducible.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
