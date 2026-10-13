@@ -36,7 +36,11 @@ Use this to discover files, not to read their content."
             return ToolResult::err("glob: missing `pattern`");
         }
         // Anchor the pattern to the root so `**/*.rs` searches the tree.
-        let anchored = self.root.join(pattern);
+        // Reject patterns that escape the root (audit: absolute / `..`).
+        let anchored = match crate::resolve_under(&self.root, pattern) {
+            Ok(p) => p,
+            Err(e) => return ToolResult::err(format!("glob: {e}")),
+        };
         let mut hits: Vec<String> = Vec::new();
         match glob::glob(anchored.to_str().unwrap_or(pattern)) {
             Ok(paths) => {

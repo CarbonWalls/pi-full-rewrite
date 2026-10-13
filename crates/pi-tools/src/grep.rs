@@ -48,7 +48,10 @@ files; cap on results is applied. Use to locate where symbols/strings appear."
         let base = if sub.is_empty() {
             self.root.clone()
         } else {
-            self.root.join(sub)
+            match crate::resolve_under(&self.root, &sub) {
+                Ok(p) => p,
+                Err(e) => return ToolResult::err(format!("grep: {e}")),
+            }
         };
         if !base.exists() {
             return ToolResult::err(format!("grep: directory not found: {sub}"));

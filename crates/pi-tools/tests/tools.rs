@@ -290,3 +290,54 @@ fn bash_timeout_kills_process_group() {
     assert!(!alive(grand), "grandchild {grand} must be killed");
     assert!(!alive(leader), "leader {leader} must be killed");
 }
+
+#[test]
+fn paths_cannot_escape_the_root() {
+    let (ts, reg, dir) = setup("nopath");
+    // absolute + parent-dot escapes rejected by read/glob/grep
+    for (tool, args) in [
+        ("read_file", json!({"path": "/etc/hostname"})),
+        ("read_file", json!({"path": "../../../etc/passwd"})),
+        ("glob", json!({"pattern": "/etc/**"})),
+        ("grep", json!({"pattern": "root", "path": "../../etc"})),
+    ] {
+        let r = reg.execute_named(tool, args);
+        assert!(r.is_error, "{tool} must reject the escape: {:?}", r.output);
+    }
+    let _ = ts;
+}
+
+#[test]
+fn symlinks_outside_the_root_are_blocked() {
+    let (ts, reg, dir) = setup("symescape");
+    // a symlink INSIDE the root pointing outside must not allow reads
+    let out = dir.parent().unwrap().join(format!("outside-{}", std::process::id()));
+    std::fs::create_dir_all(&out).unwrap();
+    std::fs::write(out.join("secret.txt"), "s3cr3t").unwrap();
+    std::os::unix::fs::symlink(&out, dir.join("evil")).unwrap();
+
+    let r = reg.execute_named("read_file", json!({"path": "evil/secret.txt"}));
+    assert!(r.is_error, "symlink escape must be blocked: {:?}", r.output);
+    let _ = std::fs::remove_dir_all(&out);
+    let _ = ts;
+}
+
+#[test]
+fn git_output_flag_is_blocked() {
+    let (ts, reg, dir) = setup("gitout");
+    // init a repo so the git tool has something to diff
+    use std::process::Command;
+    Command::new("git").args(["init", "-q", "-b", "main"]).current_dir(&dir).output().unwrap();
+    Command::new("git").args(["config", "user.email", "t@t"]).current_dir(&dir).output().unwrap();
+    Command::new("git").args(["config", "user.name", "t"]).current_dir(&dir).output().unwrap();
+    Command::new("git").args(["add", "."]).current_dir(&dir).output().unwrap();
+    Command::new("git").args(["commit", "-qm", "init"]).current_dir(&dir).output().unwrap();
+    std::fs::write(dir.join("src/hello.rs"), "fn main() {\n    println!(\"X\");\n}\n").unwrap();
+
+    for arg in ["diff --output=/tmp/pi-git-escape -- src/hello.rs", "show --output=/tmp/pi-git-escape HEAD"] {
+        let r = reg.execute_named("git", json!({"args": arg}));
+        assert!(r.is_error, "git {arg:?} must be blocked: {:?}", r.output);
+    }
+    assert!(!std::path::Path::new("/tmp/pi-git-escape").exists(), "no file escaped");
+    let _ = ts;
+}

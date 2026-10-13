@@ -102,6 +102,22 @@ impl ApplyDiff {
         // Apply bottom-up so earlier line numbers stay valid.
         let mut applied = 0usize;
         for h in hunks.iter().rev() {
+            // a hunk's declared old_count must equal its real content size,
+            // else a malicious/wrong header would delete unverified lines
+            // (audit MINOR — silent data loss).
+            {
+                let removed = h
+                    .lines
+                    .iter()
+                    .filter(|(t, _)| *t == ' ' || *t == '-')
+                    .count();
+                if h.old_count > 0 && removed != h.old_count {
+                    return Err(format!(
+                        "apply_diff: hunk old_count {} != {removed} context/deleted lines",
+                        h.old_count
+                    ));
+                }
+            }
             let idx = h.old_start.saturating_sub(1);
             if idx > cap {
                 return Err(format!(

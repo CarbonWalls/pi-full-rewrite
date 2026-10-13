@@ -50,7 +50,7 @@ daemons; this is a synchronous command runner."
             .get("timeout_ms")
             .and_then(|v| v.as_u64())
             .unwrap_or(self.timeout_ms)
-            .max(100);
+            .clamp(100, 3_600_000);
         let timeout = Duration::from_millis(timeout_ms);
 
         let mut builder = Command::new("sh");
@@ -110,9 +110,15 @@ killed]"
         };
 
         // Reader threads finish once the pipes close (child exited/killed).
-        let out = orx.recv().unwrap_or_default();
-        let err = erx.recv().unwrap_or_default();
-        let _ = (to.join(), te.join());
+        // Bounded so a grandchild that survived the group-kill (e.g. after a
+        // setsid) cannot hang the agent: abandon the readers after ~2.5 s.
+        let out = recv_bounded(&orx, 2500);
+        let err = recv_bounded(&erx, 2500);
+        // drop handles instead of joining: in the pathological case a leaked
+        // grandchild keeps the reader thread alive; we prefer the thread to
+        // leak over the agent hanging.
+        drop(to);
+        drop(te);
 
         match outcome {
             Ok(status) => {
@@ -140,16 +146,32 @@ fn drain<R: std::io::Read>(rd: Option<R>) -> String {
             match r.read(&mut buf) {
                 Ok(0) => break,
                 Ok(n) => {
-                    b.push_str(&String::from_utf8_lossy(&buf[..n]));
-                    if b.len() >= CAP {
-                        break;
+                    if b.len() < CAP {
+                        let take = n.min(CAP - b.len());
+                        b.push_str(&String::from_utf8_lossy(&buf[..take]));
                     }
+                    // past CAP: keep reading (and discarding) so the child
+                    // never hits SIGPIPE from a closed pipe (audit finding).
                 }
                 Err(_) => break,
             }
         }
     }
     b
+}
+
+/// Receive from a reader channel with a hard budget, so a runaway child that
+/// outlives a failed group-kill cannot hang the whole agent forever.
+fn recv_bounded(rx: &std::sync::mpsc::Receiver<String>, budget_ms: u64) -> String {
+    use std::sync::mpsc::RecvTimeoutError;
+    let deadline = Instant::now() + std::time::Duration::from_millis(budget_ms);
+    loop {
+        match rx.recv_timeout(std::time::Duration::from_millis(100)) {
+            Ok(v) => return v,
+            Err(RecvTimeoutError::Timeout) if Instant::now() < deadline => continue,
+            Err(_) => return String::new(),
+        }
+    }
 }
 
 fn combine(o: String, e: String) -> String {

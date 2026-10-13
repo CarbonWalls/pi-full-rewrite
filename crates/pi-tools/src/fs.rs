@@ -13,19 +13,7 @@ pub struct Fs {
 
 impl Fs {
     fn resolve(&self, p: &str) -> Result<PathBuf, String> {
-        let canon_root = std::fs::canonicalize(&self.root)
-            .map_err(|e| format!("cannot canonicalize root {}: {e}", self.root.display()))?;
-        let rel = p.trim();
-        let candidate = if std::path::Path::new(rel).is_absolute() {
-            PathBuf::from(rel)
-        } else {
-            self.root.join(rel)
-        };
-        let norm = normalize(&candidate);
-        if !norm.starts_with(&canon_root) {
-            return Err(format!("path escapes working directory: {p}"));
-        }
-        Ok(norm)
+        crate::resolve_under(&self.root, p)
     }
 
     fn remove(&self, p: &PathBuf, recursive: bool) -> Result<String, String> {
@@ -156,18 +144,3 @@ fn copy_dir(src: &std::path::Path, dst: &std::path::Path) -> std::io::Result<()>
     Ok(())
 }
 
-fn normalize(p: &std::path::Path) -> PathBuf {
-    let mut out = Vec::new();
-    for c in p.components() {
-        match c {
-            std::path::Component::ParentDir => {
-                out.pop();
-            }
-            std::path::Component::CurDir => {}
-            other => out.push(other),
-        }
-    }
-    let mut pb = PathBuf::new();
-    pb.extend(out);
-    pb
-}

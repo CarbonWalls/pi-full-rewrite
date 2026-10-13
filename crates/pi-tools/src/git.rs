@@ -68,8 +68,10 @@ Subcommand must be one of: {}. Extra args are given after a space, e.g.
                 || w.starts_with("--git-dir")
                 || w.starts_with("--work-tree")
                 || w.starts_with("--namespace")
+                || w.starts_with("--output") // writes arbitrary files (audit CRITICAL)
+                || *w == "-O" || w.starts_with("-O")
         }) {
-            return ToolResult::err("git: -C / -c / --git-dir / --work-tree flags are not allowed");
+            return ToolResult::err("git: -C / -c / --git-dir / --work-tree / --output flags are not allowed");
         }
         let argv: Vec<String> = std::iter::once("git".to_string())
             .chain(words.iter().map(|s| s.to_string()))
