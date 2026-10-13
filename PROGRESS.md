@@ -4154,6 +4154,12 @@ Per-round log (newest last). All work in /root/workspace/research.
 - Full local gates: 131 tests, clippy 0, 29/29 sign-off, 12/12 tour,
   --version ~22 ms. The exact current commit is fully verified locally.
 
+## Round 46 — external abort contract regression-checked
+- `{"type":"abort"}` mid-turn now: the stream ended cleanly (done) at ~4 s
+  with an 8 s sleep cut short and no tool-timeout involved. (First attempt
+  hit a background-redirect race in MY test harness, not the server — the
+  synchronous run proved the rpc stream intact.) 131 tests, clippy 0.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
