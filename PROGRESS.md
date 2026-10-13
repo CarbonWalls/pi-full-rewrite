@@ -4042,6 +4042,11 @@ Per-round log (newest last). All work in /root/workspace/research.
   as documents; `--json --mode ask` as streaming JSONL (each line valid; my
   initial validator wrongly expected a single document). WSL remains offline.
 
+## Round 27 — binaries current + full capstone at HEAD
+- Static + release binaries verified newer than the last code change
+  (currency confirmed). Full local gates at HEAD: 130 tests, clippy 0,
+  sign-off 28/28, tour 12/12. CI green already confirmed remotely.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
