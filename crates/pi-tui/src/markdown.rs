@@ -202,7 +202,8 @@ fn parse_inline(
                             text: format!("[{text}]({url})"),
                             style: link,
                         });
-                        i += close + open + url_end + 2;
+                        // audit: advance had to cover `[`+text+`]`+gap+`(`+url+`)`
+                        i += close + open + url_end + 3;
                         continue;
                     }
                 }
@@ -218,3 +219,36 @@ fn parse_inline(
 
 #[allow(dead_code)]
 fn flush(_text: &str, _style: Color, _runs: &mut Vec<Run>) {}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    fn dump(md: &str) -> String {
+        let mut s = String::new();
+        for line in render_with(md, &crate::Theme::default()) {
+            for r in &line.runs {
+                s.push_str(&r.text);
+            }
+            s.push('\n');
+        }
+        s
+    }
+
+    #[test]
+    fn links_are_consumed_fully_no_stray_close() {
+        // audit: the advance was off by one, leaving a stray ')' after a link
+        let out = dump("[see this](https://example.org) then");
+        // exactly the link's own close paren; no extra ')' after it
+        assert_eq!(out.matches(')').count(), 1, "no stray close paren: {out:?}");
+        assert!(out.contains("then"), "text after the link survives: {out:?}");
+        assert!(out.contains("[see this](https://example.org)"), "link kept: {out:?}");
+    }
+
+    #[test]
+    fn consecutive_links_both_render() {
+        let out = dump("[a](http://x) [b](http://y)");
+        assert!(out.contains("[a](http://x)"), "{out:?}");
+        assert!(out.contains("[b](http://y)"), "{out:?}");
+    }
+}

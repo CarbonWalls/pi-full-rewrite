@@ -176,18 +176,17 @@ pub fn diff(prev: &Buffer, cur: &Buffer, out: &mut String) {
 
             if need_fg || need_bg || need_mod {
                 out.push_str("\x1b[0m");
-                if need_mod {
+                // re-emit the COMPLETE desired style — reset cleared all of
+                // them, so emitting only the changed field would silently
+                // drop the unchanged ones on screen (audit finding).
+                if mod_now != 0 {
                     if mod_now & M_BOLD != 0 { out.push_str("\x1b[1m"); }
                     if mod_now & M_DIM != 0 { out.push_str("\x1b[2m"); }
                     if mod_now & M_ITALIC != 0 { out.push_str("\x1b[3m"); }
                     if mod_now & M_INVERT != 0 { out.push_str("\x1b[7m"); }
                 }
-                if need_fg {
-                    push_color(out, c.style.fg);
-                }
-                if need_bg {
-                    push_bg(out, c.style.bg);
-                }
+                if c.style.fg != 0 { push_color(out, c.style.fg); }
+                if c.style.bg != 0 { push_bg(out, c.style.bg); }
                 last_fg = c.style.fg;
                 last_bg = c.style.bg;
                 last_mod = mod_now;
