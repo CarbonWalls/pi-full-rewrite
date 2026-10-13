@@ -3990,6 +3990,13 @@ Per-round log (newest last). All work in /root/workspace/research.
   release-readable matrix of the exact current gates (130 tests, 28/28, 12/12,
   CI passing, releases, benchmarks, maintainer notes).
 
+## Round 18 — adversarial no-panic sweep (release binary)
+- Ran 9 hostile CLI invocations against the release binary with
+  RUST_BACKTRACE=1: bad flags, missing root, garbage scenario, empty session
+  dirs, --continue with no sessions, empty prompts, json-ask without prompt.
+  **Zero panics** — every case exits cleanly (0/1/2 as appropriate). The
+  robust-exit discipline holds under adversarial input.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
