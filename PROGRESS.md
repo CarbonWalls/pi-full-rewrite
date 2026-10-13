@@ -4260,6 +4260,12 @@ Per-round log (newest last). All work in /root/workspace/research.
 - The /access-log framing fix released as v1.0.7 (latest; pipeline green,
   asset verified ELF64 x86_64). Eight releases (v1.0.0–v1.0.7).
 
+## Round 65 — adversarial HTTP sweep (current binary)
+- 8 hostile requests (bad methods, path traversal, NUL, oversized
+  content-length, empty/full rpc bodies, wildcard OPTIONS) — all handled
+  cleanly, zero panics, server alive after. Combined with the framing fix,
+  the serve surface is robust to the current state.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
