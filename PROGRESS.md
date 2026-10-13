@@ -4237,6 +4237,11 @@ Per-round log (newest last). All work in /root/workspace/research.
   fallback `error` rules, the package tar-slip fix, and the quiet installer,
   with the current 133/30/green state.
 
+## Round 61 — CORS contract verified live
+- `--serve --cors <origin>`: a browser-like OPTIONS preflight returns 204 +
+  the configured Allow-Origin/Methods; a different origin receives NO CORS
+  header (0 occurrences) — origin confinement holds in the current binary.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
