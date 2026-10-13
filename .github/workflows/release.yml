@@ -39,12 +39,15 @@ jobs:
           # arm64 STATIC binary is produced on an aarch64 host
           # (scripts/release.sh) and can be attached manually.
           ./build.sh build --release --target x86_64-unknown-linux-musl -p pi-coding-agent
-          ./build.sh build --release --target aarch64-unknown-linux-gnu -p pi-coding-agent
+          # arm64 is an OPTIONAL asset: a cross-link hiccup must not block the
+          # whole release, so it is allowed to fail with a warning.
+          ./build.sh build --release --target aarch64-unknown-linux-gnu -p pi-coding-agent \
+            || { echo "::warning::arm64 gnu build failed; shipping amd64 only"; }
           ./build.sh build --release -p pi-coding-agent
           mkdir -p dist
           cp target/release/pi dist/pi-linux-amd64
           cp target/x86_64-unknown-linux-musl/release/pi dist/pi-linux-amd64-static
-          cp target/aarch64-unknown-linux-gnu/release/pi dist/pi-linux-arm64
+          cp target/aarch64-unknown-linux-gnu/release/pi dist/pi-linux-arm64 2>/dev/null || true
           cp README.md dist/ && cp -r docs dist/ && cp -r scripts dist/
           printf 'pi %s (%s)\n' "${{ github.ref_name }}" "${{ github.sha }}" > dist/VERSION
       - name: Create GitHub release
