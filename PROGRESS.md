@@ -4097,6 +4097,11 @@ Per-round log (newest last). All work in /root/workspace/research.
   best 2 ms, mock turn avg 6 ms — the published cross-arch numbers are
   accurate to the shipped artifact. Leftover CI-clone cleaned from the box.
 
+## Round 35 — cross-arch memory profile completed
+- serve RSS on real amd64 (current release): 3,372 kB, flat over 20 s — no
+  leak on amd64 either. Together with the 2/6 ms benchmarks, the shipped
+  binary's resource profile is now fully documented on both architectures.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
