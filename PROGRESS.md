@@ -4024,6 +4024,13 @@ Per-round log (newest last). All work in /root/workspace/research.
   enumerating real tool schemas — the agent-as-MCP-server path works
   end-to-end offline.
 
+## Round 24 — template feature verified (correct semantics)
+- `--template` replaces the prompt (documented precedence); built-ins
+  `{{root}}`/`{{model}}` and `--set key=value` substitutions all work:
+  `Review this code: mycode (root=…, model=mock/echo)`. Early confusion was
+  my misuse ({{input}} is a --set var, not a built-in) — the feature is
+  correct as designed.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
