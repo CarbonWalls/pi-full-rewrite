@@ -90,17 +90,21 @@ file/glob/grep/git tools are confined to --root."
                 Ok(Some(status)) => break Ok(status),
                 Ok(None) => {
                     if Instant::now() >= deadline {
-                        let _ = child.kill();
                         #[cfg(unix)]
                         {
+                            // Order matters: killing the shell first would
+                            // reparent its children to init and strand them
+                            // (group-kill misses job-control sub-groups, and
+                            // a reparented child no longer has this shell as
+                            // an ancestor). Reap the tree FIRST while the
+                            // parentage is intact, then the group, then the
+                            // direct child.
+                            let _ = reap_process_tree(child.id());
                             let pgid = child.id() as i32;
                             let _ = std::process::Command::new("kill")
                                 .args(["-KILL", &format!("-{pgid}")])
                                 .status();
-                            // group-kill can miss job-control sub-groups; reap
-                            // the ancestry too (runs only in the rare timeout
-                            // path, so per-pid walks are acceptable)
-                            let _ = reap_process_tree(child.id());
+                            let _ = child.kill();
                         }
                         let _ = child.wait();
                         break Err(format!(

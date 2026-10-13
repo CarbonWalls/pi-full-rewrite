@@ -3863,6 +3863,14 @@ Per-round log (newest last). All work in /root/workspace/research.
   actual `comm` (a recycled pid must not fake it alive) — the failure message
   now reports the real comm for final diagnosis.
 
+## Round 152 (2026-07-16)
+- **Kill-order bug found (real, user-facing):** the timeout path killed the
+  shell FIRST; the shell's death reparents its children to init, so the
+  ancestry reaper and `pkill -P` then miss them — stranding background
+  grandchildren (exactly what the runner reproduced). Reordered to reap
+  descendants FIRST, then the group, then the shell. This also fixes
+  job-control shells (sub-groups) for real users. 128 tests, clippy 0.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
