@@ -4256,6 +4256,10 @@ Per-round log (newest last). All work in /root/workspace/research.
   earlier verification) that masked the fix — killed, plus a stray-process
   sweep. 30/30 including the strengthened check; static rebuilt with the fix.
 
+## Round 64 — v1.0.7 bugfix release shipped
+- The /access-log framing fix released as v1.0.7 (latest; pipeline green,
+  asset verified ELF64 x86_64). Eight releases (v1.0.0–v1.0.7).
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
