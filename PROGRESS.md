@@ -4301,6 +4301,11 @@ Per-round log (newest last). All work in /root/workspace/research.
   WSL box remained offline (attempt after attempt; the acceptance script +
   earlier hardware runs cover it).
 
+## Round 72 — HTML/txt export smoke verified
+- `--export --format html` renders a complete standalone styled doc
+  (doctype→</html>); txt renders the session header. Both CLI formats
+  confirmed.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
