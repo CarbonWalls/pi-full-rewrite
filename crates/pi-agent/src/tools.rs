@@ -35,10 +35,14 @@ pub trait Tool: Send + Sync {
 
 fn truncate(s: &str, max: usize) -> String {
     if s.len() <= max {
-        s.to_string()
-    } else {
-        format!("{}…", &s[..max.min(s.len())])
+        return s.to_string();
     }
+    // cut at a char boundary, never mid-UTF-8 (audit NIT)
+    let mut end = max.min(s.len());
+    while end > 0 && !s.is_char_boundary(end) {
+        end -= 1;
+    }
+    format!("{}…", &s[..end])
 }
 
 #[derive(Default, Clone)]

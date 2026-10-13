@@ -81,15 +81,23 @@ impl BgRegistry {
             format!("bg{c}")
         };
         let _ = std::fs::create_dir_all(&self.spill_dir);
-        let mut child = Command::new("sh")
-            .arg("-c")
-            .arg(command)
-            .current_dir(cwd)
-            .stdin(Stdio::null())
-            .stdout(Stdio::piped())
-            .stderr(Stdio::piped())
-            .spawn()
-            .map_err(|e| format!("spawn: {e}"))?;
+        let mut child = {
+            let mut builder = Command::new("sh");
+            builder
+                .arg("-c")
+                .arg(command)
+                .current_dir(cwd)
+                .stdin(Stdio::null())
+                .stdout(Stdio::piped())
+                .stderr(Stdio::piped());
+            // own process group so bg_kill can reap grandchildren too
+            #[cfg(unix)]
+            {
+                use std::os::unix::process::CommandExt;
+                builder.process_group(0);
+            }
+            builder.spawn().map_err(|e| format!("spawn: {e}"))?
+        };
 
         let mut buf = JobBuf {
             out: Mutex::new(String::new()),
@@ -164,6 +172,19 @@ impl BgRegistry {
                 }
             }
         }
+        // bound accumulation: drop the oldest completed jobs (audit MINOR)
+        if g.len() > 32 {
+            let mut done_ids: Vec<String> = g
+                .iter()
+                .filter(|(_, j)| j.done)
+                .map(|(id, _)| id.clone())
+                .collect();
+            done_ids.sort();
+            let extra = g.len() - 32;
+            for id in done_ids.into_iter().take(extra) {
+                g.remove(&id);
+            }
+        }
     }
 
     pub fn kill(&self, id: &str) -> bool {
@@ -171,6 +192,15 @@ impl BgRegistry {
         if let Some(j) = g.get_mut(id) {
             if let Some(mut c) = j.child.take() {
                 let _ = c.kill();
+                // reap the whole process group so grandchildren die too
+                #[cfg(unix)]
+                {
+                    let pgid = c.id() as i32;
+                    let _ = std::process::Command::new("kill")
+                        .args(["-KILL", &format!("-{pgid}")])
+                        .status();
+                    let _ = c.wait(); // no zombie
+                }
                 j.done = true;
                 j.exit = Some(-1);
                 return true;

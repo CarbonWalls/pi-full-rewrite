@@ -76,16 +76,54 @@ Subcommand must be one of: {}. Extra args are given after a space, e.g.
         let argv: Vec<String> = std::iter::once("git".to_string())
             .chain(words.iter().map(|s| s.to_string()))
             .collect();
-        let output = Command::new(&argv[0])
+        let mut child = match Command::new(&argv[0])
             .args(&argv[1..])
             .current_dir(&self.root)
             .stdin(Stdio::null())
             .stdout(Stdio::piped())
             .stderr(Stdio::piped())
-            .output();
-        let out = match output {
-            Ok(o) => o,
+            .spawn()
+        {
+            Ok(c) => c,
             Err(e) => return ToolResult::err(format!("git: spawn failed: {e}")),
+        };
+        // bounded wait: a stuck `git` must not block the agent forever
+        const GIT_TIMEOUT: std::time::Duration = std::time::Duration::from_secs(30);
+        let out = {
+            let mut out = None;
+            let timeout = std::time::Instant::now() + GIT_TIMEOUT;
+            loop {
+                match child.try_wait() {
+                    Ok(Some(st)) => {
+                        let _ = child.wait(); // reap
+                        use std::io::Read;
+                        let mut o = std::process::Output {
+                            status: st,
+                            stdout: Vec::new(),
+                            stderr: Vec::new(),
+                        };
+                        if let Some(mut so) = child.stdout.take() {
+                            let _ = so.read_to_end(&mut o.stdout);
+                        }
+                        if let Some(mut se) = child.stderr.take() {
+                            let _ = se.read_to_end(&mut o.stderr);
+                        }
+                        out = Some(o);
+                        break;
+                    }
+                    Ok(None) if std::time::Instant::now() >= timeout => {
+                        let _ = child.kill();
+                        let _ = child.wait();
+                        return ToolResult::err("git: timed out after 30 s");
+                    }
+                    Ok(None) => std::thread::sleep(std::time::Duration::from_millis(25)),
+                    Err(_) => break,
+                }
+            }
+            match out {
+                Some(o) => o,
+                None => return ToolResult::err("git: failed to read output"),
+            }
         };
         let mut text = String::from_utf8_lossy(&out.stdout).to_string();
         let err = String::from_utf8_lossy(&out.stderr).to_string();
