@@ -3811,6 +3811,14 @@ Per-round log (newest last). All work in /root/workspace/research.
   (pi-linux-amd64-static), verifies it is statically linked, and installs
   to ~/.local/bin — plus a README one-liner for GitHub visitors.
 
+## Round 146 (2026-07-16)
+- **CI on GitHub was failing** ("Workspace tests" + "static ELF" checks).
+  Root cause narrowed via fresh-clone reproductions: local clone passes are
+  green; failures are runner-environment/timing sensitive. CI hardened:
+  serial-ish test threads, `--no-fail-fast`, RUST_BACKTRACE, and failures
+  now surface as `::error::` GitHub annotations (readable via the public
+  API without a token) so the exact failing test is identifiable.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)

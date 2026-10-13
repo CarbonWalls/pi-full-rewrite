@@ -17,7 +17,19 @@ jobs:
         with:
           components: clippy, rustfmt
       - name: Workspace tests
-        run: ./build.sh test
+        env:
+          RUST_BACKTRACE: 1
+        # --no-fail-fast: one flaky test must not hide the rest;
+        # reduced threads: cold runners are slower than a dev box.
+        run: |
+          ./build.sh test -- --test-threads=4 --no-fail-fast 2>&1 | tee /tmp/test.log
+          rc=${PIPESTATUS[0]}
+          if [ $rc -ne 0 ]; then
+            # surface the failure as GitHub annotations (readable via the API)
+            grep -E -B2 -A10 "FAILED|panicked|failures:" /tmp/test.log | tail -n 120 | sed 's/^/::error::/'
+            exit $rc
+          fi
+          ./build.sh test --doc
       - name: Clippy (all targets, no warnings)
         run: ./build.sh clippy --all-targets
       - name: Release build
@@ -47,5 +59,6 @@ jobs:
         run: ./build.sh build --release --target x86_64-unknown-linux-musl -p pi-coding-agent
       - name: Verify it is a static ELF
         run: |
+          file target/x86_64-unknown-linux-musl/release/pi || true
           file target/x86_64-unknown-linux-musl/release/pi | grep -q "statically linked"
           ./target/x86_64-unknown-linux-musl/release/pi --version
