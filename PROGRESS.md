@@ -3785,6 +3785,14 @@ Per-round log (newest last). All work in /root/workspace/research.
   HEAD, builds clean from a fresh checkout with the pinned toolchain (the
   resulting binary reports the full banner). The milestone is reproducible.
 
+## Round 142 (2026-07-16)
+- **Published to GitHub:** pushed the full history (39 commits, branch
+  master @ f538a1b) and the v1.0.0 tag to
+  https://github.com/CarbonWalls/pi-full-rewrite (SSH authentication via
+  the host's ed25519 key). Remote HEAD verified to match local. The
+  repo's CI (tests + clippy + 28-point sign-off + static musl) will run
+  against the pushed state.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
