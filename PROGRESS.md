@@ -3921,6 +3921,11 @@ Per-round log (newest last). All work in /root/workspace/research.
   via `$!` pid files — this sandbox hides spawned children from /proc
   enumeration, which the tests now avoid). 130 tests, clippy 0.
 
+## Round 7 — rebuilds + cross-confirmation
+- Static binary (4,656,760 B) rebuilt with the reaper-ordering change; dist
+  refreshed. **CI on GitHub passed with the two new reaper regression tests**
+  (the runner-safe SIGKILL/setsid paths) — the fixes hold on both platforms.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
