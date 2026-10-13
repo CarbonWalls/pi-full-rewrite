@@ -3984,6 +3984,12 @@ Per-round log (newest last). All work in /root/workspace/research.
   the CLI's own --help shows the correct schema; both flags work as
   documented.)
 
+## Round 17 — dashboard verified + verification snapshot
+- Offline: /healthz 200, dashboard dashboard title renders, /cost and
+  /sessions return correct JSON. Added docs/verification-snapshot.md — a
+  release-readable matrix of the exact current gates (130 tests, 28/28, 12/12,
+  CI passing, releases, benchmarks, maintainer notes).
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
