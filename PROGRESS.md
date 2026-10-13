@@ -4102,6 +4102,11 @@ Per-round log (newest last). All work in /root/workspace/research.
   leak on amd64 either. Together with the 2/6 ms benchmarks, the shipped
   binary's resource profile is now fully documented on both architectures.
 
+## Round 36 — snapshot consolidated
+- docs/verification-snapshot.md now records the definitive cross-arch
+  acceptance: 29/29 local matrix, 28/28 applicable on real amd64, one-line
+  install + serve E2E + benchmarks + RSS on the shipped binaries.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)

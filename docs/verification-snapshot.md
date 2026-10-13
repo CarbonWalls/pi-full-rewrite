@@ -11,6 +11,15 @@ The exact state verified for the current release:
 | GitHub Actions CI (`ci.yml`, pinned 1.99.0) | **passing** (test + static-musl jobs) |
 | Commit hygiene | no `target/`, `dist/`, `.rustup/`, `.pi/` tracked (CI-enforced) |
 
+## Cross-arch acceptance (real amd64 hardware, shipped binaries)
+- The complete `scripts/verify.sh` ran on a Debian/WSL x86_64 box against the
+  released static binary: **28/28 applicable checks pass** (the only skip is
+  the local-musl-gated "static binary runs").
+- One-line install accepted end-to-end (incl. the no-`file(1)` fallback),
+  serve E2E (healthz/rpc/sessions), and an offline agent turn all verified.
+- amd64 numbers (current release): `--version` 2 ms, mock turn 6 ms, serve
+  RSS 3.3 MB flat over 20 s.
+
 ## Releases
 - v1.0.0, v1.0.1, v1.0.2, v1.0.3 — each verified: assets download and run
   (`--info` reports the tagging commit via `PI_BUILD_SHA`).
