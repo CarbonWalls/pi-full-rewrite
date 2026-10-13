@@ -3912,6 +3912,15 @@ Per-round log (newest last). All work in /root/workspace/research.
   dist refreshed (glibc + static).
 - README now carries live CI + release badges for the public repo.
 
+## Round 6 — reaper walk-first ordering + regression tests
+- Reordering the reaper inside: the /proc ancestry walk now runs BEFORE the
+  `pkill -P` net — pkill first would reparent deeper descendants to init and
+  hide them from the walk. Two regression tests lock it: (1) a job-control
+  sub-group child (`setsid sleep &`, own pgid) is reaped; (2) a deep grandchild
+  under an intermediate shell is reached by the ancestry walk (pids captured
+  via `$!` pid files — this sandbox hides spawned children from /proc
+  enumeration, which the tests now avoid). 130 tests, clippy 0.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)

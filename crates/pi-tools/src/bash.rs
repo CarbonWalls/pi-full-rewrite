@@ -244,12 +244,8 @@ pub fn reap_process_tree(root: u32) -> usize {
         }
         map
     }
-    // extra net: direct children by parent (independent of /proc parsing)
-    let _ = std::process::Command::new("pkill")
-        .args(["-9", "-P", &root.to_string()])
-        .status();
     let mut killed = 0;
-    for _ in 0..2 {
+    for _ in 0..3 {
         let parent = parent_map();
         let mut targets: Vec<u32> = Vec::new();
         for &pid in parent.keys() {
@@ -269,12 +265,129 @@ pub fn reap_process_tree(root: u32) -> usize {
             }
         }
         if targets.is_empty() {
-            return killed;
+            break;
         }
         let args: Vec<String> = ["-KILL".to_string()].into_iter().chain(targets.iter().map(|t| t.to_string())).collect();
         let _ = std::process::Command::new("kill").args(&args).status();
         killed += targets.len();
         std::thread::sleep(std::time::Duration::from_millis(50));
     }
+    // final net: direct children by parent (order matters — pkill first would
+    // reparent deeper descendants to init and hide them from the walk)
+    let _ = std::process::Command::new("pkill")
+        .args(["-9", "-P", &root.to_string()])
+        .status();
     killed
+}
+
+#[cfg(test)]
+mod tests {
+    use super::reap_process_tree;
+    use std::os::unix::process::CommandExt;
+    use std::time::{Duration, Instant};
+
+    fn alive(pid: u32) -> bool {
+        std::path::Path::new(&format!("/proc/{pid}")).exists()
+    }
+
+    /// A background child placed in its OWN session/process group (like a
+    /// job-control shell) must still be reaped by ancestry — the process
+    /// GROUP kill alone would miss it.
+    #[test]
+    fn reaper_kills_job_control_subgroup_children() {
+        let dir = std::env::temp_dir().join(format!("pi-reaper-{}", std::process::id()));
+        let _ = std::fs::remove_dir_all(&dir);
+        std::fs::create_dir_all(&dir).unwrap();
+        let pidfile = dir.join("grand.pid");
+
+        let mut child = std::process::Command::new("bash")
+            .arg("-c")
+            .arg(format!(
+                "setsid sleep 30 & echo $! > {pf}; wait",
+                pf = pidfile.display()
+            ))
+            .process_group(0)
+            .spawn()
+            .expect("spawn bash");
+
+        // wait for the grandchild to exist
+        let t0 = Instant::now();
+        let grand: u32 = loop {
+            if let Ok(s) = std::fs::read_to_string(&pidfile) {
+                if let Ok(p) = s.trim().parse() {
+                    break p;
+                }
+            }
+            assert!(t0.elapsed() < Duration::from_secs(10), "grandchild never spawned");
+            std::thread::sleep(Duration::from_millis(50));
+        };
+        std::thread::sleep(Duration::from_millis(150));
+        assert!(alive(grand), "precondition: grandchild alive");
+
+        // reaper must locate it by parentage even though it is in its own
+        // session/group (pgid != shell pid) — via pkill -P and/or the
+        // ancestry walk (either is fine; the OUTCOME is what matters)
+        let _ = reap_process_tree(child.id());
+        let t0 = Instant::now();
+        while alive(grand) && t0.elapsed() < Duration::from_millis(1500) {
+            std::thread::sleep(Duration::from_millis(50));
+        }
+        assert!(!alive(grand), "grandchild must be gone");
+        let _ = child.wait();
+        let _ = std::fs::remove_dir_all(&dir);
+    }
+
+    /// Deep grandchild under an intermediate backgrounded shell: the walk
+    /// must reach it by ancestry (pkill -P sees only direct children).
+    /// Both pids come from `$!` pid files (no /proc enumeration needed —
+    /// sandboxes can hide spawned children from read_dir).
+    #[test]
+    fn reaper_ancestry_walk_reaches_shell_grandchildren() {
+        let dir = std::env::temp_dir().join(format!("pi-reaper2-{}", std::process::id()));
+        let _ = std::fs::remove_dir_all(&dir);
+        std::fs::create_dir_all(&dir).unwrap();
+        let midf = dir.join("mid.pid");
+        let deepf = dir.join("deep.pid");
+
+        let mut child = std::process::Command::new("bash")
+            .arg("-c")
+            .arg(format!(
+                "bash -c 'sleep 60 & echo $! > {deep}; wait' & echo $! > {mid}; wait",
+                deep = deepf.display(),
+                mid = midf.display()
+            ))
+            .process_group(0)
+            .spawn()
+            .expect("spawn bash");
+
+        let read = |p: &std::path::Path| -> u32 {
+            let t0 = Instant::now();
+            loop {
+                if let Ok(s) = std::fs::read_to_string(p) {
+                    if let Ok(v) = s.trim().parse() {
+                        return v;
+                    }
+                }
+                assert!(t0.elapsed() < Duration::from_secs(10), "pid file missing: {p:?}");
+                std::thread::sleep(Duration::from_millis(50));
+            }
+        };
+        let mid = read(&midf);
+        let deep = read(&deepf);
+        std::thread::sleep(Duration::from_millis(150));
+        assert!(alive(deep), "precondition: deep grandchild alive");
+
+        // Mirror production: reap the tree while parentage is intact
+        // (mid -> deep; nothing killed yet).
+        let killed = reap_process_tree(child.id());
+        assert!(killed >= 2, "walk must reap mid + deep (killed={killed})");
+        let t0 = Instant::now();
+        while (alive(deep) || alive(mid)) && t0.elapsed() < Duration::from_millis(1500) {
+            std::thread::sleep(Duration::from_millis(50));
+        }
+        assert!(!alive(deep), "deep grandchild must be gone");
+        assert!(!alive(mid), "intermediate must be gone");
+        let _ = child.wait();
+        let _ = std::fs::remove_dir_all(&dir);
+    }
 }
