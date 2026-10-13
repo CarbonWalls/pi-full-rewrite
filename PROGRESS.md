@@ -4295,6 +4295,12 @@ Per-round log (newest last). All work in /root/workspace/research.
   session (rc=0). Now it fails loudly ("session file not found", rc=1);
   existing files still export (rc=0). Suite green at 133.
 
+## Round 71 — rebuilt static accepted; export-all sanity
+- Static (4,672,392 B) rebuilt with the export fix and accepted 6/6 (local
+  path). --export-all behaves sanely on fresh and invalid target dirs. The
+  WSL box remained offline (attempt after attempt; the acceptance script +
+  earlier hardware runs cover it).
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
