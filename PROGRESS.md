@@ -3730,6 +3730,34 @@ Per-round log (newest last). All work in /root/workspace/research.
   per-call `timeout_ms` override is locked by a test.
 - **Hygiene:** 92 tests, clippy 0.
 
+## Rounds 93–135 (compacted record — the log tail was restructured and later appends missed)
+
+### 93–100: parity close-out + milestone
+- 93: CI readiness — adaptive build.sh (in-tree toolchain or system cargo), corrected ci.yml, MSRV 1.88 declared.
+- 94: --info + session_dir; CI-style clone simulation exposed the missing MSRV.
+- 95: REPL: /theme live switching; 96: browser dashboard (GET /) with streaming rpc.
+- 97: MCP client binary E2E; 98: tool-timeout E2E; 99: usage entry persistence + --cost; 100: O(n) branch() (~15× on 3000-entry stats).
+
+### 101–110: operator surface
+- 101: unified stats (run/run_json share one counter); serial-suite verification.
+- 102: user-journey tour.sh (12 checks) + git init (real repo, .gitignore, commits).
+- 103: --gc --gc-dry-run; git-backed --review tests.
+- 104: adversarial HTTP batch + suite flake audits.
+- 105: git as real history (self-hosted --review); 106: --cost --json + /cost endpoint + lock-free routes.
+- 107: external abort {"type":"abort"} + dashboard stop button (contract-locked).
+- 108: consumer bundle simulation — portable verify/tour binary resolution (27/27 from a bare dist copy).
+- 109: tool-layer security round (audit 2): git --output escape, glob/grep root escapes, symlink escape, bash SIGPIPE + hard timeout, apply_diff hunk verification, timeout clamp; 3 security tests.
+- 110: provider-layer security round (audit 3): conservative transport retry (no double-charge), SSE caps, thinking-budget clamp, usage accounting, cleartext-URL guard; empty-frame tolerance; deterministic tool order.
+
+### 111–120: hardening close-out
+- 111: per-turn serve console log; static artifact rebuilt with security fixes.
+- 112: session-dir consistency (pi.json session_dir honored everywhere); 3rd audit (TUI/CLI).
+- 113: TUI sanitizer (model ESC/control bytes), control chords + Ctrl-D exit, 2nd-Ctrl-C force-quit; 114: bracketed paste, mode-conflict detection, honest exit codes.
+- 115: transcript bound (2 MB, elided marker); 116: size-fail fallback + wide-char columns.
+- 117: session-dir threaded into the TUI + agent (full consistency, relative→root join).
+- 118: four-audit milestone — zero CRITICALs outstanding.
+- 119: markdown link off-by-one + SGR full-style emission; 120: build provenance (--info build_sha, -V banner).
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
