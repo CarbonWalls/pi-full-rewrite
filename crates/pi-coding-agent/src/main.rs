@@ -1313,11 +1313,11 @@ async fn run_print(
         }
     }
     if let Some(out) = &cli.out {
-        // write the final answer to a file (resolved under root)
-        let p = if out.is_absolute() {
-            out.clone()
-        } else {
-            cli.root.join(out)
+        // write the final answer to a file, confined to root like every
+        // other file write (a `..`/absolute path must not escape)
+        let p = match pi_tools::resolve_under(&cli.root, out.to_str().unwrap_or("")) {
+            Ok(p) => p,
+            Err(e) => return Err(anyhow::anyhow!("--out: {e}")),
         };
         if let Some(parent) = p.parent() {
             let _ = std::fs::create_dir_all(parent);

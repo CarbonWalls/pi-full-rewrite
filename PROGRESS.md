@@ -4345,6 +4345,11 @@ Per-round log (newest last). All work in /root/workspace/research.
 - The ordering + export fixes shipped as v1.0.8 (pipeline green, static
   verified). Nine releases (v1.0.0–v1.0.8).
 
+## Round 80 — --out root-confinement fix + 31-point matrix
+- Found: `--out ../x` escaped `--root` (inconsistent with the file tools'
+  `..` rejection). Now resolved through the shared `resolve_under` (rejected
+  with a clear error). Locked as the 31st verify check; suite 133, clippy 0.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)

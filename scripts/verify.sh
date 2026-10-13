@@ -181,6 +181,17 @@ else
 fi
 rm -rf "$PKGSRC" "$PKGDST"; rm -f /tmp/pi-pkg.tgz
 
+# --out must stay confined to --root (round 80: could escape via ..)
+OUTS=$(mktemp -d /tmp/pi-out.XXXXXX); mkdir -p "$OUTS/.pi/sessions"
+printf 'x\n' | "$R" --quiet --root "$OUTS" --session-dir "$OUTS/.pi/sessions" \
+    --out ../escape.txt -m mock/echo >/dev/null 2>&1 || true
+if [ ! -f "$(dirname "$OUTS")/escape.txt" ] && [ -z "$(ls "$OUTS"/../../escape.txt 2>/dev/null)" ]; then
+  ok "--out confined to root"
+else
+  bad "--out confined to root"
+fi
+rm -rf "$OUTS"
+
 # static musl, if present
 MS=target/aarch64-unknown-linux-musl/release/pi
 if [ -x "$MS" ]; then
