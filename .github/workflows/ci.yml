@@ -18,21 +18,30 @@ jobs:
           components: clippy, rustfmt
       - name: Workspace tests
         run: ./build.sh test
-      - name: Clippy (no warnings)
-        run: ./build.sh clippy
+      - name: Clippy (all targets, no warnings)
+        run: ./build.sh clippy --all-targets
       - name: Release build
         run: ./build.sh build --release -p pi-coding-agent
+      - name: Release sign-off (28-point matrix incl. TUI + user journey)
+        run: |
+          ./build.sh build --release -p pi-coding-agent
+          ./scripts/verify.sh
 
   static-musl:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Install rust (stable)
+      - name: Install musl cross tooling
+        run: sudo apt-get update && sudo apt-get install -y musl-tools clang
+      - name: Install rust (stable) with musl target
         uses: dtolnay/rust-toolchain@stable
         with:
-          target: aarch64-unknown-linux-musl
-      - name: Build static
+          target: x86_64-unknown-linux-musl
+      - name: Build static binary
+        env:
+          CC_x86_64_unknown_linux_musl: musl-gcc
+        run: ./build.sh build --release --target x86_64-unknown-linux-musl -p pi-coding-agent
+      - name: Verify it is a static ELF
         run: |
-          # In CI the host glibc toolchain provides the linker; no in-dir
-          # cross sysroot is needed on x86_64/aarch64 ubuntu runners.
-          ./build.sh build --release --target "$(rustc -vV | sed -n 's/host: //p')" -p pi-coding-agent
+          file target/x86_64-unknown-linux-musl/release/pi | grep -q "statically linked"
+          ./target/x86_64-unknown-linux-musl/release/pi --version
