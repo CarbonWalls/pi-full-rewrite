@@ -47,6 +47,17 @@ All notable work on pi-rs (the Rust rewrite of pi).
   `/find` results.
 - Static aarch64 musl build (single ELF, no dynamic deps).
 
+## 1.0.7 — HTTP /access-log framing fix
+- With `--cors` unset, `/access-log` ended its HTTP headers right after the
+  status line (a stray `\r\n` after the empty CORS header) so the real
+  headers leaked into the body. Fixed; the 30-point sign-off now asserts the
+  body starts clean.
+
+## 1.0.6 — package-install tar-slip fix
+- Package installs now reject any non-regular/non-directory tar entry
+  (symlinks, hard links, specials) — writing through a link could previously
+  escape `<root>`. Regression-tested; 30-point matrix covers the valid path.
+
 ## 1.0.5 — MCP client hardening
 - `pi-mcp` reads are bounded (1 MiB per line) and tool output is capped at
   1 MiB with a truncation notice — a hostile MCP server can no longer grow

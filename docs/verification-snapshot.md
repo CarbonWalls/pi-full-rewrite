@@ -1,4 +1,4 @@
-# Verification snapshot — v1.0.5 era (2026-07-16)
+# Verification snapshot — v1.0.7 era (2026-07-16)
 
 The exact state verified for the current release:
 
@@ -21,7 +21,7 @@ The exact state verified for the current release:
   RSS 3.3 MB flat over 20 s.
 
 ## Releases
-- v1.0.0 … v1.0.5 — each verified: assets download and run
+- v1.0.0 … v1.0.7 — each verified: assets download and run
   (`--info` reports the tagging commit via `PI_BUILD_SHA`).
 - Per-tag assets: `pi-linux-amd64` (glibc), `pi-linux-amd64-static` (musl),
   README, VERSION. arm64-static is a maintainer-aarch64-host build.
