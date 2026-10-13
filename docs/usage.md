@@ -53,7 +53,12 @@ pi --no-session "…"                    # stateless run
 In the TUI: `/label my-task` names the current session, `/fork <n>` rewinds
 and branches, `/replay <n>` shows an entry, `/new` starts fresh.
 
-## Tools (all sandboxed to `--root`)
+## Tools (file tools sandboxed to `--root`; **bash is host-level** by design)
+
+`read/write/edit/apply_diff/glob/grep/fs/git` are confined to `--root`
+(absolute paths, `..`, and escaping symlinks are rejected). `bash` runs
+`sh -c` on the host — a coding agent needs the shell — so run pi with
+`--root` set to the project directory you intend the agent to affect.
 
 read_file · write_file · edit_file · glob · grep · list_dir · bash (timeout
 with `timeout_ms` override, group-kill) · todo (plan list) · git (read-only

@@ -28,7 +28,9 @@ impl Tool for Bash {
                 "Run a shell command in the working directory and return combined
 stdout+stderr and the exit code. Commands are run with a timeout (killed on
 expiry). Use for builds, tests, git, and other CLI tasks. Avoid long-running
-daemons; this is a synchronous command runner."
+daemons; this is a synchronous command runner. NOTE: bash is a HOST-LEVEL
+tool --root does NOT confine it (a coding agent needs the shell); the
+file/glob/grep/git tools are confined to --root."
                     .into(),
             parameters: serde_json::json!({
                 "type":"object",
