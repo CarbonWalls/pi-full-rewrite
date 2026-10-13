@@ -56,8 +56,9 @@ jobs:
           ./build.sh test --no-fail-fast -- --test-threads=1 > /tmp/test.log 2>&1
           rc=$?
           echo "EXIT CODE: $rc" >> /tmp/test.log
-          tail -n 200 /tmp/test.log
-          exit 0   # never fail this job; the log is the artifact
+          { echo "### test step output (tail)"; tail -n 200 /tmp/test.log; } >> "$GITHUB_STEP_SUMMARY"
+          echo "step summary written"
+          exit 0   # never fail this job; the log goes to the summary
       - name: Upload log
         if: always()
         uses: actions/upload-artifact@v4
