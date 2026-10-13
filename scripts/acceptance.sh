@@ -28,12 +28,19 @@ PASS=0; FAIL=0; SKIPPED=0
 ok(){ PASS=$((PASS+1)); echo "  PASS  $1"; }
 bad(){ FAIL=$((FAIL+1)); echo "  FAIL  $1"; }
 skip(){ SKIPPED=$((SKIPPED+1)); echo "  SKIP  $1 (host $HOST_ARCH cannot run this asset)"; }
+if [ -n "${LOCAL_BIN:-}" ]; then RUNNABLE=1; fi
 
 trap 'rm -rf "$TMP"' EXIT
 
-echo "== downloading $ASSET_URL"
-curl -fL --retry 3 -o "$BIN" "$ASSET_URL"
-chmod +x "$BIN"
+if [ -n "${LOCAL_BIN:-}" ]; then
+  echo "== using local binary: $LOCAL_BIN"
+  cp "$LOCAL_BIN" "$BIN"; chmod +x "$BIN"
+  RUNNABLE=1
+else
+  echo "== downloading $ASSET_URL"
+  curl -fL --retry 3 -o "$BIN" "$ASSET_URL"
+  chmod +x "$BIN"
+fi
 
 echo "== v1 binary checks"
 if ! od -An -tx1 -N5 "$BIN" | grep -q "7f 45 4c 46 02"; then

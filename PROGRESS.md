@@ -4273,6 +4273,12 @@ Per-round log (newest last). All work in /root/workspace/research.
   (verified live on aarch64: 2 passed, 4 arch-skips). Documented in
   RELEASING.md; included in dist.
 
+## Round 67 — acceptance.sh LOCAL_BIN path
+- `LOCAL_BIN=<path>` runs the full acceptance against a local build on any
+  arch. Verified: the aarch64 static binary passes 6/6 (build info, offline
+  turn + session, serve healthz). Both acceptance paths (download + local)
+  now work.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
