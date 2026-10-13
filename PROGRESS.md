@@ -4107,6 +4107,12 @@ Per-round log (newest last). All work in /root/workspace/research.
   acceptance: 29/29 local matrix, 28/28 applicable on real amd64, one-line
   install + serve E2E + benchmarks + RSS on the shipped binaries.
 
+## Round 37 — v1.0.4 released via the 29-point pipeline
+- Tagged v1.0.4: the release workflow ran the FULL 29-point sign-off + clippy
+  + static-musl and published the newest release (latest = v1.0.4, verified
+  ELF64 x86_64 static asset). The current matrix is now what every release
+  gate runs.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
