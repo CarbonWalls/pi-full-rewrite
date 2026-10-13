@@ -3819,6 +3819,14 @@ Per-round log (newest last). All work in /root/workspace/research.
   now surface as `::error::` GitHub annotations (readable via the public
   API without a token) so the exact failing test is identifiable.
 
+## Round 147 (2026-07-16)
+- **CI root cause narrowed:** failed runs last 44 s / 90 s — far too short
+  for a cold compile, so both jobs DIE AT COMPILE TIME on the runner's
+  `@stable` toolchain (differs from the dev-pinned 1.99). Fix: pin CI to
+  `dtolnay/rust-toolchain@1.99.0` + `--locked` everywhere. The WSL box was
+  offered (x86_64, no toolchain) — machine rejected only as a repo target,
+  not needed for this fix since GitHub runners are amd64.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
