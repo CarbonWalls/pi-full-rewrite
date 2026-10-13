@@ -6,6 +6,9 @@ set -uo pipefail
 cd "$(dirname "$0")/.."
 export RUSTUP_HOME="$PWD/.rustup" CARGO_HOME="$PWD/.cargo-cache"
 R="${R:-target/release/pi}"
+[ -x "$R" ] || R="dist/pi"
+[ -x "$R" ] || R="./pi"
+[ -x "$R" ] || { echo "release binary missing — run ./scripts/release.sh first"; exit 1; }
 S=$(mktemp -d /tmp/pi-verify.XXXXXX)
 PASS=0; FAIL=0
 
@@ -60,7 +63,6 @@ PYEOF
 }
 
 echo "== pi release sign-off ($R) =="
-[ -x "$R" ] || { echo "release binary missing — run ./scripts/release.sh first"; exit 1; }
 
 check "version"              '$("$R" --version >/dev/null 2>&1)'
 check "info"                 '$("$R" --info | grep -q "models")'

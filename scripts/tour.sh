@@ -5,6 +5,8 @@
 set -uo pipefail
 cd "$(dirname "$0")/.."
 R="${R:-target/release/pi}"
+[ -x "$R" ] || R="dist/pi"
+[ -x "$R" ] || R="./pi"
 [ -x "$R" ] || { echo "run ./scripts/release.sh first"; exit 1; }
 T=$(mktemp -d /tmp/pi-tour.XXXXXX)
 PASS=0; FAIL=0
