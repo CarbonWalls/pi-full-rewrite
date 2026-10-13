@@ -4324,6 +4324,11 @@ Per-round log (newest last). All work in /root/workspace/research.
   ext" → loop closed ("ext result seen"). Both agent extension mechanisms
   (MCP in round 74, ext now) are verified with real subprocess servers.
 
+## Round 76 — fs tools at scale
+- 1 MB read_file and a 200-dir `**/f.txt` glob both ran without failure
+  (content flows to the model per the documented paging model; no crash, no
+  memory issue).
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
