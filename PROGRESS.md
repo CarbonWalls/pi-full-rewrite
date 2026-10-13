@@ -4031,6 +4031,12 @@ Per-round log (newest last). All work in /root/workspace/research.
   my misuse ({{input}} is a --set var, not a built-in) — the feature is
   correct as designed.
 
+## Round 25 — headline numbers audited
+- `--info` confirms the published 23 models / 15 tools exactly; the README's
+  comparative performance claims (250–600× vs reference, --help ~1900×)
+  remain the measured numbers since the comparison round. All documented
+  counts are truthful to the binary.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
