@@ -4160,6 +4160,12 @@ Per-round log (newest last). All work in /root/workspace/research.
   hit a background-redirect race in MY test harness, not the server — the
   synchronous run proved the rpc stream intact.) 131 tests, clippy 0.
 
+## Round 47 — usage.md flags reference added
+- Discovered usage.md never documented ~20 real flags; appended the full
+  current-binary flags reference (model overrides, serve controls, MCP/ext,
+  export/gc/cost/tree/stats, templates/theme/skills, etc.). The doc now
+  covers the complete surface.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)

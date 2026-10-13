@@ -129,3 +129,50 @@ scripts/package.sh <root> <out.tar.gz>        # bundle .pi/ config
 pi --install-package out.tar.gz               # install it (safe untar)
 pi --man > pi.1 && man ./pi.1              # roff man page
 ```
+
+## Flags reference (current binary)
+
+| flag | meaning |
+|---|---|
+| `-m, --model` | model ref (`mock/echo`, `anthropic/...`, `custom:<base>:<model>`); default mock or pi.json |
+| `--root` | working dir that file tools are confined to (default cwd) |
+| `--system` | extra system-prompt text |
+| `--api-key` / `--base-url` | provider key / OpenAI-compatible base URL overrides |
+| `--json` | stream agent events as JSON lines (print mode) |
+| `-i, --interactive` | force the TUI |
+| `--no-tools` | disable all built-in tools |
+| `--max-turns` / `--temperature` / `--thinking` | turn cap / sampling / reasoning effort |
+| `--rpc` | JSON-RPC over stdio |
+| `--list-models` | list resolvable models |
+| `--resume <id>` / `--continue` | resume / continue latest session |
+| `--quiet` | hide tool trace in print mode |
+| `--session-dir` | sessions directory |
+| `--mcp "<name> <cmd>"` | attach an MCP server's tools (repeatable) |
+| `--ext "<name> <cmd>"` | attach an extension process (repeatable) |
+| `--review` | feed git status + diff to the model as the prompt |
+| `--serve` / `--port` / `--serve-addr` / `--serve-token` / `--cors` / `--access-log` | HTTP JSON-RPC server controls |
+| `--completion <shell>` / `--man` | shell completion / roff man page |
+| `--install-package <tar>` | install a pi package into `<root>/.pi/` |
+| `--export-all <dir>` | batch-export every session as `<id>.md` |
+| `--grep-sessions <text>` | search session files |
+| `--cost` | aggregate usage/cost across sessions |
+| `--login p=key` / `--logout p` | manage stored provider keys (mode 0600) |
+| `--info` | build info (version, counts, target, build sha) |
+| `--theme <spec>` | TUI color theme (inline JSON or file; `$PI_THEME`) |
+| `--fallback <ref>` | model fallback when the primary fails |
+| `--skills <names>` / `--skills-dir` | load skills into the system prompt |
+| `--doctor` | environment diagnostics |
+| `--stats <file>` / `--tree <file>` | per-session stats / fork tree |
+| `--image <file>` | attach an image (repeatable) |
+| `--init` | scaffold `<root>/.pi/` |
+| `--export <file>` / `--format` | export a session (md/txt/html) |
+| `--mode code\|ask` | tools enabled / conversational |
+| `--file <f>` / `--out <f>` | prompt from file / answer to file |
+| `--sessions` / `--gc-sessions <n>` / `--gc-dry-run` | list / prune / preview sessions |
+| `--template <name>` / `--set k=v` | prompt templates with variables |
+| `--no-session` | stateless run |
+| `--mcp-server` | serve pi's tools as an MCP server over stdio |
+| `--tool-timeout <ms>` | default bash timeout |
+| `--max-output <tokens>` | per-turn output cap |
+
+Regenerate anytime with `pi --help` (and `pi --man` for the roff page).
