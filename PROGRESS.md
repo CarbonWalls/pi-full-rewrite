@@ -4145,6 +4145,11 @@ Per-round log (newest last). All work in /root/workspace/research.
   release with the pi-mcp-hardened static binary (verified ELF64 x86_64).
   Six releases now exist (v1.0.0–v1.0.5).
 
+## Round 44 — v1.0.5 documented
+- Snapshot updated to the v1.0.5 era; CHANGELOG gained the 1.0.5 entry
+  (MCP bounded reads). The WSL box was offline for an on-hardware v1.0.5
+  check (the same asset class was already accepted there in rounds 31–38).
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)

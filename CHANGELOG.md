@@ -47,6 +47,12 @@ All notable work on pi-rs (the Rust rewrite of pi).
   `/find` results.
 - Static aarch64 musl build (single ELF, no dynamic deps).
 
+## 1.0.5 — MCP client hardening
+- `pi-mcp` reads are bounded (1 MiB per line) and tool output is capped at
+  1 MiB with a truncation notice — a hostile MCP server can no longer grow
+  the agent's memory unboundedly (same class of fix as the provider SSE
+  caps). A fake-server regression test locks it. 131 tests; CI green.
+
 ## 1.0.2 — process-reaping hardening
 - bash timeout / `bg_kill` now reap the descendant tree before killing the
   shell (a shell death reparents children to init and strands them), then the
