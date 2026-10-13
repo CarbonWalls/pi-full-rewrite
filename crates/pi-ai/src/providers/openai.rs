@@ -12,7 +12,7 @@ fn parse_usage(chunk: &Value) -> Usage {
     let u = &chunk["usage"];
     let details = u
         .get("prompt_tokens_details")
-        .map(|d| d.clone())
+        .cloned()
         .unwrap_or_else(|| json!({}));
     Usage {
         input: u["prompt_tokens"].as_u64().unwrap_or(0),
