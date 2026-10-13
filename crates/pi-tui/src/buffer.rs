@@ -113,7 +113,18 @@ impl Buffer {
             let c = self.get_mut(x, y);
             c.ch = ch;
             c.style = *style;
-            x += 1;
+            // wide chars (CJK/emoji) take two terminal columns: the buffer
+            // must also skip the second column so absolute CUP positioning
+            // in diff() stays aligned with what the terminal displays.
+            let w = unicode_width::UnicodeWidthChar::width(ch).unwrap_or(1);
+            if w > 1 && x + 1 < self.width {
+                // the wide char's second terminal column: blank so the
+                // buffer models the terminal's column grid exactly.
+                let n = self.get_mut(x + 1, y);
+                n.ch = ' ';
+                n.style = *style;
+            }
+            x += w.max(1);
         }
     }
 

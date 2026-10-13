@@ -55,7 +55,7 @@ pub fn draw_markdown_scroll_with(
             }
             let text = run.text.clone();
             buf.print(x, y, &text, &run.style);
-            x += text.chars().count();
+            x += text.chars().map(|c| unicode_width::UnicodeWidthChar::width(c).unwrap_or(1)).sum::<usize>();
         }
     }
 }
