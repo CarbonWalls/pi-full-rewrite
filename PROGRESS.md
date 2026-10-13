@@ -4084,6 +4084,14 @@ Per-round log (newest last). All work in /root/workspace/research.
   (install, agent loop, HTTP serve) is now verified on real amd64 hardware
   with the shipped binaries.
 
+## Round 33 — the 29-point matrix RUNS on real amd64
+- Cloned the repo to the Debian/WSL box, dropped the shipped static binary
+  as ./pi, and ran scripts/verify.sh there: **28/28 applicable checks pass**
+  on real x86_64 (the one skipped is the local-musl-gated "static binary
+  runs" check). Serve, TUI (PTY decoder), the 12-step tour, and the
+  installer-quiet invariant all verified against the shipped amd64 binary
+  on real hardware. Round 33 in the restored goal.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
