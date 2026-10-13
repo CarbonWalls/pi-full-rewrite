@@ -22,7 +22,7 @@ jobs:
         # --no-fail-fast: one flaky test must not hide the rest;
         # reduced threads: cold runners are slower than a dev box.
         run: |
-          ./build.sh test -- --test-threads=4 --no-fail-fast 2>&1 | tee /tmp/test.log
+          ./build.sh test --no-fail-fast -- --test-threads=4 2>&1 | tee /tmp/test.log
           rc=${PIPESTATUS[0]}
           if [ $rc -ne 0 ]; then
             # surface the failure as GitHub annotations (readable via the API)
