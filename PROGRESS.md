@@ -3977,6 +3977,13 @@ Per-round log (newest last). All work in /root/workspace/research.
   one-shot command works verbatim. External channels (GH API + WSL) still
   down; all local truth verified.
 
+## Round 16 — export path verified
+- Offline functional checks: sessions persist (quiet one-shot), `--export
+  <jsonl> --format txt` renders proper markdown, `--export-all` writes
+  `<id>.md` files. (My first `--export` attempt used the wrong arg shape —
+  the CLI's own --help shows the correct schema; both flags work as
+  documented.)
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
