@@ -3799,6 +3799,12 @@ Per-round log (newest last). All work in /root/workspace/research.
   builds glibc + static musl binaries, bundles dist/, and publishes a
   GitHub Release with the binaries. The published repo now self-releases.
 
+## Round 144 (2026-07-16)
+- **CI refinement:** every GitHub Actions build stamps PI_BUILD_SHA (so the
+  shipped binary always names its source commit), and the sign-off job
+  guards with `git diff --exit-code` that no build artifact leaks into the
+  tree. Repo bloat-checked: 145 tracked files, no toolchain/targets tracked.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
