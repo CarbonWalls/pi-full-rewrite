@@ -10,6 +10,7 @@ members = [
 ]
 
 [workspace.package]
+rust-version = "1.88"
 version = "0.1.0"
 edition = "2021"
 license = "MIT"

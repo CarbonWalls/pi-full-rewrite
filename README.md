@@ -24,8 +24,8 @@ No code was reused from the reference; everything here is original Rust.
 
 ```sh
 ./build.sh build --release -p pi-coding-agent   # → target/release/pi
-./build.sh test                                 # 111 tests, clippy-clean
-./scripts/verify.sh                            # 24-point release sign-off
+./build.sh test                                 # 117 tests, clippy-clean
+./scripts/verify.sh                            # 28-point release sign-off
 ```
 
 Everything (toolchain, caches, targets) stays inside this directory; `build.sh`
@@ -121,7 +121,7 @@ verify agent loop — used by the integration tests.
 
 ## Testing & hardening
 
-- 111 tests across 6 crates, clippy-clean, `panic=abort` release profile.
+- 117 tests across 6 crates, clippy-clean, `panic=abort` release profile.
 - **Provider E2E, offline:** fake local API servers drive the REAL
   OpenAI-compat, Anthropic and Gemini code paths — request shaping, SSE
   parsing, tool-call deltas, real tool execution, tool-result round trips,
