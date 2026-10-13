@@ -412,8 +412,11 @@ async fn handle_conn(
             Some(a) => a.dump(),
             None => "(access log disabled — start serve with --access-log)\n".into(),
         };
+        // NOTE: `\r\n{cc}Content-Type` (no `\r\n` after {cc}) — a stray
+        // `\r\n` terminator with cors unset ends the headers right after the
+        // status line and the real headers leak into the body.
         let head = format!(
-            "HTTP/1.1 200 OK\r\n{cc}\r\nContent-Type: text/plain\r\nContent-Length: {}\r\nConnection: close\r\n\r\n",
+            "HTTP/1.1 200 OK\r\n{cc}Content-Type: text/plain\r\nContent-Length: {}\r\nConnection: close\r\n\r\n",
             body.len(),
             cc = cors_header(&cors)
         );

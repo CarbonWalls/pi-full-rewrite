@@ -112,8 +112,12 @@ urllib.request.urlopen(req, timeout=5).read()
 ALP=$!
 sleep 0.7
 hget http://127.0.0.1:8801/healthz >/dev/null
-if hget http://127.0.0.1:8801/access-log | grep -q "200 GET /healthz"; then
-  ok "serve access-log"
+ALOG_BODY=$(hget http://127.0.0.1:8801/access-log)
+# the log line must be present AND framing must be clean: a real body never
+# starts with a stray header block (the double-CRLF bug of round 63 hid in
+# the weak earlier check)
+if echo "$ALOG_BODY" | grep -q "200 GET /healthz"    && ! echo "$ALOG_BODY" | grep -q "^HTTP/1.1"    && ! echo "$ALOG_BODY" | grep -q "^Content-Type:"; then
+  ok "serve access-log (incl. framing)"
 else
   bad "serve access-log"
 fi
