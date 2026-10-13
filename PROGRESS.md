@@ -3926,6 +3926,11 @@ Per-round log (newest last). All work in /root/workspace/research.
   refreshed. **CI on GitHub passed with the two new reaper regression tests**
   (the runner-safe SIGKILL/setsid paths) — the fixes hold on both platforms.
 
+## Round 8 — v1.0.2
+- Tagged v1.0.2 at the current green state so the release ships the
+  reaper-ordering fixes; CHANGELOG documents 1.0.2. Watching the release
+  build, then verifying the assets.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)

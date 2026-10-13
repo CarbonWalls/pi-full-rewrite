@@ -47,6 +47,14 @@ All notable work on pi-rs (the Rust rewrite of pi).
   `/find` results.
 - Static aarch64 musl build (single ELF, no dynamic deps).
 
+## 1.0.2 — process-reaping hardening
+- bash timeout / `bg_kill` now reap the descendant tree before killing the
+  shell (a shell death reparents children to init and strands them), then the
+  process group, then the child — covers job-control sub-groups too.
+- The ancestry walk runs before the `pkill -P` net (pkill first would
+  reparent deeper descendants out of reach). Two regression tests lock both
+  axes. CI green on GitHub Actions; 130 tests.
+
 ### Reliability
 - 111 automated tests: provider E2E against fake servers, binary-level
   protocol tests, HTTP fuzz + strict framing, apply_diff property tests,
