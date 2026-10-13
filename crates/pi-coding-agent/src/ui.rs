@@ -578,7 +578,10 @@ async fn run_command(
             match at {
                 Some(i) if i < agent.session.entries.len() => {
                     agent.session.fork_from(i);
-                    transcript.push_str(&format!("\nforked at entry {i} (head={i})\n"));
+                    transcript.push_str(&format!(
+                        "\nforked: next message chains from 0-based entry {i} ({} entries kept tool-free before it)\n",
+                        i
+                    ));
                 }
                 _ => transcript.push_str(&format!(
                     "\nfork: bad index '{arg}' (have {} entries)\n",

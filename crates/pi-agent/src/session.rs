@@ -292,8 +292,13 @@ impl Session {
             })
     }
 
-    /// Fork: set head to entry index `at` so the next user push branches from
-    /// it (the next assistant/tool replies then chain from that user message).
+    /// Fork: rewind so the next push branches from entry `at`.
+    ///
+    /// Semantics: `head` is one past the last entry on the branch, so after
+    /// `fork_from(at)` the tip is `entries[at - 1]` (0-based `at`). The next
+    /// user push chains its parent from that entry; assistant/tool replies
+    /// then chain from the new user message. `at == 0` starts a fresh lineage
+    /// with no parent (everything before it is orphaned).
     pub fn fork_from(&mut self, at: usize) {
         self.head = at;
     }

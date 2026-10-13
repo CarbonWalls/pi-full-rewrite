@@ -179,6 +179,9 @@ pub async fn serve_listener(
     // external abort handle: cloned once so /rpc abort never needs the lock
     let abort = shared.lock().await.abort.clone();
     let session_dir = Arc::new(session_dir);
+    // bound the number of concurrently-handled connections (audit finding)
+    use tokio::sync::Semaphore;
+    let conns = Arc::new(Semaphore::new(256));
     let metrics = Arc::new(Metrics::default());
     let alog = if access_log {
         Some(Arc::new(AccessLog::new(200)))
@@ -214,10 +217,11 @@ pub async fn serve_listener(
                 return Ok(());
             }
         };
-        let (sock, _) = match accept {
+        let (sock0, _) = match accept {
             Ok(t) => t,
             Err(_) => continue,
         };
+        let mut sock = sock0;
         let agent = shared.clone();
         let token = token.clone();
         let cors = cors.clone();
@@ -225,6 +229,15 @@ pub async fn serve_listener(
         let metrics = metrics.clone();
         let abort2 = abort.clone();
         let sd2 = session_dir.clone();
+        let permit = match conns.clone().try_acquire_owned() {
+            Ok(p) => p,
+            Err(_) => {
+                // hard concurrency cap: refuse politely instead of spawning
+                // unbounded handlers (audit finding).
+                let _ = write_resp(&mut sock, 503, "too many connections", &cors).await;
+                continue;
+            }
+        };
         tokio::spawn(async move {
             // hard cap on a single connection: a stalled client (huge
             // content-length, never-sent body) can't hold a handler forever.
@@ -233,6 +246,7 @@ pub async fn serve_listener(
                 handle_conn(sock, &agent, token.as_deref(), &metrics, cors.as_deref(), alog_rx, &abort2, sd2),
             )
             .await;
+            drop(permit); // free the slot when this handler finishes
         });
     }
 }
@@ -252,18 +266,34 @@ async fn handle_conn(
     let cors: Option<String> = cors.map(|c| c.to_string());
     use tokio::io::AsyncReadExt;
     let mut stream = sock;
-    // read the full HTTP request (head + body up to content-length)
+    // read the full HTTP request. With a Content-Length we stop exactly at
+    // the body end (audit: was off by 4 — the body starts at pos+4).
+    // Without one we treat the body as empty (the historical contract; the
+    // fuzz clients rely on it). One request per connection, so stalls are
+    // bounded by the 120s connection cap.
     let mut head = Vec::new();
     let mut buf = [0u8; 8192];
+    let mut expected: Option<usize> = None;
     loop {
         let n = stream.read(&mut buf).await?;
         if n == 0 {
             break;
         }
         head.extend_from_slice(&buf[..n]);
-        if let Some(pos) = find_head_end(&head) {
-            let content_length = content_length_of(&head[..pos]);
-            if head.len() >= pos + content_length {
+        if expected.is_none() {
+            if let Some(pos) = find_head_end(&head) {
+                let body_start = pos + 4;
+                expected = match content_length_of(&head[..pos]) {
+                    Some(cl) => match cl.checked_add(body_start) {
+                        Some(v) => Some(v),
+                        None => break, // absurd length: bail out of the read
+                    },
+                    None => Some(body_start), // no Content-Length: no body
+                };
+            }
+        }
+        if let Some(need) = expected {
+            if head.len() >= need {
                 break;
             }
         }
@@ -309,8 +339,9 @@ async fn handle_conn(
             if !authorized {
                 let body = json!({"error":"unauthorized"}).to_string();
                 let head = format!(
-                    "HTTP/1.1 401 Unauthorized\r\nContent-Type: application/json\r\nContent-Length: {}\r\nConnection: close\r\n\r\n",
-                    body.len()
+                    "HTTP/1.1 401 Unauthorized\r\n{cc}Content-Type: application/json\r\nContent-Length: {}\r\nConnection: close\r\n\r\n",
+                    body.len(),
+                    cc = cors_header(&cors)
                 );
                 use tokio::io::AsyncWriteExt;
                 stream.write_all(head.as_bytes()).await?;
@@ -327,7 +358,10 @@ async fn handle_conn(
     // is delimited by connection close). Everything else is buffered.
     // CORS preflight
     if method == "OPTIONS" && cors.is_some() {
-        let head = "HTTP/1.1 204 No Content\r\nAccess-Control-Allow-Origin: *\r\nAccess-Control-Allow-Methods: GET, POST, OPTIONS\r\nAccess-Control-Allow-Headers: Authorization, Content-Type\r\nAccess-Control-Max-Age: 86400\r\nContent-Length: 0\r\nConnection: close\r\n\r\n";
+        let origin = cors.as_deref().unwrap_or_default();
+        let head = format!(
+            "HTTP/1.1 204 No Content\r\nAccess-Control-Allow-Origin: {origin}\r\nAccess-Control-Allow-Methods: GET, POST, OPTIONS\r\nAccess-Control-Allow-Headers: Authorization, Content-Type\r\nAccess-Control-Max-Age: 86400\r\nContent-Length: 0\r\nConnection: close\r\n\r\n"
+        );
         use tokio::io::AsyncWriteExt;
         let mut s = stream;
         s.write_all(head.as_bytes()).await?;
@@ -647,18 +681,28 @@ fn split_once_crlf(s: &str) -> Option<(&str, &str)> {
     }
 }
 
-fn content_length_of(head: &[u8]) -> usize {
+/// Parse a single, well-formed Content-Length header. Returns `None` when
+/// absent; rejects duplicates and absurd values (> the 10 MB read guard).
+fn content_length_of(head: &[u8]) -> Option<usize> {
     let t = String::from_utf8_lossy(head);
+    let mut value: Option<usize> = None;
     for line in t.lines() {
         if let Some(v) = line
             .to_ascii_lowercase()
             .strip_prefix("content-length:")
             .and_then(|v| v.trim().parse::<usize>().ok())
         {
-            return v;
+            if value.is_some() {
+                // duplicated Content-Length (request smuggling vector)
+                return None;
+            }
+            if v > 10_000_000 {
+                return None;
+            }
+            value = Some(v);
         }
     }
-    0
+    value
 }
 
 #[cfg(test)]
