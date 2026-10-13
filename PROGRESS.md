@@ -4213,6 +4213,15 @@ Per-round log (newest last). All work in /root/workspace/research.
 - README's scenario section now documents the deliberate `error` rule and
   the offline `--fallback` exercise recipe.
 
+## Round 57 — package-install tar-slip security fix
+- Found in a self-review of packages.rs: the installer validated entry NAMES
+  but not entry TYPES — a symlink entry (or writing THROUGH one) could
+  escape <root> (tar-slip). The installer now refuses any non-regular/non-dir
+  entry (symlink/special) via `tar -tvf` parsing, with a regression test
+  crafting a poisoned package (`lrwxrwxrwx .pi/skills -> /etc` is rejected).
+  Valid packages still install (30-point matrix passes). 133 tests, clippy 0;
+  release + static rebuilt with the fix.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
