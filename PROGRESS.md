@@ -3775,6 +3775,11 @@ Per-round log (newest last). All work in /root/workspace/research.
   packages; no exotic/unsafe-leaning crates. Documented in README.
 - **Hygiene:** 128 tests, clippy 0.
 
+## Round 140 (2026-07-16)
+- **v1.0.0 release tag** at the fully-hardened state (128 tests, 28/28
+  sign-off, four audits closed); dist VERSION carries both the version and
+  the full build banner (23 models · 15 tools · sha).
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
