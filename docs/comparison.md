@@ -41,6 +41,7 @@ single static binary.
 | **`pi --info`** | Build banner with model/tool counts and target |
 | **Release sign-off** | `scripts/verify.sh`: 28-check matrix incl. a DEC screen decoder that asserts live TUI content |
 | **Four independent audits, all findings closed** | serve/session, tool layer, provider layer, and TUI/CLI reviewed by fresh eyes: framing, CORS, connection caps, path/symlink confinement, retry semantics, SSE caps, control-char sanitization, bounded transcripts, wide chars, honest exit codes |
+| **Continuous hardening since** | MCP client bounded reads (1 MiB) + output cap · scenario `error` rules for offline fallback tests · package-install rejects symlink/hardlink/special tar entries (tar-slip) · installer is quiet by default (no profile edits) · 133 tests, 30-point sign-off, CI green |
 
 ## Resource use (host: aarch64 release builds)
 

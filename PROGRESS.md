@@ -4232,6 +4232,11 @@ Per-round log (newest last). All work in /root/workspace/research.
   hard links (`tar -tvf` → `hrw...`) are also rejected by the type parser,
   closing the symlink AND hardlink slip vectors for package install.
 
+## Round 60 — security narrative current
+- docs/comparison.md's hardening row now includes the pi-mcp bounds, offline
+  fallback `error` rules, the package tar-slip fix, and the quiet installer,
+  with the current 133/30/green state.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
