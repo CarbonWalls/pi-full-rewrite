@@ -3945,6 +3945,14 @@ Per-round log (newest last). All work in /root/workspace/research.
   `install-remote.sh` now serves aarch64 the glibc asset. Verified on the
   next tag push (v1.0.3).
 
+## Round 11 — arm64 cross-link finding
+- The runner's `aarch64-unknown-linux-gnu` cross-link fails (`gcc-aarch64-
+  linux-gnu` alone is insufficient); the release workflow now makes arm64 an
+  OPTIONAL asset that warns and proceeds — v1.0.3 ships amd64 binaries
+  (verified downloadable) and never blocks on the optional build.
+- `install-remote.sh` maps aarch64 back to `pi-linux-arm64-static` (the
+  binary actually produced on an aarch64 host; attachable to any release).
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
