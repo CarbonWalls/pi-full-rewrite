@@ -4266,6 +4266,13 @@ Per-round log (newest last). All work in /root/workspace/research.
   cleanly, zero panics, server alive after. Combined with the framing fix,
   the serve surface is robust to the current state.
 
+## Round 66 — release acceptance script (arch-aware)
+- `scripts/acceptance.sh`: one command downloads the latest release, verifies
+  ELF64 + static (no file(1) dependency), runs an offline agent turn +
+  serve healthz on x86_64, and skips run checks cleanly on other arches
+  (verified live on aarch64: 2 passed, 4 arch-skips). Documented in
+  RELEASING.md; included in dist.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
