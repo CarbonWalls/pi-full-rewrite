@@ -498,6 +498,14 @@ async fn stream_rpc(
                     "output": g.total_usage.output,
                     "cost": g.total_cost}});
                 stream.write_all(format!("{done}\n").as_bytes()).await?;
+                // operator console: one summary line per completed turn
+                eprintln!(
+                    "[turn] model={} in={} out={} cost=${:.6}",
+                    g.config.model.provider,
+                    g.total_usage.input,
+                    g.total_usage.output,
+                    g.total_cost
+                );
             }
             "tools" => {
                 let item = json!({"type":"tools_result","tools":g.tools.names()});
