@@ -4306,6 +4306,12 @@ Per-round log (newest last). All work in /root/workspace/research.
   (doctype→</html>); txt renders the session header. Both CLI formats
   confirmed.
 
+## Round 73 — skills verified
+- `--skills rust` → "[skills] loaded 1 skill(s)" (system-prompt augmentation
+  wired); a missing name → "warning: skills: skill 'nope' not found". The
+  system isn't persisted to sessions by design — the loader messages confirm
+  both paths.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
