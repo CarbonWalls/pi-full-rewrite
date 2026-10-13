@@ -3765,6 +3765,11 @@ Per-round log (newest last). All work in /root/workspace/research.
 - State: 128 tests, clippy 0, 28/28 sign-off, 12/12 tour, four audits closed,
   build provenance live, git history + releases current.
 
+## Round 138 (2026-07-16)
+- **Idle-serve leak check:** RSS stable at ~2.1 MB over 60 s idle (settling
+  to 1.0 MB) — no memory leak in the long-lived worker. Suite re-confirmed
+  128/128, clippy 0.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
