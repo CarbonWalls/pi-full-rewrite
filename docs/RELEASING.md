@@ -19,10 +19,10 @@ Everything runs from this directory; nothing is installed elsewhere.
 ## 3. Sign off
 
 ```
-./scripts/verify.sh         # 29-point matrix: modes, protocols, serve,
+./scripts/verify.sh         # 30-point matrix: modes, protocols, serve,
                             #   TUI (PTY, frame-decoded), user-journey tour,
                             #   static binary. Must print
-                            #   "29 passed, 0 failed".
+                            #   "30 passed, 0 failed".
 ./build.sh test             # 131 tests across 6 crates
 ./build.sh clippy           # zero warnings
 ```

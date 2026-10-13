@@ -162,6 +162,21 @@ else
 fi
 rm -rf "$IVHOME" "$IPT"
 
+# package install flow (round 50): a properly-formed tar lands in <root>/.pi
+PKGSRC=$(mktemp -d /tmp/pi-pkgsrc.XXXXXX); PKGDST=$(mktemp -d /tmp/pi-pkgdst.XXXXXX)
+mkdir -p "$PKGSRC/.pi/skills" "$PKGSRC/.pi/templates"
+printf '%s\n' '{"name":"pkg"}' > "$PKGSRC/.pi/pi.json"
+printf '# skill\n' > "$PKGSRC/.pi/skills/s.md"
+printf 't {{root}}\n' > "$PKGSRC/.pi/templates/t.md"
+( cd "$PKGSRC" && tar czf /tmp/pi-pkg.tgz .pi/pi.json .pi/skills .pi/templates )
+PKG_OUT=$("$R" --root "$PKGDST" --install-package /tmp/pi-pkg.tgz 2>&1 || true)
+if echo "$PKG_OUT" | grep -q "installed"    && [ -f "$PKGDST/.pi/pi.json" ]    && [ -f "$PKGDST/.pi/skills/s.md" ]    && [ -f "$PKGDST/.pi/templates/t.md" ]; then
+  ok "package install flow"
+else
+  bad "package install flow"; echo "$PKG_OUT" | tail -3
+fi
+rm -rf "$PKGSRC" "$PKGDST"; rm -f /tmp/pi-pkg.tgz
+
 # static musl, if present
 MS=target/aarch64-unknown-linux-musl/release/pi
 if [ -x "$MS" ]; then

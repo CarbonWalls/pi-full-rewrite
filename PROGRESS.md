@@ -4183,6 +4183,11 @@ Per-round log (newest last). All work in /root/workspace/research.
   validator's rejection of my FIRST (malformed) package was correct security
   behavior — unsafe paths like `.`/.. are refused.
 
+## Round 51 — verify matrix 29 -> 30 points
+- The install-package flow (verified manually in round 50) is now a locked
+  check: scripts/verify.sh runs a full package build→install→assert cycle
+  (30 passed, 0 failed). All "29-point" references refreshed to 30.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)

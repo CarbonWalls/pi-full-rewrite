@@ -16,7 +16,7 @@ jobs:
         uses: dtolnay/rust-toolchain@stable
         with:
           components: clippy
-      - name: Full verification (tests + clippy + 29-point sign-off)
+      - name: Full verification (tests + clippy + 30-point sign-off)
         run: |
           ./build.sh test
           ./build.sh clippy --all-targets
