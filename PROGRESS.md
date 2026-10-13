@@ -4077,6 +4077,13 @@ Per-round log (newest last). All work in /root/workspace/research.
   install → working pip binary on real hardware — including the two
   portability fixes (no file(1) dependency; quiet installer) it surfaced.
 
+## Round 32 — serve E2E on real amd64 (final outer item closed)
+- With the box finally available: shipped release binary `--serve` on the
+  Debian/WSL x86_64 host — /healthz 200, an /rpc turn streamed events, and
+  /sessions returned the created session. Every external protocol surface
+  (install, agent loop, HTTP serve) is now verified on real amd64 hardware
+  with the shipped binaries.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
