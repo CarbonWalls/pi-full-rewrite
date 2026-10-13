@@ -4341,6 +4341,10 @@ Per-round log (newest last). All work in /root/workspace/research.
   GC keeps a freshly resumed session and removes an older one. Suite at
   133, clippy 0; static rebuild pending.
 
+## Round 79 — v1.0.8 released
+- The ordering + export fixes shipped as v1.0.8 (pipeline green, static
+  verified). Nine releases (v1.0.0–v1.0.8).
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
