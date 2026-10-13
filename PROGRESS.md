@@ -3953,6 +3953,11 @@ Per-round log (newest last). All work in /root/workspace/research.
 - `install-remote.sh` maps aarch64 back to `pi-linux-arm64-static` (the
   binary actually produced on an aarch64 host; attachable to any release).
 
+## Round 12 — doc counts current
+- README + RELEASING refreshed to the true "130 tests" (was 128). Local
+  suite re-confirmed 130/130, clippy 0. (The WSL box stayed offline; the
+  remote one-liner acceptance re-attempts whenever it is back.)
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
