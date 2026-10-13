@@ -4188,6 +4188,10 @@ Per-round log (newest last). All work in /root/workspace/research.
   check: scripts/verify.sh runs a full package build→install→assert cycle
   (30 passed, 0 failed). All "29-point" references refreshed to 30.
 
+## Round 52 — CI green with the 30-point matrix
+- Badge: ci — passing for the commit carrying the package-install check;
+  dist refreshed so the shipped verify.sh is the 30-point one.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
