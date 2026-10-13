@@ -3958,6 +3958,12 @@ Per-round log (newest last). All work in /root/workspace/research.
   suite re-confirmed 130/130, clippy 0. (The WSL box stayed offline; the
   remote one-liner acceptance re-attempts whenever it is back.)
 
+## Round 13 — local capstone at current pushed state
+- Full local gates on the current HEAD: 130 tests, clippy 0, sign-off 28/28,
+  user journey 12/12, `--version` ~19 ms. All green. (GH API rate-limited
+  and the WSL box offline this round — the remote checks resume when they
+  are back; the local gate is the source of truth meanwhile.)
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
