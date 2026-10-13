@@ -3836,6 +3836,12 @@ Per-round log (newest last). All work in /root/workspace/research.
   user.name/user.email hermetically, and confirmed 128/128 under the strict
   env. All other git tests were already hermetic.
 
+## Round 149 (2026-07-16)
+- Also instrumented the static-musl job: if `file` doesn't say "statically
+  linked", CI now reports exactly what file(1) said (the musl output differs
+  between plain `musl-gcc` and the clang wrapper used locally). Watching the
+  next run for both jobs.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)

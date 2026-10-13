@@ -22,8 +22,10 @@ jobs:
         # --no-fail-fast: one flaky test must not hide the rest;
         # reduced threads: cold runners are slower than a dev box.
         run: |
+          set +e
           ./build.sh test --no-fail-fast -- --test-threads=4 2>&1 | tee /tmp/test.log
           rc=${PIPESTATUS[0]}
+          set -e
           if [ $rc -ne 0 ]; then
             # surface the full failure tail as GitHub annotations (API-readable)
             tail -n 150 /tmp/test.log | sed 's/^/::error::/'
@@ -60,7 +62,17 @@ jobs:
       - name: Verify it is a static ELF
         run: |
           BIN=target/x86_64-unknown-linux-musl/release/pi
-          [ -f "$BIN" ] || { echo "::error::missing $BIN"; ls -la target/x86_64-unknown-linux-musl/release/ | head; exit 1; }
+          if [ ! -f "$BIN" ]; then
+            echo "::error::missing $BIN"
+            ls -la target/x86_64-unknown-linux-musl/release/ | head
+            exit 1
+          fi
           echo "::error::file(1) says: $(file "$BIN")"
-          file "$BIN" | grep -q "statically linked" || { echo "::error::NOT static"; exit 1; }
-          "$BIN" --version || { echo "::error::binary failed to run"; exit 1; }
+          if ! file "$BIN" | grep -q "statically linked"; then
+            echo "::error::NOT static"
+            exit 1
+          fi
+          if ! "$BIN" --version; then
+            echo "::error::binary failed to run"
+            exit 1
+          fi
