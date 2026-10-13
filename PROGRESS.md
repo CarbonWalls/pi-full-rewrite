@@ -4279,6 +4279,11 @@ Per-round log (newest last). All work in /root/workspace/research.
   turn + session, serve healthz). Both acceptance paths (download + local)
   now work.
 
+## Round 68 — snapshot/changelog at v1.0.7 era
+- verification-snapshot.md era + release range refreshed; CHANGELOG gained
+  the 1.0.6 (tar-slip) and 1.0.7 (framing) entries. Every published item
+  now points at the newest state.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
