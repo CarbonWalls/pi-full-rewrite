@@ -91,13 +91,16 @@ file/glob/grep/git tools are confined to --root."
                 Ok(None) => {
                     if Instant::now() >= deadline {
                         let _ = child.kill();
-                        // reap the whole process group (grandchildren too)
                         #[cfg(unix)]
                         {
                             let pgid = child.id() as i32;
                             let _ = std::process::Command::new("kill")
                                 .args(["-KILL", &format!("-{pgid}")])
                                 .status();
+                            // group-kill can miss job-control sub-groups; reap
+                            // the ancestry too (runs only in the rare timeout
+                            // path, so per-pid walks are acceptable)
+                            let _ = reap_process_tree(child.id());
                         }
                         let _ = child.wait();
                         break Err(format!(
@@ -207,3 +210,63 @@ fn code_of(status: &std::process::ExitStatus) -> i32 {
     status.code().unwrap_or(-1)
 }
 
+
+/// Kill every process in the subtree rooted at `root` (walked via /proc,
+/// parent chains — NOT process groups). A job-control shell (`set -m`,
+/// `bash -c` with monitor on) or an explicit `setsid` can put grandchildren
+/// in their own process group; the group-kill alone would miss them, so the
+/// timeout path also reaps by ancestry. Returns how many extra processes
+/// were signalled.
+pub fn reap_process_tree(root: u32) -> usize {
+    use std::collections::HashMap;
+    fn parent_map() -> HashMap<u32, u32> {
+        let mut map = HashMap::new();
+        if let Ok(rd) = std::fs::read_dir("/proc") {
+            for e in rd.flatten() {
+                let pid: u32 = match e.file_name().to_str().and_then(|s| s.parse().ok()) {
+                    Some(p) => p,
+                    None => continue,
+                };
+                if let Ok(stat) = std::fs::read_to_string(format!("/proc/{pid}/stat")) {
+                    // "pid (comm) state ppid ..." — parse the tail after ')'
+                    if let Some(rest) = stat.split(')').nth(1) {
+                        let f: Vec<&str> = rest.split_whitespace().collect();
+                        if let Some(pp) = f.get(1).and_then(|s| s.parse().ok()) {
+                            map.insert(pid, pp);
+                        }
+                    }
+                }
+            }
+        }
+        map
+    }
+    let mut killed = 0;
+    for _ in 0..2 {
+        let parent = parent_map();
+        let mut targets: Vec<u32> = Vec::new();
+        for &pid in parent.keys() {
+            if pid == root {
+                continue;
+            }
+            let mut p = pid;
+            for _ in 0..64 {
+                p = match parent.get(&p) {
+                    Some(&x) => x,
+                    None => break,
+                };
+                if p == root {
+                    targets.push(pid);
+                    break;
+                }
+            }
+        }
+        if targets.is_empty() {
+            return killed;
+        }
+        let args: Vec<String> = ["-KILL".to_string()].into_iter().chain(targets.iter().map(|t| t.to_string())).collect();
+        let _ = std::process::Command::new("kill").args(&args).status();
+        killed += targets.len();
+        std::thread::sleep(std::time::Duration::from_millis(50));
+    }
+    killed
+}

@@ -15,7 +15,7 @@ fn bash_per_call_timeout_override() {
     std::fs::write(
         &scn,
         concat!(
-            "{\"contains\":\"run slow\",\"tool\":\"bash\",\"args\":{\"command\":\"sleep 5; echo never\",\"timeout_ms\":300}}\n",
+            "{\"contains\":\"run slow\",\"tool\":\"bash\",\"args\":{\"command\":\"sleep 30; echo never\",\"timeout_ms\":300}}\n",
             "{\"after_tool_contains\":\"timeout\",\"text\":\"timeout works\"}\n",
         ),
     )
@@ -37,9 +37,12 @@ fn bash_per_call_timeout_override() {
         .expect("run pi");
     let elapsed = start.elapsed();
     assert!(out.status.success(), "{:?}", String::from_utf8_lossy(&out.stderr));
+    // the tool must return at ~300ms, NOT let `sleep 30` finish; the bound
+    // leaves generous headroom for a slow (cold-cache / loaded CI) runner
+    // while still failing loudly if the override is ignored (elapsed ~30s).
     assert!(
-        elapsed < std::time::Duration::from_secs(4),
-        "must not wait the full 5s: {:?}",
+        elapsed < std::time::Duration::from_secs(10),
+        "per-call timeout override ignored: {:?}",
         elapsed
     );
 

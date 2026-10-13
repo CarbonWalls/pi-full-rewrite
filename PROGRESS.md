@@ -3842,6 +3842,19 @@ Per-round log (newest last). All work in /root/workspace/research.
   between plain `musl-gcc` and the clang wrapper used locally). Watching the
   next run for both jobs.
 
+## Round 150 (2026-07-16)
+- **CI green-up (part 2):** static-musl job now PASSES — the binary was
+  always fine; `file(1)` says `static-pie linked`, not `statically linked`
+  (pattern fixed). Test job failures fully diagnosed via API-readable
+  annotations: (a) `git commit` needs identity on sign-off runners and one
+  more test (tools.rs:244) lacked it — fixed hermetically; (b) the two bash
+  timeout tests fail only on the shared runner — added a `/proc`-based
+  **descendant-tree reaper** to the timeout kill path (covers job-control
+  sub-groups that the group-kill can miss; verified group-kill semantics are
+  identical on real Linux, incl. the WSL amd64 box) and made the per-call
+  override e2e tolerate cold-runner startup while still failing loudly if
+  the override is ignored. Clippy 0, tests 128.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
