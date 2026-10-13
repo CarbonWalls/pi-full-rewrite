@@ -4246,6 +4246,16 @@ Per-round log (newest last). All work in /root/workspace/research.
 - `--serve-token`: no token → 401, wrong token → 401, `Bearer <token>` →
   200, and /healthz stays open (200) — exactly the documented contract.
 
+## Round 63 — /access-log framing bug found, fixed, check strengthened
+- A live check exposed that `/access-log` (with `--cors` unset) ended HTTP
+  headers right after the status line (the `\r\n{cc}\r\n` pattern double-
+  terminated) — the real headers leaked into the body. The bug had shipped
+  since the route existed because verify's check only grepped INSIDE the
+  corrupted body. Fixed the format string; the check now also asserts the
+  body starts clean. Also found a leaked pre-fix serve on port 8801 (from an
+  earlier verification) that masked the fix — killed, plus a stray-process
+  sweep. 30/30 including the strengthened check; static rebuilt with the fix.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
