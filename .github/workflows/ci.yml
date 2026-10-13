@@ -59,6 +59,8 @@ jobs:
         run: ./build.sh build --release --locked --target x86_64-unknown-linux-musl -p pi-coding-agent
       - name: Verify it is a static ELF
         run: |
-          file target/x86_64-unknown-linux-musl/release/pi || true
-          file target/x86_64-unknown-linux-musl/release/pi | grep -q "statically linked"
-          ./target/x86_64-unknown-linux-musl/release/pi --version
+          BIN=target/x86_64-unknown-linux-musl/release/pi
+          [ -f "$BIN" ] || { echo "::error::missing $BIN"; ls -la target/x86_64-unknown-linux-musl/release/ | head; exit 1; }
+          echo "::error::file(1) says: $(file "$BIN")"
+          file "$BIN" | grep -q "statically linked" || { echo "::error::NOT static"; exit 1; }
+          "$BIN" --version || { echo "::error::binary failed to run"; exit 1; }

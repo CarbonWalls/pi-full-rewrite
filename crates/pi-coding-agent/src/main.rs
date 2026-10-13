@@ -1471,6 +1471,9 @@ mod feature_tests {
                 .unwrap_or(false)
         };
         assert!(git(&["init", "-q"]));
+        // hermetic: GitHub runners ship no git identity; don't depend on it
+        assert!(git(&["config", "user.name", "ci test"]));
+        assert!(git(&["config", "user.email", "ci@example.invalid"]));
         std::fs::write(d.join("a.txt"), "v1\n").unwrap();
         assert!(git(&["add", "a.txt"]));
         assert!(git(&["commit", "-qm", "one"]));

@@ -3827,6 +3827,15 @@ Per-round log (newest last). All work in /root/workspace/research.
   offered (x86_64, no toolchain) — machine rejected only as a repo target,
   not needed for this fix since GitHub runners are amd64.
 
+## Round 148 (2026-07-16)
+- **CI root cause FOUND + FIXED:** the failing test was
+  `feature_tests::review_prompt_contains_git_sessions` — its `git commit`
+  needs an identity, and **GitHub runners ship no git identity** (my host
+  has one, so it only failed in CI). Reproduced under `GIT_CONFIG_NOSYSTEM=1
+  HOME=/tmp/emptyhome` (runner-identical), fixed the test to set
+  user.name/user.email hermetically, and confirmed 128/128 under the strict
+  env. All other git tests were already hermetic.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
