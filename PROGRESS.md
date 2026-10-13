@@ -4129,6 +4129,13 @@ Per-round log (newest last). All work in /root/workspace/research.
 - Clarified docs/verification-snapshot.md: title now v1.0.4 era and the
   release list includes v1.0.4. Every published reference is current.
 
+## Round 41 — pi-mcp audited + hardened (the 5th crate reviewed)
+- `pi-mcp` got the same OOM-hardening as the providers: bounded 1 MiB line
+  reads and a 1 MiB tool-output cap with a truncation notice. A hostile-server
+  regression test (a fake MCP server dumping a >1 MiB line) passes quickly
+  with a bounded error. 131 tests, clippy 0; release + static rebuilt with
+  the fix (dist refreshed).
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)

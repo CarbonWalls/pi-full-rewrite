@@ -31,6 +31,40 @@ for line in sys.stdin:
 "#;
 
 #[test]
+fn hostile_server_giant_line_is_bounded() {
+    // A server that answers tools/list AFTER dumping a >1 MiB junk line must
+    // produce a bounded Rpc error (audit: linear reads were unbounded).
+    let dir = std::env::temp_dir().join(format!("pi-mcp-bound-{}", std::process::id()));
+    let _ = std::fs::remove_dir_all(&dir);
+    std::fs::create_dir_all(&dir).unwrap();
+    let srv = dir.join("evil.py");
+    std::fs::write(
+        &srv,
+        r#"import sys
+sys.stdout.write(('x'*1_200_000) + '\n')
+sys.stdout.flush()
+for line in sys.stdin:
+    req_id = __import__('json').loads(line).get('id')
+    sys.stdout.write(__import__('json').dumps({'jsonrpc':'2.0','id':req_id,'result':{'tools':[]}})+'\n')
+    sys.stdout.flush()
+"#,
+    )
+    .unwrap();
+
+    let out = Command::new(env!("CARGO_BIN_EXE_pi"))
+        .args(["--mcp", &format!("evil {}", srv.display()), "--root", dir.to_str().unwrap(), "--json", "--mode", "ask", "x"])
+        .output()
+        .expect("run pi");
+    let t = format!("{}{}", String::from_utf8_lossy(&out.stdout), String::from_utf8_lossy(&out.stderr));
+    // the client must not hang or balloon; it errors out of the handshake/list
+    assert!(
+        t.contains("1 MiB") || t.contains("bounded") || t.contains("error"),
+        "expected a bounded error, got: {t:?}"
+    );
+    let _ = std::fs::remove_dir_all(&dir);
+}
+
+#[test]
 fn agent_calls_a_remote_mcp_tool() {
     let dir = std::env::temp_dir().join(format!("pi-mcpe2e-{}", std::process::id()));
     let _ = std::fs::remove_dir_all(&dir);

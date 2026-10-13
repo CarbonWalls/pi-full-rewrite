@@ -114,36 +114,36 @@ impl McpClient {
     ) -> Result<(String, bool), McpError> {
         let res = self.request("tools/call", json!({"name": tool, "arguments": args}))?;
         let mut text = String::new();
+        const CAP: usize = 1_048_576;
+        let mut push = |t: &str| {
+            if text.len() >= CAP {
+                return;
+            }
+            if !text.is_empty() {
+                text.push('\n');
+            }
+            let room = CAP - text.len();
+            text.push_str(&t[..t.len().min(room)]);
+            if t.len() > room {
+                text.push_str("\n…(mcp output truncated at 1 MiB)");
+            }
+        };
         let is_error = res.get("isError").and_then(|v| v.as_bool()).unwrap_or(false);
         if let Some(content) = res.get("content").and_then(|c| c.as_array()) {
             for item in content {
                 match item.get("type").and_then(|t| t.as_str()) {
                     Some("text") => {
                         if let Some(t) = item.get("text").and_then(|v| v.as_str()) {
-                            if !text.is_empty() {
-                                text.push('\n');
-                            }
-                            text.push_str(t);
+                            push(t);
                         }
                     }
-                    // structured content: dump as JSON fallback
-                    Some("json") => {
-                        if !text.is_empty() {
-                            text.push('\n');
-                        }
-                        text.push_str(&item.to_string());
-                    }
-                    _ => {
-                        // resource / image etc. not supported yet
-                    }
+                    Some("json") => push(&item.to_string()),
+                    _ => {}
                 }
             }
         }
         if let Some(structured) = res.get("structuredContent") {
-            if !text.is_empty() {
-                text.push('\n');
-            }
-            text.push_str(&structured.to_string());
+            push(&structured.to_string());
         }
         Ok((text, is_error))
     }
@@ -161,9 +161,17 @@ impl McpClient {
         let reader = self.stdout.as_mut().ok_or(McpError::NoResponse)?;
         for _ in 0..10_000 {
             let mut line = String::new();
-            let n = reader.read_line(&mut line)?;
+            // bounded line read: a hostile server must not be able to grow
+            // memory without limit (same cap as the SSE layer)
+            let n = {
+                use std::io::Read;
+                reader.by_ref().take(1_048_576).read_line(&mut line)?
+            };
             if n == 0 {
                 break; // EOF
+            }
+            if line.len() >= 1_048_576 {
+                return Err(McpError::Rpc("mcp line over 1 MiB (bounded read)".into()));
             }
             let trimmed = line.trim();
             if trimmed.is_empty() {
