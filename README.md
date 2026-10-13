@@ -31,6 +31,16 @@ No code was reused from the reference; everything here is original Rust.
 Everything (toolchain, caches, targets) stays inside this directory; `build.sh`
 pins `RUSTUP_HOME`/`CARGO_HOME` so nothing is installed system-wide.
 
+## Install (published release)
+
+**From the latest GitHub release (static binary, no runtime deps):**
+
+```bash
+curl -fsSL https://github.com/CarbonWalls/pi-full-rewrite/raw/master/scripts/install-remote.sh | bash
+```
+
+Local builds: `./scripts/install.sh` after `./scripts/release.sh`.
+
 ## Quick start
 
 ```sh

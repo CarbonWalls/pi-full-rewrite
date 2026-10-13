@@ -3805,6 +3805,12 @@ Per-round log (newest last). All work in /root/workspace/research.
   guards with `git diff --exit-code` that no build artifact leaks into the
   tree. Repo bloat-checked: 145 tracked files, no toolchain/targets tracked.
 
+## Round 145 (2026-07-16)
+- **Remote installer for the published repo:** `scripts/install-remote.sh`
+  downloads the static binary from the latest GitHub release
+  (pi-linux-amd64-static), verifies it is statically linked, and installs
+  to ~/.local/bin — plus a README one-liner for GitHub visitors.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
