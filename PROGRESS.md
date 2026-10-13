@@ -4334,6 +4334,13 @@ Per-round log (newest last). All work in /root/workspace/research.
   the abort (stop button) path, /info and /sessions endpoints. The browser
   surface is complete.
 
+## Round 78 — session ordering precision fix
+- `mtime_s` was whole SECONDS — sessions written within the same second
+  ordered arbitrarily, so `--resume` + `--gc` could mislabel files (the
+  round-19 anomaly). Ordering now uses ms precision (`mtime_ms`); verified
+  GC keeps a freshly resumed session and removes an older one. Suite at
+  133, clippy 0; static rebuild pending.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)

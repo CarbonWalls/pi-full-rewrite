@@ -221,6 +221,8 @@ pub struct SessionRow {
     pub messages: usize,
     pub bytes: u64,
     pub mtime_s: i64,
+    /// Sub-second precision (ms since epoch): ordering/gc within one second.
+    pub mtime_ms: i64,
     pub path: PathBuf,
 }
 
@@ -236,7 +238,7 @@ pub fn list(dir: &Path) -> Vec<SessionRow> {
             rows.push(describe(&p));
         }
     }
-    rows.sort_by_key(|r| std::cmp::Reverse(r.mtime_s));
+    rows.sort_by_key(|r| std::cmp::Reverse(r.mtime_ms));
     rows
 }
 
@@ -247,12 +249,13 @@ fn describe(p: &Path) -> SessionRow {
         .unwrap_or_default();
     let meta = std::fs::metadata(p).ok();
     let bytes = meta.as_ref().map(|m| m.len()).unwrap_or(0);
-    let mtime_s = meta
+    let mtime_ms = meta
         .as_ref()
         .and_then(|m| m.modified().ok())
         .and_then(|t| t.duration_since(std::time::UNIX_EPOCH).ok())
-        .map(|d| d.as_secs() as i64)
+        .map(|d| d.as_millis() as i64)
         .unwrap_or(0);
+    let mtime_s = mtime_ms.div_euclid(1000);
     // count entries/messages by inspecting the JSONL without full decode
     let mut entries = 0usize;
     let mut messages = 0usize;
@@ -282,6 +285,7 @@ fn describe(p: &Path) -> SessionRow {
         messages,
         bytes,
         mtime_s,
+        mtime_ms,
         path: p.to_path_buf(),
     }
 }
