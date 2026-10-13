@@ -1,0 +1,13 @@
+[package]
+name = "pi-mcp"
+version = "0.1.0"
+edition = "2021"
+description = "MCP (Model Context Protocol) client: JSON-RPC 2.0 over stdio subprocess"
+
+[dependencies]
+anyhow = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+thiserror = { workspace = true }
+pi-ai = { path = "../pi-ai" }
+pi-agent = { path = "../pi-agent" }

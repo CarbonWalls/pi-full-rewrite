@@ -1,0 +1,19 @@
+[package]
+name = "pi-agent"
+version.workspace = true
+edition.workspace = true
+description = "Agent runtime: streaming LLM loop with tool calling, sessions, compaction"
+
+[dependencies]
+pi-ai = { path = "../pi-ai" }
+anyhow.workspace = true
+thiserror.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+tokio.workspace = true
+futures.workspace = true
+sha2.workspace = true
+hex.workspace = true
+
+[dev-dependencies]
+pi-tools = { path = "../pi-tools" }

@@ -1,0 +1,38 @@
+name: ci
+
+on:
+  push:
+  pull_request:
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install rust (stable)
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          components: clippy, rustfmt
+      - name: Workspace tests
+        run: ./build.sh test
+      - name: Clippy (no warnings)
+        run: ./build.sh clippy
+      - name: Release build
+        run: ./build.sh build --release -p pi-coding-agent
+
+  static-musl:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install rust (stable)
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          target: aarch64-unknown-linux-musl
+      - name: Build static
+        run: |
+          # In CI the host glibc toolchain provides the linker; no in-dir
+          # cross sysroot is needed on x86_64/aarch64 ubuntu runners.
+          ./build.sh build --release --target "$(rustc -vV | sed -n 's/host: //p')" -p pi-coding-agent

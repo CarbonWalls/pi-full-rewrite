@@ -1,0 +1,13 @@
+[package]
+name = "pi-tui"
+version.workspace = true
+edition.workspace = true
+description = "Terminal UI framework with differential cell-level rendering"
+
+[dependencies]
+crossterm.workspace = true
+anyhow.workspace = true
+unicode-width = "0.2"
+serde_json.workspace = true
+
+[dev-dependencies]

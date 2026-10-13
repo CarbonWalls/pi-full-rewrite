@@ -1,0 +1,17 @@
+[package]
+name = "pi-ai"
+version.workspace = true
+edition.workspace = true
+description = "Unified multi-provider LLM API (OpenAI-compat, Anthropic, Google) with streaming events and model catalog"
+
+[dependencies]
+anyhow.workspace = true
+thiserror.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+ureq.workspace = true
+base64.workspace = true
+futures.workspace = true
+
+[dev-dependencies]
+tokio.workspace = true

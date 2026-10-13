@@ -1,0 +1,15 @@
+# build artifacts
+target/
+dist/
+
+# pinned toolchain (in-tree, huge)
+.rustup/
+.cargo-cache/
+
+# local scratch
+scratch/
+*.log
+
+# editor noise
+*~
+.DS_Store

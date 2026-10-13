@@ -1,0 +1,5 @@
+{
+  "model": "mock/echo",
+  "max_turns": 50,
+  "compact_threshold": 0.85
+}
