@@ -192,6 +192,17 @@ else
 fi
 rm -rf "$OUTS"
 
+# --file and --image must also stay confined (round 82)
+CONS=$(mktemp -d /tmp/pi-conf.XXXXXX); mkdir -p "$CONS/.pi/sessions"
+printf 'SECRET\n' > "$(dirname "$CONS")/outside2.txt"
+FILE_OUT=$("$R" --root "$CONS" --session-dir "$CONS/.pi/sessions" --file ../outside2.txt -m mock/echo x 2>&1 || true)
+if echo "$FILE_OUT" | grep -q "escapes working directory"; then
+  ok "--file confined to root"
+else
+  bad "--file confined to root"; echo "$FILE_OUT" | tail -2
+fi
+rm -rf "$CONS" "$(dirname "$CONS")/outside2.txt"
+
 # static musl, if present
 MS=target/aarch64-unknown-linux-musl/release/pi
 if [ -x "$MS" ]; then

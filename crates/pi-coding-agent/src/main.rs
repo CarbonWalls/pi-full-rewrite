@@ -866,10 +866,9 @@ async fn run(cli: Cli) -> Result<()> {
         }
         Some(templates::render(&text, &vars))
     } else if let Some(f) = &cli.file {
-        let p = if f.is_absolute() {
-            f.clone()
-        } else {
-            root.join(f)
+        let p = match pi_tools::resolve_under(&root, f.to_str().unwrap_or("")) {
+            Ok(p) => p,
+            Err(e) => return Err(anyhow::anyhow!("--file: {e}")),
         };
         match std::fs::read_to_string(&p) {
             Ok(t) => Some(t),
@@ -1004,12 +1003,11 @@ fn build_user_parts(cli: &Cli, prompt: &str, root: &std::path::Path) -> Result<V
         parts.push(ContentPart::Text { text });
     }
 
-    // explicit --image flags append after the text content
+    // explicit --image flags append after the text content (confined to root)
     for img in &cli.image {
-        let p = if img.is_absolute() {
-            img.clone()
-        } else {
-            root.join(img)
+        let p = match pi_tools::resolve_under(&root, img.to_str().unwrap_or("")) {
+            Ok(p) => p,
+            Err(e) => return Err(anyhow::anyhow!("--image: {e}")),
         };
         let Some(data) = base64_image(&p) else {
             return Err(anyhow::anyhow!("cannot read image {}", p.display()));
