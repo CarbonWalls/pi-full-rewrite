@@ -4018,6 +4018,12 @@ Per-round log (newest last). All work in /root/workspace/research.
   5) — the turn number improved from 44 ms; docs/benchmarks.md +
   verification-snapshot updated to the fresh numbers.
 
+## Round 23 — MCP server mode verified on the wire
+- `pi --mcp-server` over stdio: proper `initialize` response (protocol
+  2024-11-05, serverInfo "pi 0.1.0", tools capability) and a `tools/list`
+  enumerating real tool schemas — the agent-as-MCP-server path works
+  end-to-end offline.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
