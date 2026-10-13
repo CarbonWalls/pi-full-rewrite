@@ -4125,6 +4125,10 @@ Per-round log (newest last). All work in /root/workspace/research.
   session litter from dogfooding removed (it's gitignored, so the repo was
   unaffected either way). Everything tidy ahead of the next work.
 
+## Round 40 — snapshot labels current (v1.0.4 era)
+- Clarified docs/verification-snapshot.md: title now v1.0.4 era and the
+  release list includes v1.0.4. Every published reference is current.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
