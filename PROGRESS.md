@@ -4290,6 +4290,11 @@ Per-round log (newest last). All work in /root/workspace/research.
   conflicting modes, no-session+resume, review without a repo) — zero panics,
   clean exit codes throughout.
 
+## Round 70 — --export honest exit code
+- From the CLI sweep: `--export <missing>` silently exported an empty
+  session (rc=0). Now it fails loudly ("session file not found", rc=1);
+  existing files still export (rc=0). Suite green at 133.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)

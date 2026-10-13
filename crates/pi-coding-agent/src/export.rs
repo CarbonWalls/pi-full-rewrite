@@ -12,6 +12,9 @@ struct Msg {
 }
 
 pub fn run(file: &Path, format: &str) -> Result<String, String> {
+    if !file.exists() {
+        return Err(format!("session file not found: {}", file.display()));
+    }
     let dir = file.parent().ok_or("no parent dir")?;
     let id = file
         .file_stem()
