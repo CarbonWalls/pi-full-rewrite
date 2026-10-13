@@ -293,7 +293,7 @@ fn bash_timeout_kills_process_group() {
 
 #[test]
 fn paths_cannot_escape_the_root() {
-    let (ts, reg, dir) = setup("nopath");
+    let (ts, reg, _dir) = setup("nopath");
     // absolute + parent-dot escapes rejected by read/glob/grep
     for (tool, args) in [
         ("read_file", json!({"path": "/etc/hostname"})),
