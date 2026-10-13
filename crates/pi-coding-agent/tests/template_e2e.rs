@@ -37,7 +37,7 @@ fn template_variables_reach_the_prompt() {
     assert!(t.contains("BUG REPORT"), "template body used: {t}");
     assert!(t.contains("for pi-rs"), "--set var substituted: {t}");
     assert!(t.contains("Purpose: reproduce"), "purpose substituted: {t}");
-    assert!(t.contains("{{os}}") == false && t.contains("linux"), "built-in {{os}} filled: {t}");
+    assert!(!t.contains("{{os}}") && t.contains("linux"), "built-in {{os}} filled: {t}");
     assert!(!t.contains("{{project}}"), "no leftover placeholders: {t}");
     let _ = std::fs::remove_dir_all(&dir);
 }
