@@ -4205,6 +4205,10 @@ Per-round log (newest last). All work in /root/workspace/research.
   error). A new binary-level test proves `--fallback` recovers offline while
   no-fallback runs fail loudly. 132 tests, clippy 0; release + static rebuilt.
 
+## Round 55 — CI green with 132 tests; counts refreshed
+- Badge: ci — passing for the fallback-infusion commit. User-facing docs now
+  all say 132 tests.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
