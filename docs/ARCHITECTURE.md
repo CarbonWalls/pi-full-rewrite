@@ -104,3 +104,23 @@ retries, abort, compaction, parallel dispatch). Binary-level tests spawn
 the real `pi` via `CARGO_BIN_EXE_pi` (HTTP rpc, stdio rpc, serve auth,
 resume, plan, diff, timeout, framing, fuzz). TUI tests run under a real PTY.
 `scripts/release.sh` + `scripts/verify.sh` produce and sign off the bundle.
+
+## Releases & CI (GitHub)
+
+The published repo (github.com/CarbonWalls/pi-full-rewrite) self-releases:
+
+1. **CI (every push):** pinned toolchain (1.99.0) → 130 tests, clippy 0,
+   28-point sign-off (`scripts/verify.sh`), tree-cleanliness guard — plus a
+   separate job that builds and verifies the static musl binary.
+2. **Tag-release (every `v*` tag):** runs the same gates, builds glibc
+   amd64 + static musl amd64, bundles README/docs/scripts + VERSION, and
+   creates a GitHub Release with the binaries.
+3. **Install:** `scripts/install-remote.sh` downloads the static binary from
+   the latest release and installs it (also invoked via the README one-liner).
+
+Both shipped binaries self-identify: `--info` reports the exact build commit
+(`PI_BUILD_SHA`). The arm64 static binary is built on an aarch64 host
+(runner's musl-gcc cannot cross-link aarch64) and can be attached to the
+release manually. Historical note: the sign-off tests set hermetic git
+identity because GitHub runners ship none, and a timeout path reaps the
+descendant process tree before killing the shell (see bash.rs).

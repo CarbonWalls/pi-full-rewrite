@@ -3931,6 +3931,13 @@ Per-round log (newest last). All work in /root/workspace/research.
   reaper-ordering fixes; CHANGELOG documents 1.0.2. Watching the release
   build, then verifying the assets.
 
+## Round 9 — docs completeness
+- ARCHITECTURE.md gained a "Releases & CI (GitHub)" section documenting the
+  whole pipeline: pinned-toolchain CI → tag-triggered release with three
+  verified assets → one-line remote installer; also the hermetic-identity
+  and reap-first notes for future maintainers. (The WSL box was offline for
+  a remote one-liner acceptance — re-attempt later.)
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
