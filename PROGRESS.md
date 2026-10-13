@@ -3871,6 +3871,14 @@ Per-round log (newest last). All work in /root/workspace/research.
   descendants FIRST, then the group, then the shell. This also fixes
   job-control shells (sub-groups) for real users. 128 tests, clippy 0.
 
+## Round 153 (2026-07-16) — **CI GREEN on GitHub Actions**
+- Full workflow now passes: `test` (128 tests serial, clippy 0, sign-off
+  28/28) and `static-musl` (static-pie ELF verified). The runner surfaced a
+  real bug — bash-timeout orphans when the shell dies first and its children
+  get reparented to init — now fixed for every user, not just CI.
+- v1.0.0 moved to the green commit so the tag-release workflow builds its
+  GitHub Release from the verified state.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
