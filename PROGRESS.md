@@ -4065,6 +4065,18 @@ Per-round log (newest last). All work in /root/workspace/research.
   The check now stages `dist/pi` from the release binary (saving/restoring
   any pre-existing one) and passes both with and without it. Local 29/29.
 
+## Round 31 — ONE-LINER ACCEPTANCE COMPLETE on real amd64
+- On the provided Debian/WSL x86_64 box: run the release one-liner — the
+  script (fetched via the GitHub API because the box's proxy serves a stale
+  raw-file cache) downloaded the latest release, verified it WITHOUT
+  `file(1)` (the fallback I wrote after the first attempt exposed the
+  dependency), installed it, and the installed binary reports
+  `x86_64 · e1a5849` (v1.0.3 commit). An offline agent turn through the
+  installed binary ran to completion and wrote a session.
+- The full story is proven: tag → CI green → release asset → one-line
+  install → working pip binary on real hardware — including the two
+  portability fixes (no file(1) dependency; quiet installer) it surfaced.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
