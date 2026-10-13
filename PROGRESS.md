@@ -4008,6 +4008,11 @@ Per-round log (newest last). All work in /root/workspace/research.
   guard. Releases v1.0.0–v1.0.3 all present with the verified asset sets.
   The WSL box stayed offline for the one-liner acceptance (7th attempt).
 
+## Round 21 — newest commit CI green
+- The freshly pushed commit (28a062a, round-20 record) passed CI
+  (test + static-musl jobs). CI is now green across five consecutive
+  commits. WSL remains offline (the one-liner acceptance stays pending).
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
