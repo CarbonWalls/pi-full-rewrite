@@ -4140,6 +4140,11 @@ Per-round log (newest last). All work in /root/workspace/research.
 - The pi-mcp hardening commit passed CI (badge: ci - passing). README,
   RELEASING and the verification snapshot now all say 131 tests / 131 / 131.
 
+## Round 43 — v1.0.5 shipped
+- Tagged v1.0.5: the release pipeline ran green and published the newest
+  release with the pi-mcp-hardened static binary (verified ELF64 x86_64).
+  Six releases now exist (v1.0.0–v1.0.5).
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
