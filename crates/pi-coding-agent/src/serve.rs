@@ -90,6 +90,19 @@ pub async fn serve(
     serve_listener(listener, agent, token, bind, cors, access_log, session_dir).await
 }
 
+/// Lock-free /info mirror: the static bits are snapshotted once at startup
+/// and usage/cost counters are updated by the prompt arm, so /info never
+/// waits on the agent mutex while a turn runs.
+pub struct SharedInfo {
+    pub model: String,
+    pub tools: Vec<String>,
+    pub session_id: String,
+    pub session_dir: std::path::PathBuf,
+    pub input: std::sync::atomic::AtomicU64,
+    pub output: std::sync::atomic::AtomicU64,
+    pub cost: std::sync::atomic::AtomicU64,
+}
+
 /// A capped in-memory access log (last N request lines), exposed via
 /// `/access-log` when enabled.
 pub struct AccessLog {
@@ -176,9 +189,22 @@ pub async fn serve_listener(
         );
     }
     let shared: Arc<Mutex<Agent>> = Arc::new(Mutex::new(agent));
-    // external abort handle: cloned once so /rpc abort never needs the lock
-    let abort = shared.lock().await.abort.clone();
     let session_dir = Arc::new(session_dir);
+    // external abort handle + lock-free /info snapshot (one brief lock)
+    let abort = shared.lock().await.abort.clone();
+    let info: SharedInfo = {
+        let g = shared.lock().await;
+        SharedInfo {
+            model: format!("{}/{}", g.config.model.provider, g.config.model.id),
+            tools: g.tools.names(),
+            session_id: g.session.id.clone(),
+            session_dir: (*session_dir).clone(),
+            input: std::sync::atomic::AtomicU64::new(g.total_usage.input),
+            output: std::sync::atomic::AtomicU64::new(g.total_usage.output),
+            cost: std::sync::atomic::AtomicU64::new((g.total_cost * 1e8) as u64),
+        }
+    };
+    let info = Arc::new(info);
     // bound the number of concurrently-handled connections (audit finding)
     use tokio::sync::Semaphore;
     let conns = Arc::new(Semaphore::new(256));
@@ -229,6 +255,7 @@ pub async fn serve_listener(
         let metrics = metrics.clone();
         let abort2 = abort.clone();
         let sd2 = session_dir.clone();
+        let info2 = info.clone();
         let permit = match conns.clone().try_acquire_owned() {
             Ok(p) => p,
             Err(_) => {
@@ -243,7 +270,7 @@ pub async fn serve_listener(
             // content-length, never-sent body) can't hold a handler forever.
             let _ = tokio::time::timeout(
                 std::time::Duration::from_secs(120),
-                handle_conn(sock, &agent, token.as_deref(), &metrics, cors.as_deref(), alog_rx, &abort2, sd2),
+                handle_conn(sock, &agent, token.as_deref(), &metrics, cors.as_deref(), alog_rx, &abort2, sd2, info2),
             )
             .await;
             drop(permit); // free the slot when this handler finishes
@@ -261,6 +288,7 @@ async fn handle_conn(
     alog: Option<Arc<AccessLog>>,
     abort: &Arc<std::sync::atomic::AtomicBool>,
     session_dir: Arc<std::path::PathBuf>,
+    info: Arc<SharedInfo>,
 ) -> std::io::Result<()> {
     metrics.requests.fetch_add(1, std::sync::atomic::Ordering::Relaxed);
     let cors: Option<String> = cors.map(|c| c.to_string());
@@ -373,7 +401,7 @@ async fn handle_conn(
         if let Some(a) = &alog {
             a.push_req(method, path, 200);
         }
-        return stream_rpc(&mut stream, &body_text, agent, &cors, abort).await;
+        return stream_rpc(&mut stream, &body_text, agent, &cors, abort, &info).await;
     }
 
     if method == "GET" && path == "/access-log" {
@@ -407,7 +435,7 @@ async fn handle_conn(
         return Ok(());
     }
 
-    let (code, body, mime) = route(method, path, &body_text, agent, &session_dir).await;
+    let (code, body, mime) = route(method, path, &body_text, agent, &session_dir, &info).await;
     if let Some(a) = &alog {
         a.push_req(method, path, code);
     }
@@ -433,6 +461,7 @@ async fn stream_rpc(
     agent: &Arc<Mutex<Agent>>,
     cors: &Option<String>,
     abort: &Arc<std::sync::atomic::AtomicBool>,
+    info: &SharedInfo,
 ) -> std::io::Result<()> {
     use tokio::io::AsyncWriteExt;
     let head = format!(
@@ -498,6 +527,10 @@ async fn stream_rpc(
                     "output": g.total_usage.output,
                     "cost": g.total_cost}});
                 stream.write_all(format!("{done}\n").as_bytes()).await?;
+                // keep the lock-free /info mirror current
+                info.input.store(g.total_usage.input, std::sync::atomic::Ordering::Relaxed);
+                info.output.store(g.total_usage.output, std::sync::atomic::Ordering::Relaxed);
+                info.cost.store((g.total_cost * 1e8) as u64, std::sync::atomic::Ordering::Relaxed);
                 // operator console: one summary line per completed turn
                 eprintln!(
                     "[turn] model={} in={} out={} cost=${:.6}",
@@ -559,8 +592,9 @@ async fn route(
     method: &str,
     path: &str,
     _body: &str,
-    agent: &Arc<Mutex<Agent>>,
+    _agent: &Arc<Mutex<Agent>>,
     session_dir: &std::path::Path,
+    info: &SharedInfo,
 ) -> (u16, String, &'static str) {
     match (method, path) {
         ("GET", "/") | ("GET", "/dashboard") => {
@@ -572,17 +606,21 @@ async fn route(
             "application/json",
         ),
         ("GET", "/info") => {
-            let g = agent.lock().await;
+            // lock-free mirror: never blocks behind a running turn
             (
                 200,
                 json!({
                     "service": "pi",
                     "version": env!("CARGO_PKG_VERSION"),
-                    "model": format!("{}/{}", g.config.model.provider, g.config.model.id),
-                    "tools": g.tools.names(),
-                    "session_id": g.session.id,
-                    "session_dir": session_dir.to_string_lossy(),
-                    "usage": {"input": g.total_usage.input, "output": g.total_usage.output, "cost": g.total_cost},
+                    "model": info.model,
+                    "tools": info.tools,
+                    "session_id": info.session_id,
+                    "session_dir": info.session_dir.to_string_lossy(),
+                    "usage": {
+                        "input": info.input.load(std::sync::atomic::Ordering::Relaxed),
+                        "output": info.output.load(std::sync::atomic::Ordering::Relaxed),
+                        "cost": info.cost.load(std::sync::atomic::Ordering::Relaxed) as f64 / 1e8,
+                    },
                 })
                 .to_string(),
                 "application/json",

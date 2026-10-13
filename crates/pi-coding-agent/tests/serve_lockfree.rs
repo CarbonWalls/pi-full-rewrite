@@ -95,6 +95,8 @@ fn panels_answer_during_a_running_turn() {
     let t1 = Instant::now();
     let sessions = http_get(port, "/sessions", 1500);
     let t2 = Instant::now();
+    let info = http_get(port, "/info", 1500);
+    let t3 = Instant::now();
 
     assert!(
         t1.duration_since(t0).as_millis() < 1200,
@@ -106,10 +108,20 @@ fn panels_answer_during_a_running_turn() {
         "/sessions must answer while the turn holds the lock ({:?})",
         t2.duration_since(t1)
     );
+    assert!(
+        t3.duration_since(t2).as_millis() < 1200,
+        "/info (lock-free mirror) must answer while the turn holds the lock ({:?})",
+        t3.duration_since(t2)
+    );
     let cost_txt = cost.unwrap_or_default();
     let sessions_txt = sessions.unwrap_or_default();
+    let info_txt = info.unwrap_or_default();
     assert!(cost_txt.contains("model_calls"), "cost shape: {cost_txt:?}");
     assert!(sessions_txt.contains("sessions"), "sessions shape: {sessions_txt:?}");
+    assert!(
+        info_txt.contains("\"model\"") && info_txt.contains("\"usage\""),
+        "info shape: {info_txt:?}"
+    );
 
     let _ = slow.join(); // let the turn finish
     let _ = child.kill();
