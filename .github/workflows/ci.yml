@@ -27,8 +27,8 @@ jobs:
           rc=${PIPESTATUS[0]}
           set -e
           if [ $rc -ne 0 ]; then
-            # surface the full failure tail as GitHub annotations (API-readable)
-            tail -n 150 /tmp/test.log | sed 's/^/::error::/'
+            # surface only the key diagnostics (the API stores ~10 annotations max)
+            { echo "EXIT=$rc";               grep -aE "panicked at|assertion|FAILED|test .* \.\.\. FAILED|error\[|error:|cannot find|no such|not found|failed to" /tmp/test.log | head -8;               grep -aE "FAILED\." /tmp/test.log | head -3; } | sed 's/^/::error::/'
             exit $rc
           fi
           ./build.sh test --doc
