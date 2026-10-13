@@ -44,9 +44,10 @@ fn long_version() -> &'static str {
             env!("CARGO_PKG_RUST_VERSION")
         };
         format!(
-            "pi {} · {models} models · {tools} tools · rust {rust_ver} · {}",
+            "pi {} · {models} models · {tools} tools · rust {rust_ver} · {} · {}",
             env!("CARGO_PKG_VERSION"),
-            std::env::consts::ARCH
+            std::env::consts::ARCH,
+            option_env!("PI_BUILD_SHA").unwrap_or("dev")
         )
     })
     .as_str()
