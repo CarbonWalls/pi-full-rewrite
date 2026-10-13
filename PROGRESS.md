@@ -3964,6 +3964,13 @@ Per-round log (newest last). All work in /root/workspace/research.
   and the WSL box offline this round — the remote checks resume when they
   are back; the local gate is the source of truth meanwhile.)
 
+## Round 14 — repo hygiene: session data was in git
+- Dogfooding `pi --review` on the repo exposed that **11 session JSONLs had
+  been committed to master** and `.pi/` was not gitignored. Fixed: `.pi/`
+  ignored, files untracked (history keeps them, working tree clean), and CI
+  now fails if any `/.pi/` path is ever tracked again. Suite re-confirmed
+  130. (GH API + WSL box both unavailable this round.)
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)

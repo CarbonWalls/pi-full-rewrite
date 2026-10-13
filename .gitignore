@@ -13,3 +13,6 @@ scratch/
 # editor noise
 *~
 .DS_Store
+
+# per-run session data (must never be versioned)
+.pi/
