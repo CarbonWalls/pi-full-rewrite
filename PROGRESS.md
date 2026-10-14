@@ -5115,6 +5115,10 @@ Per-round log (newest last). All work in /root/workspace/research.
 - An HTTP/1.0 request with no Host and a Transfer-Encoding header both
   answer 200 — the minimal parser tolerates odd requests without breakage.
 
+## Round 242 — --tree on a forked session verified
+- The tree renders the session structure (user -> assistant -> usage chain)
+  for a fork-0 session. (Box flaked again.)
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
