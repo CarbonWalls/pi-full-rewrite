@@ -4873,6 +4873,10 @@ Per-round log (newest last). All work in /root/workspace/research.
 - Without a fallback, a provider error emits a clean `{"type":"error",
   message}` frame (no crash); with --fallback the run recovers (round 143).
 
+## Round 189 — RPC EOF handling verified
+- stdin closing after a prompt yields the final `bye` frame and a clean
+  rc=0 exit (no hang, no timeout kill).
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
