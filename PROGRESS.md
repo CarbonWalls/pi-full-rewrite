@@ -5324,6 +5324,10 @@ Per-round log (newest last). All work in /root/workspace/research.
   bytes}]} containing the session id from /info — the dashboard's list is
   in sync with the live session.
 
+## Round 289 — /cost tracks live usage
+- /cost before a turn: model_calls 0; after one turn: 1 call, per_model
+  lists mock/echo (in/out), totals updated — cost mirrors live usage.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
