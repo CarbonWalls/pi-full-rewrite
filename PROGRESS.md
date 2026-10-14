@@ -4961,6 +4961,11 @@ Per-round log (newest last). All work in /root/workspace/research.
 - Re-running --init re-templates pi.json (documented), preserves skills/
   and sessions. Repeatable scaffold.
 
+## Round 209 — MCP tool-call ARGS verified
+- A client requested read_file {path} over MCP; the pi server executed it
+  with the args and returned the file content (chain closed). Argument
+  passing through the pi<->pi MCP bridge works.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
