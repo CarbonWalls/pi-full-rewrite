@@ -4450,6 +4450,12 @@ Per-round log (newest last). All work in /root/workspace/research.
   export honesty, root confinement, doctor, theme honesty, RPC attachment
   parity). The record now matches the release history.
 
+## Round 101 — --help flag drift check
+- Scanned the in-binary --help against the documented flag set: all real
+  flags present (serve-token, gc-dry-run, export-all, max-turns, login,
+  install-package, mcp-server, …); the 4 scan "misses" were my scan's wrong
+  names. No drift.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
