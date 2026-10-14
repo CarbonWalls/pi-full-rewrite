@@ -5139,6 +5139,10 @@ Per-round log (newest last). All work in /root/workspace/research.
 - Garbage input to --install-package -> "package error: tar list failed"
   (rc=1), nothing installed.
 
+## Round 248 — RPC usage frame verified
+- {"type":"usage"} after a prompt returns the aggregated in-process usage
+  (input/output/cost).
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
