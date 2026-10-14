@@ -5052,6 +5052,10 @@ Per-round log (newest last). All work in /root/workspace/research.
   (2 parts, image intact) over --rpc — the power-user attachment path
   works.
 
+## Round 227 — TUI /git slash command verified
+- /git status renders the repo state in the transcript (dirty file shown),
+  no panic, terminal restored.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
