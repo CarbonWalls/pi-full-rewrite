@@ -4461,6 +4461,10 @@ Per-round log (newest last). All work in /root/workspace/research.
   full mock turn and writes its session — no hardcoded self-path or
   argv[0]/CWD dependence. Fully portable single ELF.
 
+## Round 103 — media-type mapping verified
+- `@photo.jpeg` attaches as `image/jpeg` (correct magic bytes encoded); the
+  media_type_for mapping (png/jpeg/gif/webp) works end to end.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
