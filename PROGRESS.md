@@ -4869,6 +4869,10 @@ Per-round log (newest last). All work in /root/workspace/research.
 - The serve exits on SIGTERM, the port closes, and zero pi processes
   remain (the earlier "leftover 1" was pgrep's self-match).
 
+## Round 188 — --json error surfacing verified
+- Without a fallback, a provider error emits a clean `{"type":"error",
+  message}` frame (no crash); with --fallback the run recovers (round 143).
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
