@@ -5378,6 +5378,10 @@ Per-round log (newest last). All work in /root/workspace/research.
 - Garbage and truncated JSON rpc payloads return 200 with a "bad json"
   error frame (no crash); empty body stays silent.
 
+## Round 301 — concurrent rpc prompts keep per-request framing
+- Two simultaneous rpc POSTs each stream their own id-correct done frame
+  (verified at frame level; the earlier string-match probe was too naive).
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
