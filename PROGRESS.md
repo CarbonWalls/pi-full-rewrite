@@ -5534,6 +5534,12 @@ Per-round log (newest last). All work in /root/workspace/research.
   answers --info — the shipped bundle matches HEAD. (The prior chain's
   git error was the known cwd quirk; re-run from a clean shell.)
 
+## Round 334 — CLI fuzz across the new-era flags
+- 22 fresh arg combos (serve/serve-token/access-log/cors/mcp-server/
+  install-package/export-all/gc-sessions/fallback/theme/skills/IPv6):
+  zero panics. 6 combos "timed out" only because they legitimately START
+  a blocking serve (expected server lifetime, not a fault).
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
