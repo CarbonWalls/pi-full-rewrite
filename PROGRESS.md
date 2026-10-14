@@ -4721,6 +4721,11 @@ Per-round log (newest last). All work in /root/workspace/research.
 - list_dir shows dir contents through the agent chain (LS_OK); --sessions
   renders the id/label/entries/messages/size table.
 
+## Round 156 — repo content audit
+- 139 tracked files: source (105), scripts (8), docs (6), examples (5),
+  workflows (2), plus LICENSE/build.sh/README/Dockerfile/Makefile. No
+  binaries, no session litter; largest tracked is PROGRESS.md.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
