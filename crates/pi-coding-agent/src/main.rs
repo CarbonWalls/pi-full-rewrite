@@ -976,10 +976,11 @@ pub fn inline_image_parts(prompt: &str, root: &std::path::Path) -> Vec<pi_ai::ty
             .map(|e| e.to_ascii_lowercase());
         let is_img = ext.map(|e| IMAGE_EXTS.contains(&e.as_str())).unwrap_or(false);
         if is_img {
-            let cand = if std::path::Path::new(token).is_absolute() {
-                std::path::PathBuf::from(token)
-            } else {
-                root.join(token)
+            // resolve like the --image flag: a symlink/.. escape must NOT
+            // leak external content into the prompt (round 179 audit)
+            let cand = match pi_tools::resolve_under(root, token) {
+                Ok(p) => p,
+                Err(_) => { i = start + 1; continue; }
             };
             if cand.is_file() {
                 if let Some(data) = base64_image(&cand) {

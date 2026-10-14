@@ -4823,6 +4823,14 @@ Per-round log (newest last). All work in /root/workspace/research.
 - A staged-only change triggers the review prompt; the working tree is
   untouched afterward (review is read-only).
 
+## Round 179 — @inline symlink-escape fixed (real security finding)
+- The @inline image scanner used root.join + is_file (follows symlinks), so
+  `@link.png` where link.png -> /tmp/secret.png LEAKED external bytes into
+  the prompt, while the --image flag already rejected it (round 82). The
+  inline scanner now resolves through resolve_under: escapes are kept as
+  literal text, legit in-root images still attach. 137 tests, clippy 0;
+  static rebuilt. (Release: v1.0.18.)
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
