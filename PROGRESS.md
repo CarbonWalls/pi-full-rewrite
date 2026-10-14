@@ -4784,6 +4784,11 @@ Per-round log (newest last). All work in /root/workspace/research.
   invalid values) — no panics anywhere. The parser + dispatch stays safe
   under random input.
 
+## Round 170 — serve HTTP semantics verified
+- /nope -> 404 {"error":"not found"}; /info -> 200; HEAD /info -> 200;
+  POST / -> 404 (only /rpc takes POST). The HTTP layer behaves per spec.
+  (curl disappeared from this env's PATH; python urllib used going forward.)
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
