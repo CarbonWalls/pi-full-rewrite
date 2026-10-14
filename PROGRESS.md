@@ -4360,6 +4360,10 @@ Per-round log (newest last). All work in /root/workspace/research.
   clear errors); the 32nd verify check locks it; an old test updated to the
   new semantics. 133 tests, clippy 0; release + static rebuilt with the fix.
 
+## Round 83 — v1.0.10 released
+- The --file/--image confinement fix shipped as v1.0.10 (pipeline green,
+  asset verified). Eleven releases (v1.0.0–v1.0.10); CI badge passing.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
