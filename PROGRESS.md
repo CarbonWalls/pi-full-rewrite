@@ -5274,6 +5274,10 @@ Per-round log (newest last). All work in /root/workspace/research.
 - After --continue, a keep-2 dry-run removes an OLDER session and keeps
   the continued one (ms-ordering preserves the active session).
 
+## Round 278 — GC dry-run/real consistency verified
+- The dry-run "would remove 2 (… ids …)" exactly matches the real run
+  (4 -> 2) — the preview is trustworthy.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
