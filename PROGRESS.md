@@ -5489,6 +5489,11 @@ Per-round log (newest last). All work in /root/workspace/research.
   matching header (strict by construction; browsers block mismatches).
   no-origin requests are irrelevant to CORS enforcement.
 
+## Round 325 — box still offline, benchmark stays deferred
+- The WSL box remains unreachable (timeout). The on-hardware latency/RSS
+  benchmark stays queued for the next window of uptime; local gates all
+  green meanwhile.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
