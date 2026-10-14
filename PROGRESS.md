@@ -5056,6 +5056,10 @@ Per-round log (newest last). All work in /root/workspace/research.
 - /git status renders the repo state in the transcript (dirty file shown),
   no panic, terminal restored.
 
+## Round 228 — --continue after multi-turn verified
+- A --continue on a 2-turn session appends to the SAME session id
+  (entries 6 -> 9, +3 for the new turn) — resume is id-stable.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
