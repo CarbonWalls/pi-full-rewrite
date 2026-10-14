@@ -4521,6 +4521,11 @@ Per-round log (newest last). All work in /root/workspace/research.
   asset appears when the pipeline step succeeds or a host build is
   attached. Kept in-tree toolchain: prune target/ whenever disk tightens.
 
+## Round 114 — --stats positive path + disk pruning
+- A real session's --stats reports entries/messages/usage/cost/file exactly.
+  Pruned target/doc + musl-debug to keep the workspace disk (130 MB free)
+  healthy; no code changes beyond the earlier rounds.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
