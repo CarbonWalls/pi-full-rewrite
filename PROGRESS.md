@@ -5386,6 +5386,10 @@ Per-round log (newest last). All work in /root/workspace/research.
 - A tool-call turn writes the tool output into the session JSONL (echo
   appears in the file) — replay/export sees tool results.
 
+## Round 303 — serve auto-creates a missing root
+- A --serve with a nonexistent root path starts fine (dirs created) and
+  answers healthz 200.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
