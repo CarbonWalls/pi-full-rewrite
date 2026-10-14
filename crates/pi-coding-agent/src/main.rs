@@ -866,7 +866,7 @@ async fn run(cli: Cli) -> Result<()> {
         }
         Some(templates::render(&text, &vars))
     } else if let Some(f) = &cli.file {
-        let p = match pi_tools::resolve_under(&root, f.to_str().unwrap_or("")) {
+        let p = match pi_tools::resolve_under(root.as_path(), f.to_str().unwrap_or("")) {
             Ok(p) => p,
             Err(e) => return Err(anyhow::anyhow!("--file: {e}")),
         };
@@ -1005,7 +1005,7 @@ fn build_user_parts(cli: &Cli, prompt: &str, root: &std::path::Path) -> Result<V
 
     // explicit --image flags append after the text content (confined to root)
     for img in &cli.image {
-        let p = match pi_tools::resolve_under(&root, img.to_str().unwrap_or("")) {
+        let p = match pi_tools::resolve_under(root, img.to_str().unwrap_or("")) {
             Ok(p) => p,
             Err(e) => return Err(anyhow::anyhow!("--image: {e}")),
         };

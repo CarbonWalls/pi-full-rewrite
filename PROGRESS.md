@@ -4354,6 +4354,12 @@ Per-round log (newest last). All work in /root/workspace/research.
 - `--out` confinement shipped as v1.0.9 (pipeline green; static asset
   verified). CI badge still passing with the 31-point matrix. Ten releases.
 
+## Round 82 — --file/--image confinement closed + matrix 32-point
+- `--file ../x` and `--image ../x` could read/write OUTSIDE `--root` (same
+  class as --out). Both now use the shared resolve_under (rejected with
+  clear errors); the 32nd verify check locks it; an old test updated to the
+  new semantics. 133 tests, clippy 0; release + static rebuilt with the fix.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)

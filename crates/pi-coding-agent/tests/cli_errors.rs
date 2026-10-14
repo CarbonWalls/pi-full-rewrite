@@ -34,8 +34,12 @@ fn unknown_model_errors_cleanly() {
 
 #[test]
 fn missing_file_errors_cleanly() {
+    // absolute outside-root paths are REJECTED by confinement now
     let (_o, all) = run(&["--file", "/definitely/not/here.md"]);
-    assert!(all.contains("No such file"), "clear file error: {all}");
+    assert!(
+        all.contains("escapes working directory") || all.contains("No such file"),
+        "clear file error: {all}"
+    );
     assert!(!all.contains("panicked"), "no panic: {all}");
 }
 
