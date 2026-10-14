@@ -133,6 +133,34 @@ impl Report {
             if sd_ok { sd.display().to_string() } else { "not writable".to_string() },
         ));
 
+        // git identity present (a committed-less git env breaks --review/commit)
+        let gname = std::process::Command::new("git")
+            .args(["config", "user.name"]).output().map(|o| o.status.success()).unwrap_or(false);
+        let gmail = std::process::Command::new("git")
+            .args(["config", "user.email"]).output().map(|o| o.status.success()).unwrap_or(false);
+        checks.push((
+            "git identity".into(),
+            gname && gmail,
+            if gname && gmail { "user.name + user.email set".into() }
+            else { "set git config user.name/email (needed for --review)".into() },
+        ));
+
+        // an offline mock turn completes (the whole local stack works)
+        let mock_ok = {
+            let dir = std::env::temp_dir().join(format!("pi-dr-{}", std::process::id()));
+            let _ = std::fs::create_dir_all(&dir);
+            let r = std::process::Command::new(std::env::current_exe().unwrap_or_default())
+                .args(["--quiet", "--root", dir.to_str().unwrap_or(""), "-m", "mock/echo", "doctor-probe"])
+                .stdin(std::process::Stdio::null()).output();
+            let _ = std::fs::remove_dir_all(&dir);
+            r.map(|o| o.status.success()).unwrap_or(false)
+        };
+        checks.push((
+            "mock turn".into(),
+            mock_ok,
+            if mock_ok { "offline echo turn completed".into() } else { "offline stack broken".into() },
+        ));
+
         Report { checks }
     }
 

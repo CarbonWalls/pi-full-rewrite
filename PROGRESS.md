@@ -4407,6 +4407,11 @@ Per-round log (newest last). All work in /root/workspace/research.
 - `pi --root X --init` scaffolds pi.json + skills/ + sessions/; `--completion
   bash` (206 lines) and `fish` (66 lines) emit real completion scripts.
 
+## Round 93 — --doctor strengthened
+- --doctor now checks git identity (user.name/email) and runs a REAL offline
+  mock turn to prove the whole local stack. Verified live: both new rows
+  report ok, details accurate. 134 tests, clippy 0; static rebuilt.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
