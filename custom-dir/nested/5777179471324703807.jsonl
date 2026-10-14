@@ -1,3 +1,0 @@
-{"id":"3103941406402959293","parent":"","kind":"Message","type":"message","data":{"msg":{"role":"User","content":[{"text":"hi"}],"tool_call_id":null,"tool_name":null}},"ts_ms":1791868698284}
-{"id":"16042712962819873130","parent":"3103941406402959293","kind":"Message","type":"message","data":{"msg":{"role":"Assistant","content":[{"text":"echo: hi"}],"tool_call_id":null,"tool_name":null}},"ts_ms":1791868698286}
-{"id":"9610355299247225569","parent":"16042712962819873130","kind":"Usage","type":"usage","data":{"input":2,"output":8,"cost":0.0,"model":"mock/echo"},"ts_ms":1791868698287}

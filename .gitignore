@@ -19,3 +19,6 @@ scratch/
 
 # top-level session litter (must never be versioned)
 /*.jsonl
+
+# test-run session litter (must never be versioned)
+custom-dir/
