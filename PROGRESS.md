@@ -5494,6 +5494,11 @@ Per-round log (newest last). All work in /root/workspace/research.
   benchmark stays queued for the next window of uptime; local gates all
   green meanwhile.
 
+## Round 326 — CI green through the recent era
+- Badge passing; completed master runs all success (a few in flight for
+  the newest doc/verification commits). The entire doc-only era keeps CI
+  green.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
