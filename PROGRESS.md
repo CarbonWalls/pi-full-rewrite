@@ -4885,6 +4885,10 @@ Per-round log (newest last). All work in /root/workspace/research.
 - A 6 MB --file prompt loads and the turn completes (rc=0, ~4s incl. the
   mock echo) — no OOM or crash on large file prompts.
 
+## Round 192 — capstone at the 137-test HEAD (again green)
+- 137 tests, clippy 0, sign-off 32/32, tour 12/12 — after the post-fix-era
+  audits the full surface still holds.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
