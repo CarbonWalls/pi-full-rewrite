@@ -5097,6 +5097,10 @@ Per-round log (newest last). All work in /root/workspace/research.
 - The auth scheme fix shipped (latest = v1.0.20). Twenty-one releases
   (v1.0.0–v1.0.20).
 
+## Round 238 — /rpc token guard verified
+- POST /rpc without a token -> 401; with Bearer -> 200 (streaming turns
+  also sit behind the auth).
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
