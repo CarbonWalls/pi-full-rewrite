@@ -370,9 +370,13 @@ async fn handle_conn(
                 .and_then(|l| l.split_once(':'))
                 .map(|(_, v)| v.trim())
                 .map(|v| {
-                    v.strip_prefix("Bearer ")
-                        .map(|b| b.trim() == tok)
-                        .unwrap_or(false)
+                    // auth scheme is case-insensitive per RFC 7235: accept
+                    // `Bearer` and `bearer` alike
+                    if v.get(..7).map(|s| s.eq_ignore_ascii_case("bearer ")).unwrap_or(false) {
+                        v.get(7..).map(|b| b.trim() == tok).unwrap_or(false)
+                    } else {
+                        false
+                    }
                 })
                 .unwrap_or(false);
             if !authorized {

@@ -5088,6 +5088,11 @@ Per-round log (newest last). All work in /root/workspace/research.
 - CLI empty stdin -> "no prompt given (use -i…)" guidance; RPC whitespace
   input completes cleanly (bye).
 
+## Round 236 — auth scheme case-insensitivity fix
+- `bearer tk` (lowercase) 401'd while `Bearer` worked — now per RFC 7235
+  the scheme is compared case-insensitively (both accept, wrong creds still
+  401). 137 tests, clippy 0; release + static rebuilt. (v1.0.20 candidate.)
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
