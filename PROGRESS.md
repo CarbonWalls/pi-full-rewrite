@@ -4865,6 +4865,10 @@ Per-round log (newest last). All work in /root/workspace/research.
 - --serve-addr 127.0.0.1 --port 8717 binds + serves (healthz 200);
   --port 0 gets an OS-assigned port reported in the listening line.
 
+## Round 187 — serve SIGTERM shutdown verified
+- The serve exits on SIGTERM, the port closes, and zero pi processes
+  remain (the earlier "leftover 1" was pgrep's self-match).
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
