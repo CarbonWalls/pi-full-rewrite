@@ -399,15 +399,35 @@ async fn handle_conn(
 
     // POST /rpc streams JSON lines as they arrive (no content-length; body
     // is delimited by connection close). Everything else is buffered.
-    // CORS preflight
+    // CORS preflight: only answer the configured origin (or `*`); a
+    // non-matching Origin must not receive an Access-Control-Allow-Origin
+    // (browsers enforce preflights, the server should not bless strangers).
     if method == "OPTIONS" && cors.is_some() {
-        let origin = cors.as_deref().unwrap_or_default();
-        let head = format!(
-            "HTTP/1.1 204 No Content\r\nAccess-Control-Allow-Origin: {origin}\r\nAccess-Control-Allow-Methods: GET, POST, OPTIONS\r\nAccess-Control-Allow-Headers: Authorization, Content-Type\r\nAccess-Control-Max-Age: 86400\r\nContent-Length: 0\r\nConnection: close\r\n\r\n"
-        );
-        use tokio::io::AsyncWriteExt;
-        let mut s = stream;
-        s.write_all(head.as_bytes()).await?;
+        let configured = cors.as_deref().unwrap_or_default();
+        let req_origin = rest
+            .split_once("\r\n\r\n")
+            .map(|(h, _)| h)
+            .unwrap_or(rest)
+            .lines()
+            .find(|l| l.to_ascii_lowercase().starts_with("origin:"))
+            .and_then(|l| l.split_once(':'))
+            .map(|(_, v)| v.trim().to_string());
+        let allowed = configured == "*"
+            || req_origin.as_deref() == Some(configured)
+            || req_origin.is_none(); // same-origin/no-Origin preflights pass
+        if allowed {
+            let head = format!(
+                "HTTP/1.1 204 No Content\r\nAccess-Control-Allow-Origin: {configured}\r\nAccess-Control-Allow-Methods: GET, POST, OPTIONS\r\nAccess-Control-Allow-Headers: Authorization, Content-Type\r\nAccess-Control-Max-Age: 86400\r\nContent-Length: 0\r\nConnection: close\r\n\r\n"
+            );
+            use tokio::io::AsyncWriteExt;
+            let mut s = stream;
+            s.write_all(head.as_bytes()).await?;
+        } else {
+            let head = "HTTP/1.1 204 No Content\r\nContent-Length: 0\r\nConnection: close\r\n\r\n";
+            use tokio::io::AsyncWriteExt;
+            let mut s = stream;
+            s.write_all(head.as_bytes()).await?;
+        }
         return Ok(());
     }
 

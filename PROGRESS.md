@@ -5101,6 +5101,12 @@ Per-round log (newest last). All work in /root/workspace/research.
 - POST /rpc without a token -> 401; with Bearer -> 200 (streaming turns
   also sit behind the auth).
 
+## Round 239 — CORS preflight origin-match fix + test at the serve level
+- The OPTIONS preflight echoed the configured ACAO to ANY origin; now a
+  non-matching Origin gets a preflight WITHOUT the ACAO header (browser
+  blocks), while matching and wildcard(*) still work. 137 tests, clippy 0,
+  static rebuilt. (v1.0.21 candidate.)
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
