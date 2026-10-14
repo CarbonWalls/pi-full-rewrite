@@ -4623,6 +4623,11 @@ Per-round log (newest last). All work in /root/workspace/research.
 - Valid ref → model_result ok; unknown ref → clean error frame. Every
   protocol frame type is now live-verified end to end.
 
+## Round 134 — TUI slash-command surface verified live
+- /help renders the full command list (/help /model /compact /cost /tools
+  /sessions /git /label /theme /find /exit) in a real PTY session; no
+  panic, terminal restored. (Earlier "missing" was a capture artifact.)
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
