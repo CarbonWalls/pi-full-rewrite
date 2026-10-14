@@ -4526,6 +4526,10 @@ Per-round log (newest last). All work in /root/workspace/research.
   Pruned target/doc + musl-debug to keep the workspace disk (130 MB free)
   healthy; no code changes beyond the earlier rounds.
 
+## Round 115 — CLI --continue resume verified
+- A second process with --continue appended to the SAME session (entries
+  3→6, id unchanged) — cross-process resume appends correctly.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
