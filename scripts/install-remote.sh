@@ -10,16 +10,34 @@ set -euo pipefail
 REPO="CarbonWalls/pi-full-rewrite"
 PREFIX="${PREFIX:-$HOME/.local/bin}"
 
+# Static builds are published for amd64; arm64 ships a glibc build
+# (pi-linux-arm64) when the release pipeline's cross-link succeeds. Try the
+# preferred (static) asset first and fall back to the glibc one, so the
+# installer never 404s on a valid platform.
 case "$(uname -s)-$(uname -m)" in
-  Linux-x86_64) ASSET="pi-linux-amd64-static" ;;
-  Linux-aarch64|Linux-arm64) ASSET="pi-linux-arm64-static" ;;
+  Linux-x86_64) ASSETS="pi-linux-amd64-static pi-linux-amd64" ;;
+  Linux-aarch64|Linux-arm64) ASSETS="pi-linux-arm64-static pi-linux-arm64" ;;
   *) echo "unsupported platform: $(uname -s)-$(uname -m)" >&2; exit 1 ;;
 esac
 
-URL="https://github.com/$REPO/releases/latest/download/$ASSET"
 TMP="$(mktemp)"
 
 trap 'rm -f "$TMP"' EXIT
+
+URL=""
+for a in $ASSETS; do
+  cand="https://github.com/$REPO/releases/latest/download/$a"
+  if curl -fIL --retry 2 -o /dev/null "$cand" 2>/dev/null; then
+    URL="$cand"
+    break
+  fi
+done
+if [ -z "$URL" ]; then
+  echo "error: no '$ASSETS' asset published for this release ($(uname -m))" >&2
+  echo "  Windows/macOS unsupported; on missing arm64 builds, build from source" >&2
+  echo "  or use an amd64 machine. See https://github.com/$REPO/releases/latest" >&2
+  exit 1
+fi
 
 echo "downloading $URL"
 curl -fL --retry 3 -o "$TMP" "$URL"

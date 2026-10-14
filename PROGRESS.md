@@ -4501,6 +4501,16 @@ Per-round log (newest last). All work in /root/workspace/research.
 - Counts refreshed; tour 12/12; CI badge passing for the compaction-test
   commit. WSL box still offline.
 
+## Round 112 — install-remote.sh arm64 404 bug fixed
+- On aarch64 hosts the one-liner requested a never-published static asset
+  (404, cryptic). Now: arch-aware asset candidates (static then glibc) with a
+  HEAD pre-check and a clear actionable error when no arm64 asset exists
+  (the release pipeline's arm64-gnu step is optional and failed on
+  v1.0.14 — amd64-only shipped). Verified on aarch64: clean error, no
+  binary, no profile edits. The arm64 asset will appear once the pipeline's
+  optional arm64 step succeeds (or an aarch64 host's static build is
+  attached manually).
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
