@@ -4804,6 +4804,10 @@ Per-round log (newest last). All work in /root/workspace/research.
   other pushes; new `large_session_branch_is_linear` test locks O(n)
   behavior. Suite: **137**, clippy 0; release + static rebuilt.
 
+## Round 174 — v1.0.17 released (push_usage head fix)
+- The trailing-usage branch-replay fix shipped as v1.0.17 (tag confirmed,
+  asset live). Eighteen releases (v1.0.0–v1.0.17).
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
