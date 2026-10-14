@@ -5072,6 +5072,10 @@ Per-round log (newest last). All work in /root/workspace/research.
 - An edit on a file with a ~900 KB single line applies correctly
   (line-last -> line-last-EDITED). (Box still closed to benchmarks.)
 
+## Round 232 — /access-log token guard verified
+- No token -> 401; Bearer token -> 200. Every serve route is guarded
+  except healthz.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
