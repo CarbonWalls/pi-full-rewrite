@@ -5395,6 +5395,10 @@ Per-round log (newest last). All work in /root/workspace/research.
   the right one. (My first probe used a nonexistent --token flag; the
   parser rejected it cleanly.) Also an unknown flag errors cleanly.
 
+## Round 305 — rpc EOF exits cleanly
+- EOF with no frames and EOF after a prompt both exit 0 — the documented
+  single-connection stdio boundary is graceful.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
