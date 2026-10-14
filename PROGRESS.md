@@ -5374,6 +5374,10 @@ Per-round log (newest last). All work in /root/workspace/research.
 - --access-log (a boolean, not a path) keeps an in-memory log surfaced at
   /access-log; a /healthz hit appears there. Misread earlier as a path.
 
+## Round 300 — malformed rpc bodies handled
+- Garbage and truncated JSON rpc payloads return 200 with a "bad json"
+  error frame (no crash); empty body stays silent.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
