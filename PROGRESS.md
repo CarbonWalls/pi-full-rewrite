@@ -4546,6 +4546,11 @@ Per-round log (newest last). All work in /root/workspace/research.
   "[skills] loaded 1 skill(s)" from the config's skills field; model from
   config used. Config precedence works as documented.
 
+## Round 119 — --review verified live
+- A dirty git repo triggers the review prompt ("Review the changes …" with
+  the four-part checklist) and a full agent turn completes over it — the
+  review loop closes end to end.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
