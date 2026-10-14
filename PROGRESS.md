@@ -5064,6 +5064,10 @@ Per-round log (newest last). All work in /root/workspace/research.
 - A prompt after {"type":"quit"} is never processed (only 1 done frame) —
   the terminal frame terminates the loop immediately.
 
+## Round 230 — write_file parent-dir creation verified
+- Writing to a/b/c.txt (missing dirs) auto-creates them; the file lands
+  with the content.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
