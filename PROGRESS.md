@@ -5111,6 +5111,10 @@ Per-round log (newest last). All work in /root/workspace/research.
 - The preflight origin-match fix shipped (latest = v1.0.21).
   Twenty-two releases (v1.0.0–v1.0.21).
 
+## Round 241 — legacy HTTP tolerance verified
+- An HTTP/1.0 request with no Host and a Transfer-Encoding header both
+  answer 200 — the minimal parser tolerates odd requests without breakage.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
