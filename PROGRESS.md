@@ -5509,6 +5509,11 @@ Per-round log (newest last). All work in /root/workspace/research.
 - Submitting a prompt in the live pty changes the rendered frame bytes —
   the interactive loop actually processes input and redraws.
 
+## Round 329 — --theme accepted (inline JSON) in the TUI
+- --theme '{"primary":"#ff0000"}' renders fine in the interactive TUI
+  (ANSI appears); an invalid theme is irrelevant to the one-shot path
+  (matches its documented TUI-only role).
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
