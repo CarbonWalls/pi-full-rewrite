@@ -5463,6 +5463,11 @@ Per-round log (newest last). All work in /root/workspace/research.
 - A subdirectory inside the sessions dir is ignored by gc (kept 0 files,
   no error) — only *.jsonl files are considered. (Box still down.)
 
+## Round 320 — foreign lines tolerated in real session files
+- Appending a garbage line to a real session file still exports rc=0
+  (tolerance confirmed end-to-end). My first probe used a hand-written
+  shape that wasn't the real wrapper format — not a product issue.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
