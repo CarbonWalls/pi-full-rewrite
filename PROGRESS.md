@@ -4914,6 +4914,10 @@ Per-round log (newest last). All work in /root/workspace/research.
 - bg_read {"id":"bg0"} returns the completed job's output after bg_bash.
   The ENTIRE bg family (bash/read/kill/list) is now live-verified.
 
+## Round 199 — write_file verified
+- write_file created a real file inside root with the agent's content
+  ("written by agent") — the create path of the file tooling is confirmed.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
