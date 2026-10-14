@@ -4928,6 +4928,10 @@ Per-round log (newest last). All work in /root/workspace/research.
   fails loudly ("stats: session file not found", rc=1); existing files
   still render. 137 tests, clippy 0; static rebuilt.
 
+## Round 202 — v1.0.19 released (stats honesty)
+- The --stats missing-file fix shipped (latest = v1.0.19). Twenty releases
+  (v1.0.0–v1.0.19).
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
