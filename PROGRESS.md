@@ -4655,6 +4655,10 @@ Per-round log (newest last). All work in /root/workspace/research.
 - /theme switches themes and /cost prints usage in a real PTY — both
   handled cleanly with no panics.
 
+## Round 141 — static --info verified
+- The local static binary reports arch/models/tools and build provenance
+  (PI_BUILD_SHA) via --info; --version clean. Provenance plumbing works.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
