@@ -4483,6 +4483,10 @@ Per-round log (newest last). All work in /root/workspace/research.
 - Serve idle RSS 1940 kB; after 3 live rpc turns 2204 kB — down from the
   earlier 3.3 MB figure. The efficiency objective keeps holding.
 
+## Round 108 — latency re-benchmark (aarch64)
+- --version avg 13.4 ms; offline mock turn avg 34 ms (5 runs each). Both in
+  the tens-of-ms interactive range; efficiency objective holds.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
