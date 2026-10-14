@@ -5417,6 +5417,11 @@ Per-round log (newest last). All work in /root/workspace/research.
   entries, files land under root/.pi). The guard rejects bare .pi dir
   entries, top-level files, and symlinks by design — zip-slip-safe.
 
+## Round 310 — MCP read_file blocks symlink escapes
+- read_file on sub/link.txt (a symlink pointing outside --root) is
+  refused — the secret never leaks; resolve_under confinement covers the
+  MCP surface as well as CLI/@inline.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
