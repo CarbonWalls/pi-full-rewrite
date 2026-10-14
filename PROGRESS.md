@@ -4678,6 +4678,11 @@ Per-round log (newest last). All work in /root/workspace/research.
   serialize via the agent lock by design — the concurrent_prompts test in
   the suite passes); /info stays alive after.
 
+## Round 146 — dist bundle refreshed + audited
+- dist/ contents complete (LICENSE/README/VERSION/docs/examples/scripts +
+  binaries); VERSION refreshed with the current baked provenance
+  (863dda2), dist/pi byte-identical to the release build.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
