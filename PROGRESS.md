@@ -4789,6 +4789,10 @@ Per-round log (newest last). All work in /root/workspace/research.
   POST / -> 404 (only /rpc takes POST). The HTTP layer behaves per spec.
   (curl disappeared from this env's PATH; python urllib used going forward.)
 
+## Round 171 — dashboard self-containment verified
+- The served dashboard has ZERO external host references (no CDN/fonts) and
+  one inline <script> — it works fully offline against the pi server.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
