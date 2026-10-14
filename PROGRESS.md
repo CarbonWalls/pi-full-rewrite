@@ -4905,6 +4905,11 @@ Per-round log (newest last). All work in /root/workspace/research.
 - fs remove with recursive:true deletes the whole directory tree inside
   root (d1 + nested d2 + files) — the rm -rf equivalent works scoped.
 
+## Round 197 — bg_kill verified (full bg family closed)
+- bg_bash (id "bg0" per its own hint) -> bg_kill {"id":"bg0"} kills the
+  job: chain completes and 0 sleep processes survive. The bg
+  start/poll/kill family is fully live-verified.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
