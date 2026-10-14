@@ -5299,6 +5299,10 @@ Per-round log (newest last). All work in /root/workspace/research.
 - -1 and abc for --gc-sessions error cleanly at the parser (files intact)
   — no panics, no partial deletes.
 
+## Round 284 — session portability verified
+- A session JSONL copied into the sessions dir is picked up by --sessions
+  (and resumable) — sessions are portable files.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
