@@ -4648,6 +4648,9 @@ Per-round log (newest last). All work in /root/workspace/research.
 - /replay reads entries inside the fork-fixed session (view command,
   independent of the head); handled cleanly post-fix.
 
+## Round 139 — 136-test era confirmed
+- Counts refreshed; tour 12/12; CI badge passing for the fork-fix commit.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
