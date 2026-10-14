@@ -5412,6 +5412,11 @@ Per-round log (newest last). All work in /root/workspace/research.
 - Exports every session in the dir as <id>.md into the target (1/1 here)
   with a summary line.
 
+## Round 309 — --install-package verified incl. its layout rules
+- A correctly-laid-out package (.pi/pi.json + .pi/skills/*) installs (2
+  entries, files land under root/.pi). The guard rejects bare .pi dir
+  entries, top-level files, and symlinks by design — zip-slip-safe.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
