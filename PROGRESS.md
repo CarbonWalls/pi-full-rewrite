@@ -4758,6 +4758,10 @@ Per-round log (newest last). All work in /root/workspace/research.
   shows 0 real sleep processes survive the reaper (earlier "2" was
   command-line false matches).
 
+## Round 164 — model resolution paths verified
+- Unknown model -> "error: unknown model '…'" rc=1; known refs
+  (mock/echo, openai/gpt-4o-mini) resolve. Clean failure semantics.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
