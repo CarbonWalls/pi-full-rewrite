@@ -5422,6 +5422,10 @@ Per-round log (newest last). All work in /root/workspace/research.
   refused — the secret never leaks; resolve_under confinement covers the
   MCP surface as well as CLI/@inline.
 
+## Round 311 — MCP write_file honors root confinement
+- Writing "../escape.txt" is blocked (isError) with no file escaping the
+  root; an in-root write lands correctly — writes are confined too.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
