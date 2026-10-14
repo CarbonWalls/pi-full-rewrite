@@ -4696,6 +4696,10 @@ Per-round log (newest last). All work in /root/workspace/research.
   the PI_THEME env var theme is accepted in a real TUI session (no warning,
   no panic).
 
+## Round 150 — --no-session verified
+- A --no-session turn completes with usage and writes NOTHING to the
+  session dir (0 files) — the in-memory path works.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
