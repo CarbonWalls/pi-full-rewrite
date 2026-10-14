@@ -5013,6 +5013,11 @@ Per-round log (newest last). All work in /root/workspace/research.
 - A recursive grep found "needle-in-haystack" in root and the agent chain
   closed on it.
 
+## Round 218 — read_file missing-file error verified
+- Reading a missing file surfaces "read_file: no such file: nope.txt" to
+  the agent (clear, no crash). (My scenario pattern said "not found" — the
+  tool's actual wording is "no such file".)
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
