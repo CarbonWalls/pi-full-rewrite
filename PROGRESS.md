@@ -5127,6 +5127,10 @@ Per-round log (newest last). All work in /root/workspace/research.
 - Two rpc prompts on the serve land in ONE session (6 entries, 2 turns) —
   the server keeps a persistent session across requests.
 
+## Round 245 — --stats/--cost JSON modes verified
+- --stats --json emits structured fields (entries/branch_depth/file/…);
+  --cost --json emits model_calls + totals — both parse cleanly.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
