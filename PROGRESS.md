@@ -4918,6 +4918,11 @@ Per-round log (newest last). All work in /root/workspace/research.
 - write_file created a real file inside root with the agent's content
   ("written by agent") — the create path of the file tooling is confirmed.
 
+## Round 200 — edit_file mismatch error verified
+- A non-matching old_string produces the actionable "`old_string` not
+  found; read the file and copy it exactly" error and leaves the file
+  unchanged.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
