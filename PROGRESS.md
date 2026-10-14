@@ -5319,6 +5319,11 @@ Per-round log (newest last). All work in /root/workspace/research.
 - HEAD /healthz returns 200 with an empty body and no transfer-encoding —
   HTTP-correct HEAD semantics.
 
+## Round 288 — /sessions lists the active session
+- After a turn, GET /sessions returns {"sessions":[{id, entries, messages,
+  bytes}]} containing the session id from /info — the dashboard's list is
+  in sync with the live session.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
