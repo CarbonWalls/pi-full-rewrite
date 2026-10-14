@@ -4619,6 +4619,10 @@ Per-round log (newest last). All work in /root/workspace/research.
   cross-process sessions; the frame works.) The entire RPC protocol is now
   live-verified: prompt/tools/model/compact/session/export/usage/quit.
 
+## Round 133 — RPC model frame verified (protocol 100%)
+- Valid ref → model_result ok; unknown ref → clean error frame. Every
+  protocol frame type is now live-verified end to end.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
