@@ -4456,6 +4456,11 @@ Per-round log (newest last). All work in /root/workspace/research.
   install-package, mcp-server, …); the 4 scan "misses" were my scan's wrong
   names. No drift.
 
+## Round 102 — binary self-containment check
+- A renamed copy of the release binary, run from a foreign CWD, completes a
+  full mock turn and writes its session — no hardcoded self-path or
+  argv[0]/CWD dependence. Fully portable single ELF.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
