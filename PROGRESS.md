@@ -4612,6 +4612,13 @@ Per-round log (newest last). All work in /root/workspace/research.
   update after a turn; /cost aggregates model_calls + totals. The whole
   dashboard data layer (metrics/info/cost) works.
 
+## Round 132 — RPC compact frame verified (persistence confirmed)
+- All frames in one process: prompt → compact → prompt yields
+  [message,message,usage,compaction,message,message,usage] — the compaction
+  entry persists between turns. (Earlier "missing" results were fresh
+  cross-process sessions; the frame works.) The entire RPC protocol is now
+  live-verified: prompt/tools/model/compact/session/export/usage/quit.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
