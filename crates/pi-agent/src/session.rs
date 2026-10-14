@@ -264,6 +264,7 @@ impl Session {
             },
             ts_ms: now_ms(),
         });
+        self.head = self.entries.len();
         self.flush();
     }
 
@@ -425,4 +426,22 @@ mod tests {
         let branch = s.branch();
         assert_eq!(branch.len(), 2, "replay covers fork point + new message");
         assert_eq!(branch[0].id, first_id);
+    }
+
+    #[test]
+    fn large_session_branch_is_linear() {
+        use std::time::{Duration, Instant};
+        let mut s = Session::new(Some("big".into()));
+        // 1500 turns = 4500 entries (user+assistant+usage each)
+        for i in 0..1500usize {
+            s.push_message(ChatMessage::text_user(&format!("u{i}")));
+            s.push_message(ChatMessage::text_assistant("a"));
+            s.push_usage(1, 2, 0.0, "mock/echo".into());
+        }
+        assert_eq!(s.entries.len(), 4500);
+        let t = Instant::now();
+        let n = s.branch().len();
+        let dt = t.elapsed();
+        assert_eq!(n, s.entries.len(), "full chain replay");
+        assert!(dt < Duration::from_secs(2), "branch must stay O(n): {dt:?}");
     }

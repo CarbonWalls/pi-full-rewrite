@@ -4798,6 +4798,12 @@ Per-round log (newest last). All work in /root/workspace/research.
   with exactly 3 entries each (user/assistant/usage). Batch processing is
   correct and lossless.
 
+## Round 173 — push_usage head fix + O(n) big-session test
+- A 4500-entry branch-replay test exposed that push_usage never advanced
+  `head` (trailing usage entries fell off branch replays). Fixed like the
+  other pushes; new `large_session_branch_is_linear` test locks O(n)
+  behavior. Suite: **137**, clippy 0; release + static rebuilt.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
