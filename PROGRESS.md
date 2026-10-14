@@ -4893,6 +4893,10 @@ Per-round log (newest last). All work in /root/workspace/research.
 - Installing the same package twice overwrites the metadata (version 1 ->
   2); the install flow is idempotent and safe.
 
+## Round 194 — --skills all wildcard verified
+- `--skills all` discovers and loads every skill in the dir ("loaded 3
+  skill(s)").
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
