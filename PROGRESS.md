@@ -4640,6 +4640,10 @@ Per-round log (newest last). All work in /root/workspace/research.
   regression tests updated to the 0-based contract + a new fork test added.
   Suite: 136, clippy 0; release + static rebuilt.
 
+## Round 137 — v1.0.15 released (fork fix)
+- The /fork off-by-one fix shipped (pipeline green, asset verified).
+  Sixteen releases (v1.0.0–v1.0.15).
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
