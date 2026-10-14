@@ -4897,6 +4897,10 @@ Per-round log (newest last). All work in /root/workspace/research.
 - `--skills all` discovers and loads every skill in the dir ("loaded 3
   skill(s)").
 
+## Round 195 — token guard: dashboard + /info verified
+- With --serve-token, the dashboard root and /info return 401 without a
+  token; /healthz stays open for liveness probes (by design).
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
