@@ -5529,6 +5529,11 @@ Per-round log (newest last). All work in /root/workspace/research.
   fallback (16), serve-token/access-log/mcp-server/no-session, IPv6
   serve-addr. (The gc "0" was my probe's single-dash pattern.)
 
+## Round 333 — dist refreshed at HEAD + artifact runs
+- release.sh rebuilt dist (pi-static-arm64, scripts) and the artifact
+  answers --info — the shipped bundle matches HEAD. (The prior chain's
+  git error was the known cwd quirk; re-run from a clean shell.)
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
