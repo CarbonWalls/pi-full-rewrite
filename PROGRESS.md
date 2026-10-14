@@ -4369,6 +4369,12 @@ Per-round log (newest last). All work in /root/workspace/research.
   produce a proper `{"type":"error"}` frame — zero panics; real prompts
   still complete with done/bye. The stdio protocol surface is robust.
 
+## Round 85 — tool working-directory model verified + documented
+- Confirmed empirically that every bash call starts in `--root` (cwd does
+  not persist across calls — deterministic). Documented the model in
+  docs/usage.md so agents/users navigate with explicit paths rather than
+  relying on hidden state.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)

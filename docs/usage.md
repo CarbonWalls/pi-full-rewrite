@@ -67,6 +67,14 @@ whitelist) · bg_bash/bg_read/bg_kill/bg_list (long-running jobs) · fs
 
 `--tool-timeout <ms>` sets the global bash default.
 
+## Tool working-directory model
+- Every `bash` call spawns `bash -c` **in `--root`** — a `cd` does NOT
+  persist between calls (each call is deterministic and independent).
+  File tools (`read_file`, `write_file`, …) resolve paths relative to
+  `--root` too, so multi-step flows should use explicit paths (e.g.
+  `cd src && …` within a single call, or root-relative paths in separate
+  calls). This keeps behavior reproducible across hosts and sessions.
+
 ## Agent loop behavior
 
 - **`--plan` / `-P`:** the agent creates a todo list and works through it.
