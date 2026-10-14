@@ -5190,6 +5190,12 @@ Per-round log (newest last). All work in /root/workspace/research.
 - While an rpc turn streams, /info always answers (lock-free atomics) —
   the monitoring surface never blocks on a running turn.
 
+## Round 260 — ext system_append wiring confirmed
+- The mock can't observe the system (its contains-scan is message-scoped),
+  so system_append is verified at the code level: the ext client parses
+  system_append -> grows client.system -> fed into the agent system
+  (ext.rs:274). Protocol feature is wired as documented.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
