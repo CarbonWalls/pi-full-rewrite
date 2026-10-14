@@ -5342,6 +5342,11 @@ Per-round log (newest last). All work in /root/workspace/research.
 - JSON-RPC ping returns {} with the id echoed after notifications/
   initialized — full MCP lifecycle conformance.
 
+## Round 293 — MCP failing-tool error path verified
+- tools/call with a genuinely failing bash (exit 3) returns isError:true
+  surfacing the code. (A chmod-based "failure" was NOT one: the sandboxed
+  tool legitimately succeeded as root.) Error paths are properly flagged.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
