@@ -4713,6 +4713,10 @@ Per-round log (newest last). All work in /root/workspace/research.
 - Config model resolves without -m; a tool-driven turn under the config's
   max_turns runs cleanly. Config/CLI precedence works as documented.
 
+## Round 154 — fs tool verified live
+- fs copy (op: copy, src/dst) copied a real file inside root through the
+  agent chain. The fs manager (move/copy/remove/mkdir) works.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
