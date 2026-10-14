@@ -4587,6 +4587,12 @@ Per-round log (newest last). All work in /root/workspace/research.
   (bg.out = BG_DONE). bg_list/bg_kill are unit-covered; every tool family
   ships working.
 
+## Round 127 — mini end-to-end agent workflow
+- A realistic multi-step task executed entirely through tools: read_file →
+  edit_file (fixed `return a+b` → `return a-b`) → bash (python assertion
+  passed) → done. The final file shows the fixed code. The full agent loop
+  works as a coding agent.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
