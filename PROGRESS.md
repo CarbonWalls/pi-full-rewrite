@@ -4709,6 +4709,10 @@ Per-round log (newest last). All work in /root/workspace/research.
   run cleanly at HEAD — the docs' "every example works with the mock"
   claim holds.
 
+## Round 153 — config precedence verified
+- Config model resolves without -m; a tool-driven turn under the config's
+  max_turns runs cleanly. Config/CLI precedence works as documented.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
