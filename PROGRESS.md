@@ -4400,6 +4400,9 @@ Per-round log (newest last). All work in /root/workspace/research.
   garbage load without crashing, and the known entry is retained (using a
   serialized real Entry for the guaranteed shape). 134 tests, clippy 0.
 
+## Round 91 — 134-test era confirmed
+- Counts refreshed to 134; CI badge passing for the forward-compat commit.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
