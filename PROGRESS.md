@@ -5182,6 +5182,10 @@ Per-round log (newest last). All work in /root/workspace/research.
 - Garbage/oversized/empty requests produce 404s or graceful closes (never
   a crash), and the server answers healthz 200 afterward.
 
+## Round 258 — serve RSS stability under load verified
+- 1500 healthz requests change RSS by +332 kB (1932 -> 2264) — no memory
+  leak; the serve stays ~2 MB under sustained traffic.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
