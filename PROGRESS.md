@@ -5303,6 +5303,14 @@ Per-round log (newest last). All work in /root/workspace/research.
 - A session JSONL copied into the sessions dir is picked up by --sessions
   (and resumable) — sessions are portable files.
 
+## Round 284 — session portability verified
+- A session JSONL copied into the sessions dir is picked up by --sessions
+  (and resumable) — sessions are portable files.
+
+## Round 285 — serve under --no-session verified (ephemeral)
+- --serve --no-session runs with an in-memory session id and writes zero
+  files — a fully ephemeral server mode.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
