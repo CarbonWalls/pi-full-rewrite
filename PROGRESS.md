@@ -4416,6 +4416,12 @@ Per-round log (newest last). All work in /root/workspace/research.
 - Doctor upgrade shipped (pipeline green, asset verified). Thirteen releases
   (v1.0.0–v1.0.12).
 
+## Round 95 — repo completeness: LICENSE added, session litter purged
+- Repo audit found NO LICENSE (added MIT) and two batches of tracked session
+  litter (.pi at top level + custom-dir/nested) from early test runs — all
+  purged, gitignored, and the CI hygiene guard extended to cover every
+  session-data shape. 134 tests, clippy 0.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
