@@ -5505,6 +5505,10 @@ Per-round log (newest last). All work in /root/workspace/research.
   earlier pty harness had to use kill -9 since the TUI API stays
   rendering; the raw-mode surface is stable.
 
+## Round 328 — TUI responds to input (frame updates)
+- Submitting a prompt in the live pty changes the rendered frame bytes —
+  the interactive loop actually processes input and redraws.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
