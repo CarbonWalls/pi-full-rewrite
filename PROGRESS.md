@@ -5205,6 +5205,10 @@ Per-round log (newest last). All work in /root/workspace/research.
 - A client that RSTs its socket mid-rpc-stream leaves the serve alive
   (healthz 200 after) — disconnected-write errors are handled gracefully.
 
+## Round 263 — mcp-server mode exclusivity verified
+- --mcp-server + --serve/--rpc reject with "conflicting modes"; the
+  standalone stdio mode initializes cleanly.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
