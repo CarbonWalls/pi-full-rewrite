@@ -5119,6 +5119,10 @@ Per-round log (newest last). All work in /root/workspace/research.
 - The tree renders the session structure (user -> assistant -> usage chain)
   for a fork-0 session. (Box flaked again.)
 
+## Round 243 — RPC + --no-session verified
+- An rpc prompt under --no-session completes (done frame) and writes NO
+  session file — the in-memory mode extends to the protocol path.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
