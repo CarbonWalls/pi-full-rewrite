@@ -5026,6 +5026,9 @@ Per-round log (newest last). All work in /root/workspace/research.
 - An edit missing `path` errors: "edit_file: `path` and non-empty
   `old_string` required" — clear validation, no crash.
 
+## Round 221 — --sessions --json verified
+- The JSON session listing parses cleanly with id+entries per session.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
