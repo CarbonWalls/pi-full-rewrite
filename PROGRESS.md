@@ -5483,6 +5483,12 @@ Per-round log (newest last). All work in /root/workspace/research.
   204 with) and POST /rpc 401->200 — the guard is uniform across preflight
   and real requests (browsers send auth on preflight anyway).
 
+## Round 324 — ACAO pinned to the configured origin only
+- With --cors <origin>, responses carry solely that single ACAO value
+  regardless of the request's Origin — foreign origins never get a
+  matching header (strict by construction; browsers block mismatches).
+  no-origin requests are irrelevant to CORS enforcement.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
