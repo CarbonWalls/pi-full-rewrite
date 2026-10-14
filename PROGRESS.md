@@ -4846,6 +4846,11 @@ Per-round log (newest last). All work in /root/workspace/research.
   alive; a missing ext command warns "bad --ext spec '…' (want '<name>
   <command>')". No crashes on malformed extension specs.
 
+## Round 183 — request-smuggling check (pipelining-safe)
+- Two pipelined GETs on one connection yield exactly ONE status line then
+  close — pipelined second requests are not answered into the first
+  response (no smuggling/splitting).
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
