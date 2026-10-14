@@ -4775,6 +4775,10 @@ Per-round log (newest last). All work in /root/workspace/research.
 - --no-tools suppresses the toolset (a bash tool rule yields nothing);
   --system override accepted and the turn completes.
 
+## Round 168 — --api-key override verified
+- An explicit --api-key is accepted for the selected provider; the mock
+  path runs unaffected.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
