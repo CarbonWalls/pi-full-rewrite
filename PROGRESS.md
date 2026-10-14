@@ -4412,6 +4412,10 @@ Per-round log (newest last). All work in /root/workspace/research.
   mock turn to prove the whole local stack. Verified live: both new rows
   report ok, details accurate. 134 tests, clippy 0; static rebuilt.
 
+## Round 94 — v1.0.12 released
+- Doctor upgrade shipped (pipeline green, asset verified). Thirteen releases
+  (v1.0.0–v1.0.12).
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
