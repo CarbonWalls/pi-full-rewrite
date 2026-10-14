@@ -72,7 +72,7 @@ impl Report {
         let keys_src: &'static str = if keys > 0 {
             "env"
         } else {
-            let j = std::fs::read_to_string(crate::keys_file(&root)).and_then(|t| {
+            let j = std::fs::read_to_string(crate::keys_file(root)).and_then(|t| {
                 serde_json::from_str::<serde_json::Value>(&t).map_err(|e| std::io::Error::new(
                     std::io::ErrorKind::InvalidData, e))
             }).unwrap_or(serde_json::Value::Null);
