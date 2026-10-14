@@ -4744,6 +4744,10 @@ Per-round log (newest last). All work in /root/workspace/research.
 - A session with `<script>alert(1)</script>` text exports as
   `&lt;script&gt;` — no raw injection, valid full HTML doc.
 
+## Round 161 — --ext crash resilience verified
+- An extension that exits(7) right after ready doesn't affect the agent: a
+  full mock turn completes (AGENT_ALIVE, rc=0). Extensions are isolated.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
