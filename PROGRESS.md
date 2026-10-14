@@ -4966,6 +4966,11 @@ Per-round log (newest last). All work in /root/workspace/research.
   with the args and returned the file content (chain closed). Argument
   passing through the pi<->pi MCP bridge works.
 
+## Round 210 — --ext error-result propagation verified
+- An extension returning is_error:true with a message surfaces its result
+  to the agent, which continues the turn (rc=0). Extension failures are
+  informative, not fatal.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
