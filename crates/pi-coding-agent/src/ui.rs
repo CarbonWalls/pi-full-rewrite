@@ -205,6 +205,17 @@ commands*\n",
     let session_dir = resolved_session_dir.to_path_buf();
     let cli_root = cli.root.clone();
     let mut theme = pi_tui::Theme::resolve(theme_spec.as_deref());
+    // one-time honesty: an explicit spec that resolved as neither inline JSON
+    // nor a theme file silently fell back to default — say so once.
+    if let Some(spec) = theme_spec.as_deref() {
+        let spec = spec.trim();
+        if !spec.is_empty()
+            && pi_tui::Theme::from_json(spec).is_err()
+            && !(std::path::Path::new(spec).is_file() && pi_tui::Theme::from_file(spec).is_ok())
+        {
+            eprintln!("warning: theme spec {spec:?} did not parse as JSON or a theme file; using default");
+        }
+    }
     let mut scroll_back = 0usize;
     let mut fs = FindState { indices: Vec::new(), pos: 0, query: String::new() };
     let mut agent = Some(agent);

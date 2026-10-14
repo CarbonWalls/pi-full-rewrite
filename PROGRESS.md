@@ -4385,6 +4385,12 @@ Per-round log (newest last). All work in /root/workspace/research.
   skipped cleanly; a resumed turn completes). Older/newer session files
   won't break the current binary.
 
+## Round 88 — theme spec honesty warning
+- A malformed `--theme`/`$PI_THEME` silently fell back to default. The TUI
+  now warns once when an explicit spec is neither inline JSON nor a theme
+  file (verified in a real PTY session: warning shown for bad, silent for
+  valid, no panics either way). Release rebuilt.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
