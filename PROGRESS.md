@@ -5080,6 +5080,10 @@ Per-round log (newest last). All work in /root/workspace/research.
 - Under --max-turns 2, an rpc prompt's tool loop stops at one tool_call
   (the cap bounds the turn both in CLI and RPC paths).
 
+## Round 234 — serve creates missing session dir
+- With a nonexistent --session-dir, the server creates it (healthz 200,
+  dir present). First-run ergonomics work.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
