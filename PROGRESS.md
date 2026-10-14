@@ -5043,6 +5043,10 @@ Per-round log (newest last). All work in /root/workspace/research.
   reader is unbounded (the user's own trusted stdin, unlike the external
   MCP surface which is 1 MiB-bounded — a deliberate asymmetry).
 
+## Round 225 — gc keep=0 edge verified
+- --gc-sessions 0 removes ALL sessions ("kept 0 newest, removed 2") — the
+  edge bound behaves.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
