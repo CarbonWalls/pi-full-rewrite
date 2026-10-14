@@ -5270,6 +5270,10 @@ Per-round log (newest last). All work in /root/workspace/research.
   missing file falls back (the interactive TUI warns; one-shot doesn't
   need the theme).
 
+## Round 277 — GC keeps the continued session
+- After --continue, a keep-2 dry-run removes an OLDER session and keeps
+  the continued one (ms-ordering preserves the active session).
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
