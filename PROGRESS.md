@@ -5038,6 +5038,11 @@ Per-round log (newest last). All work in /root/workspace/research.
 - The CI badge passes and recent master runs are all success — every
   post-fix audit commit has been continuously green.
 
+## Round 224 — RPC large-line handling verified
+- A 3 MB prompt line through --rpc completes without a panic. The stdio
+  reader is unbounded (the user's own trusted stdin, unlike the external
+  MCP surface which is 1 MiB-bounded — a deliberate asymmetry).
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
