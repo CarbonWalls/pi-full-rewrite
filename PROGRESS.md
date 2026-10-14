@@ -5261,6 +5261,10 @@ Per-round log (newest last). All work in /root/workspace/research.
 - Same safe placeholder in HTML, no base64 blobs, valid document — both
   export formats handle images without leaking binary content.
 
+## Round 275 — consecutive rpc prompts keep tool use
+- Two prompts in one rpc process each ran their tool calls (2 tool_call
+  events) — per-prompt tooling works across the session.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
