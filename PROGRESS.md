@@ -5382,6 +5382,10 @@ Per-round log (newest last). All work in /root/workspace/research.
 - Two simultaneous rpc POSTs each stream their own id-correct done frame
   (verified at frame level; the earlier string-match probe was too naive).
 
+## Round 302 — tool results persist in the session log
+- A tool-call turn writes the tool output into the session JSONL (echo
+  appears in the file) — replay/export sees tool results.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
