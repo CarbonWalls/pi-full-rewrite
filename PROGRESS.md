@@ -4841,6 +4841,11 @@ Per-round log (newest last). All work in /root/workspace/research.
   never loads). The ..-escape class is closed for every CLI path/token
   resolver.
 
+## Round 182 — bad --mcp/--ext specs degrade gracefully
+- Empty/garbage --mcp specs warn ("bad --mcp spec") and the agent stays
+  alive; a missing ext command warns "bad --ext spec '…' (want '<name>
+  <command>')". No crashes on malformed extension specs.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
