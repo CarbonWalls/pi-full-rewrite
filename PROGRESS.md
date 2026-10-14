@@ -5441,6 +5441,10 @@ Per-round log (newest last). All work in /root/workspace/research.
   terminates it, bg_list reflects done:true. (bg_read/kill take an id;
   my earlier calls omitted it.) Full background-job surface works.
 
+## Round 315 — MCP apply_diff verified
+- apply_diff (file+diff, unified format) applies a hunk and edits the file
+  in root. Clear "missing 'file'/'diff'" errors when args are omitted.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
