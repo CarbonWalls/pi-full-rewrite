@@ -4430,6 +4430,10 @@ Per-round log (newest last). All work in /root/workspace/research.
   checks: CLI + serve rpc both attach Base64 image parts; explicit `parts`
   still honored. 134 tests, clippy 0, verify 32/32, static rebuilt.
 
+## Round 97 — v1.0.13 released
+- RPC @-attachment fix shipped (pipeline green, asset verified). Fourteen
+  releases (v1.0.0–v1.0.13).
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
