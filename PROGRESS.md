@@ -5093,6 +5093,10 @@ Per-round log (newest last). All work in /root/workspace/research.
   the scheme is compared case-insensitively (both accept, wrong creds still
   401). 137 tests, clippy 0; release + static rebuilt. (v1.0.20 candidate.)
 
+## Round 237 — v1.0.20 released (auth case-insensitivity)
+- The auth scheme fix shipped (latest = v1.0.20). Twenty-one releases
+  (v1.0.0–v1.0.20).
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
