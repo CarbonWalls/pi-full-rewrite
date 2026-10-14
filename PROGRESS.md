@@ -5196,6 +5196,11 @@ Per-round log (newest last). All work in /root/workspace/research.
   system_append -> grows client.system -> fed into the agent system
   (ext.rs:274). Protocol feature is wired as documented.
 
+## Round 261 — workspace housekeeping
+- Disk is healthy (7.4 GB free); cleaned a 270 MB leftover /tmp/pi-cold and
+  stale acceptance temp dirs. Nothing permanent outside the workspace
+  touched.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
