@@ -5201,6 +5201,10 @@ Per-round log (newest last). All work in /root/workspace/research.
   stale acceptance temp dirs. Nothing permanent outside the workspace
   touched.
 
+## Round 262 — client-disconnect resilience verified
+- A client that RSTs its socket mid-rpc-stream leaves the serve alive
+  (healthz 200 after) — disconnected-write errors are handled gracefully.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
