@@ -4851,6 +4851,11 @@ Per-round log (newest last). All work in /root/workspace/research.
   close — pipelined second requests are not answered into the first
   response (no smuggling/splitting).
 
+## Round 184 — /sessions framing verified
+- With 3 sessions, the endpoint returns correctly Content-Length-framed
+  JSON that parses cleanly and lists all 3 (framing sane after the round-63
+  audit).
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
