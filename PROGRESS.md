@@ -4598,6 +4598,11 @@ Per-round log (newest last). All work in /root/workspace/research.
   no panic, terminal restored. Both theme forms (inline JSON + file) now
   verified live.
 
+## Round 129 — --template scaffolding verified
+- A custom template (`.pi/templates/analyze.md`) with `{{file}}`/`{{project}}`
+  placeholders rendered through `--template` + `--set` into the actual
+  prompt ("Analyze main.rs and return a verdict for pi-rs.").
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
