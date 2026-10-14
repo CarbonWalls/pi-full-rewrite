@@ -5022,6 +5022,10 @@ Per-round log (newest last). All work in /root/workspace/research.
 - Two sequential write_file calls leave the latest content (V1 -> V2):
   writes replace the file as documented. (The box flaked again mid-round.)
 
+## Round 220 — edit_file arg validation verified
+- An edit missing `path` errors: "edit_file: `path` and non-empty
+  `old_string` required" — clear validation, no crash.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
