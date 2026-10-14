@@ -5295,6 +5295,10 @@ Per-round log (newest last). All work in /root/workspace/research.
 - The doctor table renders 7 flagged check rows (ok/FAIL) — stable column
   layout for tooling.
 
+## Round 283 — gc invalid keep values verified
+- -1 and abc for --gc-sessions error cleanly at the parser (files intact)
+  — no panics, no partial deletes.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
