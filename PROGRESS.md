@@ -4877,6 +4877,10 @@ Per-round log (newest last). All work in /root/workspace/research.
 - stdin closing after a prompt yields the final `bye` frame and a clean
   rc=0 exit (no hang, no timeout kill).
 
+## Round 190 — invalid UTF-8 stdin handled
+- Raw ÿþ bytes on the rpc stdin produce no panic; the process exits
+  cleanly (rc=0).
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
