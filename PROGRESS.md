@@ -5436,6 +5436,11 @@ Per-round log (newest last). All work in /root/workspace/research.
   (15 tools: read_file..apply_diff). Confirmed the earlier "git_status"
   naming assumption wrong; no git mutation exists on the surface.
 
+## Round 314 — MCP bg_* lifecycle verified
+- bg_bash starts a job (id bg0), bg_read streams its output, bg_kill
+  terminates it, bg_list reflects done:true. (bg_read/kill take an id;
+  my earlier calls omitted it.) Full background-job surface works.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
