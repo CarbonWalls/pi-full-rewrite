@@ -58,6 +58,35 @@ All notable work on pi-rs (the Rust rewrite of pi).
   (symlinks, hard links, specials) — writing through a link could previously
   escape `<root>`. Regression-tested; 30-point matrix covers the valid path.
 
+## 1.0.21 — strict CORS preflight origin matching
+- The OPTIONS preflight only answers the configured origin (`*` accepted
+  for all); a non-matching Origin gets no Access-Control-Allow-Origin.
+
+## 1.0.20 — RFC-compliant auth scheme
+- `Authorization: bearer <token>` (lowercase scheme) now authenticates
+  exactly like `Bearer` (RFC 7235 case-insensitive schemes).
+
+## 1.0.19 — --stats honest missing-file error
+- `--stats FILE` for a missing session fails loudly (rc=1), matching the
+  `--export` behavior.
+
+## 1.0.18 — @inline symlink-escape confinement (security)
+- In-line `@file.png` tokens now resolve through the shared root-confinement
+  check — a symlink pointing outside `--root` no longer leaks external
+  bytes into the prompt (the `--image` flag path already enforced this).
+
+## 1.0.17 — push_usage head fix
+- `push_usage` now advances the session head, so a trailing usage entry
+  stays on branch replays (found by a new 4500-entry O(n) regression test).
+
+## 1.0.16 — --doctor api-keys source honesty
+- The api-keys check sees both env keys and `--login`'d keys.json entries
+  and reports which source filled them.
+
+## 1.0.15 — /fork off-by-one fix
+- `fork_from(0-based i)` now branches exactly at entry `i`; forking at the
+  first entry previously orphaned the next message.
+
 ## 1.0.14 — stdio RPC @-image attachment (prompt-path parity)
 - `--rpc` prompts now attach in-line `@file.png` tokens exactly like the
   CLI and HTTP `/rpc` paths (a shared `inline_image_parts` helper); the
