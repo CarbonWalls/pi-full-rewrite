@@ -5068,6 +5068,10 @@ Per-round log (newest last). All work in /root/workspace/research.
 - Writing to a/b/c.txt (missing dirs) auto-creates them; the file lands
   with the content.
 
+## Round 231 — edit_file large-file verified
+- An edit on a file with a ~900 KB single line applies correctly
+  (line-last -> line-last-EDITED). (Box still closed to benchmarks.)
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
