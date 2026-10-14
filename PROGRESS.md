@@ -4736,6 +4736,10 @@ Per-round log (newest last). All work in /root/workspace/research.
   which ("1 provider key(s) present (keys.json)" vs "(env)"). Verified both
   paths. 136 tests, clippy 0; release rebuilt.
 
+## Round 159 — v1.0.16 released
+- The doctor api-keys honesty fix shipped (pipeline green, asset verified).
+  Seventeen releases (v1.0.0–v1.0.16).
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
