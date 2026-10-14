@@ -5047,6 +5047,11 @@ Per-round log (newest last). All work in /root/workspace/research.
 - --gc-sessions 0 removes ALL sessions ("kept 0 newest, removed 2") — the
   edge bound behaves.
 
+## Round 226 — RPC explicit parts with image verified
+- A parts array (text + image Base64) round-trips into the user message
+  (2 parts, image intact) over --rpc — the power-user attachment path
+  works.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
