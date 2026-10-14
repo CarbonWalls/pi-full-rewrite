@@ -4816,6 +4816,9 @@ Per-round log (newest last). All work in /root/workspace/research.
 - A real /fork-0 session exports as markdown (renders the branch head
   chain: # session + user turns). Branch-aware export works.
 
+## Round 177 — --export-all multi-session verified
+- 2 sessions -> "exported 2 sessions" with 2 .md files written.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
