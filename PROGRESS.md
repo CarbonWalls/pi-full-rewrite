@@ -4669,6 +4669,10 @@ Per-round log (newest last). All work in /root/workspace/research.
   falling back to mock/echo" → the fallback completes a turn with usage.
   The --fallback mechanism works end to end.
 
+## Round 144 — --json mode verified (NDJSON streaming)
+- --json emits NDJSON: text-delta events then a done frame with usage. The
+  streaming one-shot format is valid and machine-parseable.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
