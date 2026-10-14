@@ -5514,6 +5514,11 @@ Per-round log (newest last). All work in /root/workspace/research.
   (ANSI appears); an invalid theme is irrelevant to the one-shot path
   (matches its documented TUI-only role).
 
+## Round 330 — install-package rejects symlink entries live
+- A tar with a symlink entry is refused ("package contains a symlink")
+  and nothing lands on disk — the tar-slip guard's symlink case verified
+  end-to-end.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
