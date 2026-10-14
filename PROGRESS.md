@@ -4808,6 +4808,10 @@ Per-round log (newest last). All work in /root/workspace/research.
 - The trailing-usage branch-replay fix shipped as v1.0.17 (tag confirmed,
   asset live). Eighteen releases (v1.0.0–v1.0.17).
 
+## Round 175 — capstone at the 137-test HEAD
+- 137 tests, clippy 0, sign-off 32/32, tour 12/12 — the re-armed era starts
+  fully green.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
