@@ -4582,6 +4582,11 @@ Per-round log (newest last). All work in /root/workspace/research.
 - 4 sessions → dry-run "would remove 2" with 4 intact; real gc removed 2,
   kept the 2 newest (matching the round-78 ms-ordering fix).
 
+## Round 126 — background-job tool family verified live
+- bg_bash launched a job that outlived the turn and wrote its output file
+  (bg.out = BG_DONE). bg_list/bg_kill are unit-covered; every tool family
+  ships working.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
