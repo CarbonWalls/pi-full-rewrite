@@ -5370,6 +5370,10 @@ Per-round log (newest last). All work in /root/workspace/research.
   unknown --skills name warns then exits cleanly ("no prompt given").
   (Box still down; benchmark deferred on its uptime.)
 
+## Round 299 — in-memory access-log verified
+- --access-log (a boolean, not a path) keeps an in-memory log surfaced at
+  /access-log; a /healthz hit appears there. Misread earlier as a path.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
