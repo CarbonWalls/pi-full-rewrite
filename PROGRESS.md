@@ -4950,6 +4950,13 @@ Per-round log (newest last). All work in /root/workspace/research.
 - 600 /info + /healthz requests in 1.7 s (~359 req/s across 4 threads) —
   the lock-free atomics serve monitoring traffic fast.
 
+## Round 207 — --out write-path audit
+- Absolute --out outside root is rejected by confinement (round 80, re-shown
+  rc=1); in-root writes work. Root uid bypasses chmod so the EACCES branch
+  isn't reachable here — it is code-verified via the write map_err.
+  (Network note: the WSL box now says "No route to host" — a change from
+  the earlier timeout; re-ping later.)
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
