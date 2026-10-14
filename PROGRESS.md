@@ -4497,6 +4497,10 @@ Per-round log (newest last). All work in /root/workspace/research.
   session-level test: push_compaction appends a Compaction entry that
   survives branch replay. 135 tests, clippy 0.
 
+## Round 111 — 135-test era confirmed
+- Counts refreshed; tour 12/12; CI badge passing for the compaction-test
+  commit. WSL box still offline.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
