@@ -5430,6 +5430,12 @@ Per-round log (newest last). All work in /root/workspace/research.
 - bash cwd is --root and it sees the root tree — the tool works inside
   the confinement boundary (same model as CLI tool-cwd).
 
+## Round 313 — MCP git tool is read-only
+- A single `git` tool (args-based, e.g. log/status) works; mutating
+  commands are blocked; unknown tool names error with the available list
+  (15 tools: read_file..apply_diff). Confirmed the earlier "git_status"
+  naming assumption wrong; no git mutation exists on the surface.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
