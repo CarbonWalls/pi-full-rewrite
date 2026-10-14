@@ -5265,6 +5265,11 @@ Per-round log (newest last). All work in /root/workspace/research.
 - Two prompts in one rpc process each ran their tool calls (2 tool_call
   events) — per-prompt tooling works across the session.
 
+## Round 276 — empty skills dir + missing theme edge verified
+- --skills all on an empty dir -> "[skills] none matched"; --theme with a
+  missing file falls back (the interactive TUI warns; one-shot doesn't
+  need the theme).
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
