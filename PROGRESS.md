@@ -4946,6 +4946,10 @@ Per-round log (newest last). All work in /root/workspace/research.
   default); theme in the string form parses (an OBJECT theme invalidates
   the config by design — string is the documented type).
 
+## Round 206 — read-only route throughput benchmark
+- 600 /info + /healthz requests in 1.7 s (~359 req/s across 4 threads) —
+  the lock-free atomics serve monitoring traffic fast.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
