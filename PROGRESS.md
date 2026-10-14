@@ -4474,6 +4474,11 @@ Per-round log (newest last). All work in /root/workspace/research.
 - The arch-aware acceptance verified the latest release (v1.0.14) asset:
   ELF64 + static, no interpreter (2 pass, 4 arch-skips on aarch64).
 
+## Round 106 — RPC session/export frames verified
+- `{"type":"session"}` → `session_result`; `{"type":"export",session,format}`
+  → `export_result` with markdown. The full protocol surface (prompt,
+  tools, model, compact, session, export, abort, quit) is now verified.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
