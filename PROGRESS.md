@@ -4565,6 +4565,12 @@ Per-round log (newest last). All work in /root/workspace/research.
   subcommand (`rm`) is rejected with "not allowed" and the file survives.
   The read-only git sandbox works as specified.
 
+## Round 123 — todo tool verified live
+- The todo tool updates the list wholesale ("TODO updated: 0/1 done") and
+  echoes the marked list `[ ] task one`. The cruxes of tools sharing the
+  wholesale-replace contract are confirmed. (A multi-rule mock chain didn't
+  complete — a scenario/consume nuance, not a tool defect.)
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
