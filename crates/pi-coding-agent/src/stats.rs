@@ -162,6 +162,9 @@ pub fn count_session(s: &Session) -> SessionCounts {
 }
 
 pub fn run(file: &Path) -> Result<String, String> {
+    if !file.exists() {
+        return Err(format!("session file not found: {}", file.display()));
+    }
     let (id, s, c) = load_counts(file)?;
     if s.entries.is_empty() {
         return Ok("(empty session — no entries loaded)".into());
@@ -179,6 +182,10 @@ pub fn run(file: &Path) -> Result<String, String> {
 
 /// Machine-readable per-session stats (`pi --stats <file> --json`).
 pub fn run_json(file: &Path) -> Result<serde_json::Value, String> {
+    if !file.exists() {
+        return Err(format!("session file not found: {}", file.display()));
+    }
+
     let (id, s, c) = load_counts(file)?;
     if s.entries.is_empty() {
         return Ok(serde_json::json!({"id": id, "empty": true}));

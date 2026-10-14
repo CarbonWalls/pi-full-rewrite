@@ -4923,6 +4923,11 @@ Per-round log (newest last). All work in /root/workspace/research.
   found; read the file and copy it exactly" error and leaves the file
   unchanged.
 
+## Round 201 — --stats honest missing-file error
+- Aligned with --export (round 70): --stats FILE for a missing session now
+  fails loudly ("stats: session file not found", rc=1); existing files
+  still render. 137 tests, clippy 0; static rebuilt.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
