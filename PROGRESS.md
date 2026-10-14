@@ -5029,6 +5029,11 @@ Per-round log (newest last). All work in /root/workspace/research.
 ## Round 221 — --sessions --json verified
 - The JSON session listing parses cleanly with id+entries per session.
 
+## Round 222 — rpc echo frame verified (README protocol list 100%)
+- {"type":"echo","data":…} returns the data untouched. Every frame the
+  README documents (prompt/tools/model/compact/usage/session/echo/quit) is
+  now live-verified.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
