@@ -4465,6 +4465,11 @@ Per-round log (newest last). All work in /root/workspace/research.
 - `@photo.jpeg` attaches as `image/jpeg` (correct magic bytes encoded); the
   media_type_for mapping (png/jpeg/gif/webp) works end to end.
 
+## Round 104 — --login key hygiene verified
+- `--login` stores provider keys in `keys.json` with mode 0600; the schema
+  (`provider` map) holds multiple providers, and keys load for the matching
+  model/providers.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
