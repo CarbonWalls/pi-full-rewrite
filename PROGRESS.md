@@ -4578,6 +4578,10 @@ Per-round log (newest last). All work in /root/workspace/research.
   (MCP/ext/images/skills/apply_diff/bg/git-read-only) — all current and
   live-verified. No false claims found.
 
+## Round 125 — GC dry-run + real deletion verified
+- 4 sessions → dry-run "would remove 2" with 4 intact; real gc removed 2,
+  kept the 2 newest (matching the round-78 ms-ordering fix).
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
