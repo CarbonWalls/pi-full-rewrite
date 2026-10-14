@@ -5426,6 +5426,10 @@ Per-round log (newest last). All work in /root/workspace/research.
 - Writing "../escape.txt" is blocked (isError) with no file escaping the
   root; an in-root write lands correctly — writes are confined too.
 
+## Round 312 — MCP bash tool runs root-confined
+- bash cwd is --root and it sees the root tree — the tool works inside
+  the confinement boundary (same model as CLI tool-cwd).
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
