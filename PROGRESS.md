@@ -5347,6 +5347,10 @@ Per-round log (newest last). All work in /root/workspace/research.
   surfacing the code. (A chmod-based "failure" was NOT one: the sandboxed
   tool legitimately succeeded as root.) Error paths are properly flagged.
 
+## Round 294 — RPC unknown frame tolerated
+- An unknown future frame type is skipped; the following prompt completes
+  with its done frame (id2) — forward-compatible frame handling.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
