@@ -5239,6 +5239,10 @@ Per-round log (newest last). All work in /root/workspace/research.
   IPv4 stays unbracketed (Rust can't parse "[127.0.0.1]:p"). Both bind
   paths verified 200. 137 tests, clippy 0; static rebuilt. (v1.0.22.)
 
+## Round 270 — v1.0.22 released (IPv6 bind)
+- The --serve-addr ::1 fix shipped (latest confirmed = v1.0.22, asset
+  verified). Twenty-three releases (v1.0.0-v1.0.22).
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
