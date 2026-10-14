@@ -5404,6 +5404,10 @@ Per-round log (newest last). All work in /root/workspace/research.
   retry succeeds (AFTER_RETRY shown, error consumed once). The flag takes
   a REF (bare --fallback correctly errors).
 
+## Round 307 — --cost aggregation mode verified
+- Over a session dir with one recorded session, --cost prints per-model
+  line + a total (in/out/cost) — aggregate accounting works end to end.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
