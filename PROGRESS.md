@@ -5229,6 +5229,10 @@ Per-round log (newest last). All work in /root/workspace/research.
 - The session frame still returns an in-memory session id when no-session
   is on (id present, nothing persisted). (Box still closed.)
 
+## Round 268 — empty-dir GC is a clean no-op
+- --gc-sessions on an empty dir reports "0 removed" in both dry-run and
+  real modes (rc=0) — graceful on empty input.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
