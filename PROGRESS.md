@@ -5355,6 +5355,11 @@ Per-round log (newest last). All work in /root/workspace/research.
 - All recent flags appear in --help: serve-addr, no-session, mcp-server,
   skills, access-log, gc-sessions. (First sweep was my grep misuse.)
 
+## Round 296 — install.sh idempotent + stray binary cleaned
+- Two PREFIX installs both rc=0 with binary count 1->1 (idempotent). Also
+  removed the stray $HOME/.local/bin/pi my earlier DESTDIR test created
+  (install.sh honors PREFIX, not DESTDIR) — no permanent footprint.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
