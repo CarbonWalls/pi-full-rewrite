@@ -5351,6 +5351,10 @@ Per-round log (newest last). All work in /root/workspace/research.
 - An unknown future frame type is skipped; the following prompt completes
   with its done frame (id2) — forward-compatible frame handling.
 
+## Round 295 — --help documents the full modern surface
+- All recent flags appear in --help: serve-addr, no-session, mcp-server,
+  skills, access-log, gc-sessions. (First sweep was my grep misuse.)
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
