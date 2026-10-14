@@ -5390,6 +5390,11 @@ Per-round log (newest last). All work in /root/workspace/research.
 - A --serve with a nonexistent root path starts fine (dirs created) and
   answers healthz 200.
 
+## Round 304 — --serve-token guard matrix verified
+- healthz open (200), /info 401 without or with a wrong token, 200 with
+  the right one. (My first probe used a nonexistent --token flag; the
+  parser rejected it cleanly.) Also an unknown flag errors cleanly.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
