@@ -4555,6 +4555,11 @@ Per-round log (newest last). All work in /root/workspace/research.
 - Two sessions → --cost reports "2 model calls · in=7 out=19" summed across
   them; per-provider breakdown shown.
 
+## Round 121 — apply_diff verified live
+- apply_diff (file + unified-diff text schema) applied a hunk to a real
+  file inside root through the full agent chain (apply → read_file →
+  confirmed). The patch tool works as documented.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
