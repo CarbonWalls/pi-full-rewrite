@@ -4999,6 +4999,11 @@ Per-round log (newest last). All work in /root/workspace/research.
   (The earlier "missing turn" was two separate CLI sessions, not an export
   bug.)
 
+## Round 215 — bash failure propagation verified
+- A failing command surfaces as "✗ bash failed: $ false" (with the exit
+  info on following lines) — the agent sees real failures, not silenced
+  ones. (The earlier grep used the wrong pattern, not a tool issue.)
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
