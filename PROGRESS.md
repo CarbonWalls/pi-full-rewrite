@@ -5334,6 +5334,10 @@ Per-round log (newest last). All work in /root/workspace/research.
   earlier "no JSON" read was my probe's wrong assumption; the endpoint is
   correct.
 
+## Round 291 — MCP tool schema conformance verified
+- All 15 MCP tools expose spec-conformant inputSchema (type object +
+  properties) — valid for any MCP client.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
