@@ -5473,6 +5473,11 @@ Per-round log (newest last). All work in /root/workspace/research.
   compaction stays RPC-frame-only (verified earlier) — the documented
   surface holds.
 
+## Round 322 — rpc model frame with invalid model tolerated
+- A model frame naming a nonexistent model returns the ready frame with
+  the effective model (CLI -m wins) and full tool list — no crash, clear
+  surface.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
