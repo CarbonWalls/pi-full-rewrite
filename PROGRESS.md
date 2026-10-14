@@ -4901,6 +4901,10 @@ Per-round log (newest last). All work in /root/workspace/research.
 - With --serve-token, the dashboard root and /info return 401 without a
   token; /healthz stays open for liveness probes (by design).
 
+## Round 196 — fs recursive remove verified
+- fs remove with recursive:true deletes the whole directory tree inside
+  root (d1 + nested d2 + files) — the rm -rf equivalent works scoped.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
