@@ -4644,6 +4644,10 @@ Per-round log (newest last). All work in /root/workspace/research.
 - The /fork off-by-one fix shipped (pipeline green, asset verified).
   Sixteen releases (v1.0.0–v1.0.15).
 
+## Round 138 — /replay unaffected by fork fix
+- /replay reads entries inside the fork-fixed session (view command,
+  independent of the head); handled cleanly post-fix.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
