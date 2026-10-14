@@ -5328,6 +5328,12 @@ Per-round log (newest last). All work in /root/workspace/research.
 - /cost before a turn: model_calls 0; after one turn: 1 call, per_model
   lists mock/echo (in/out), totals updated — cost mirrors live usage.
 
+## Round 290 — /metrics is Prometheus text format
+- /metrics emits "# TYPE pi_requests counter" + counters (requests
+  incremented by the probe itself) — proper OM format for scraping. The
+  earlier "no JSON" read was my probe's wrong assumption; the endpoint is
+  correct.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
