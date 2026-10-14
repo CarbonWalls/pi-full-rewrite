@@ -4691,6 +4691,11 @@ Per-round log (newest last). All work in /root/workspace/research.
 - `pi -- --dash-prompt` treats a dashed text as the prompt (no flag parse);
   an explicit `-` reads stdin. Parser edge cases behave correctly.
 
+## Round 149 — env-var surface verified
+- Provider keys in the environment are detected by --doctor (1 key present);
+  the PI_THEME env var theme is accepted in a real TUI session (no warning,
+  no panic).
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
