@@ -5445,6 +5445,11 @@ Per-round log (newest last). All work in /root/workspace/research.
 - apply_diff (file+diff, unified format) applies a hunk and edits the file
   in root. Clear "missing 'file'/'diff'" errors when args are omitted.
 
+## Round 316 — MCP edit_file/glob/grep/list_dir/fs verified
+- edit_file (path/old_string/new_string) edits in root; glob lists files;
+  grep finds edits; list_dir works; fs copy moves within root. (The tool
+  arg keys differ from the CLI names: file->path, old->old_string.)
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
