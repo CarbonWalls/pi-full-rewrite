@@ -4687,6 +4687,10 @@ Per-round log (newest last). All work in /root/workspace/research.
 - The local installer puts the binary at $HOME/.local/bin/pi (PREFIX
   default), makes no .profile edits unless UPDATE_PROFILE=1, rc=0.
 
+## Round 148 — CLI end-of-options edges verified
+- `pi -- --dash-prompt` treats a dashed text as the prompt (no flag parse);
+  an explicit `-` reads stdin. Parser edge cases behave correctly.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
