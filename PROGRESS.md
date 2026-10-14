@@ -4560,6 +4560,11 @@ Per-round log (newest last). All work in /root/workspace/research.
   file inside root through the full agent chain (apply → read_file →
   confirmed). The patch tool works as documented.
 
+## Round 122 — git tool verified (allowed + blocked)
+- `git status --short` on a dirty repo closes the agent chain; a destructive
+  subcommand (`rm`) is rejected with "not allowed" and the file survives.
+  The read-only git sandbox works as specified.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
