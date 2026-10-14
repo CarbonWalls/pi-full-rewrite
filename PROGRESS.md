@@ -4628,6 +4628,10 @@ Per-round log (newest last). All work in /root/workspace/research.
   /sessions /git /label /theme /find /exit) in a real PTY session; no
   panic, terminal restored. (Earlier "missing" was a capture artifact.)
 
+## Round 135 — /label verified live
+- The TUI /label slash command appends a `label` entry ('myturn') to the
+  session JSONL — session labeling works (labels feed the stats listing).
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
