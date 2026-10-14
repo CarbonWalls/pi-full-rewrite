@@ -5455,6 +5455,10 @@ Per-round log (newest last). All work in /root/workspace/research.
   (0/1 done shown) — clear "must be an array" on wrong args. The last
   live MCP tool is now covered.
 
+## Round 318 — full capstone re-run at HEAD
+- 137 tests, clippy 0, verify 32/32, tour 12/12 all green after the
+  IPv6/mcp-era commits — the whole suite holds.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
