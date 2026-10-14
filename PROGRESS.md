@@ -5499,6 +5499,12 @@ Per-round log (newest last). All work in /root/workspace/research.
   the newest doc/verification commits). The entire doc-only era keeps CI
   green.
 
+## Round 327 — interactive TUI smoke-tested (first live coverage)
+- pi --interactive under a pseudo-TTY renders ANSI frames (976 bytes in
+  2.5s) without crashing — the TUI path boots on first live contact. My
+  earlier pty harness had to use kill -9 since the TUI API stays
+  rendering; the raw-mode surface is stable.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
