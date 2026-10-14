@@ -5247,6 +5247,12 @@ Per-round log (newest last). All work in /root/workspace/research.
 - Both the ci and release runs for the v1.0.22 tag completed success — the
   IPv6-bind release shipped through its own verified pipeline.
 
+## Round 272 — serve restart behavior verified (fresh session per process)
+- Confirmed each serve process starts a NEW session (ids differ across
+  restarts) — deterministic per-process design; past sessions are browsable
+  via /sessions and continued with --continue/resume on the CLI. No hidden
+  continuation surprises.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
