@@ -4391,6 +4391,10 @@ Per-round log (newest last). All work in /root/workspace/research.
   file (verified in a real PTY session: warning shown for bad, silent for
   valid, no panics either way). Release rebuilt.
 
+## Round 89 — v1.0.11 released
+- Theme-honesty fix shipped as v1.0.11 (pipeline green, asset verified).
+  Twelve releases (v1.0.0–v1.0.11).
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
