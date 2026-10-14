@@ -5450,6 +5450,11 @@ Per-round log (newest last). All work in /root/workspace/research.
   grep finds edits; list_dir works; fs copy moves within root. (The tool
   arg keys differ from the CLI names: file->path, old->old_string.)
 
+## Round 317 — MCP todo tool verified
+- todo takes the FULL list as {todos:[{content,done}]} and replaces it
+  (0/1 done shown) — clear "must be an array" on wrong args. The last
+  live MCP tool is now covered.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
