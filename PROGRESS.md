@@ -5408,6 +5408,10 @@ Per-round log (newest last). All work in /root/workspace/research.
 - Over a session dir with one recorded session, --cost prints per-model
   line + a total (in/out/cost) — aggregate accounting works end to end.
 
+## Round 308 — --export-all verified
+- Exports every session in the dir as <id>.md into the target (1/1 here)
+  with a summary line.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
