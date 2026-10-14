@@ -5287,6 +5287,10 @@ Per-round log (newest last). All work in /root/workspace/research.
 - A client that sets Content-Length (rather than close-framing) gets a
   200 with a done frame — both framing styles are accepted.
 
+## Round 281 — compact on empty session verified
+- A compact frame on a 0-message session returns ok:true with no crash
+  (the len<2 guard skips summarization).
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
