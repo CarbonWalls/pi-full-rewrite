@@ -4403,6 +4403,10 @@ Per-round log (newest last). All work in /root/workspace/research.
 ## Round 91 — 134-test era confirmed
 - Counts refreshed to 134; CI badge passing for the forward-compat commit.
 
+## Round 92 — --init scaffold + shell completions verified
+- `pi --root X --init` scaffolds pi.json + skills/ + sessions/; `--completion
+  bash` (206 lines) and `fish` (66 lines) emit real completion scripts.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
