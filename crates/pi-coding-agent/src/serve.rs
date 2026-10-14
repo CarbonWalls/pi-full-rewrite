@@ -73,21 +73,29 @@ meta(); sessions(); cost(); metrics(); setInterval(metrics,3000); setInterval(se
 use tokio::net::TcpListener;
 use tokio::sync::Mutex;
 
+/// Bundle of serve-runtime options (one struct keeps the handler
+/// signatures under the argument-count lint).
+#[derive(Clone)]
+pub struct ServeOpts {
+    pub token: Option<String>,
+    pub cors: Option<String>,
+    pub access_log: bool,
+    pub session_dir: std::path::PathBuf,
+    pub root: std::path::PathBuf,
+}
+
 pub async fn serve(
     agent: Agent,
     addr: String,
     port: u16,
-    token: Option<String>,
-    cors: Option<String>,
-    access_log: bool,
-    session_dir: std::path::PathBuf,
+    opts: ServeOpts,
 ) -> anyhow::Result<()> {
     let listener = bind_listener(&addr, port).await?;
     let bind = listener
         .local_addr()
         .map(|a| a.to_string())
         .unwrap_or_else(|_| format!("{addr}:{port}"));
-    serve_listener(listener, agent, token, bind, cors, access_log, session_dir).await
+    serve_listener(listener, agent, bind, opts).await
 }
 
 /// Lock-free /info mirror: the static bits are snapshotted once at startup
@@ -176,12 +184,10 @@ pub async fn bind_listener(addr: &str, port: u16) -> anyhow::Result<TcpListener>
 pub async fn serve_listener(
     listener: TcpListener,
     agent: Agent,
-    token: Option<String>,
     bind: String,
-    cors: Option<String>,
-    access_log: bool,
-    session_dir: std::path::PathBuf,
+    opts: ServeOpts,
 ) -> anyhow::Result<()> {
+    let ServeOpts { token, cors, access_log, session_dir, root } = opts;
     if token.is_some() {
         eprintln!(
             "pi serve: listening on {bind} (auth required via Authorization: Bearer <token>) — Ctrl-C to stop"
@@ -258,6 +264,7 @@ pub async fn serve_listener(
         let metrics = metrics.clone();
         let abort2 = abort.clone();
         let sd2 = session_dir.clone();
+        let root2 = Arc::new(root.clone());
         let info2 = info.clone();
         let permit = match conns.clone().try_acquire_owned() {
             Ok(p) => p,
@@ -273,7 +280,7 @@ pub async fn serve_listener(
             // content-length, never-sent body) can't hold a handler forever.
             let _ = tokio::time::timeout(
                 std::time::Duration::from_secs(120),
-                handle_conn(sock, &agent, token.as_deref(), &metrics, cors.as_deref(), alog_rx, &abort2, sd2, info2),
+                handle_conn(sock, &agent, token.as_deref(), &metrics, cors.as_deref(), alog_rx, &abort2, sd2, info2, root2),
             )
             .await;
             drop(permit); // free the slot when this handler finishes
@@ -292,6 +299,7 @@ async fn handle_conn(
     abort: &Arc<std::sync::atomic::AtomicBool>,
     session_dir: Arc<std::path::PathBuf>,
     info: Arc<SharedInfo>,
+    root: Arc<std::path::PathBuf>,
 ) -> std::io::Result<()> {
     metrics.requests.fetch_add(1, std::sync::atomic::Ordering::Relaxed);
     let cors: Option<String> = cors.map(|c| c.to_string());
@@ -404,7 +412,7 @@ async fn handle_conn(
         if let Some(a) = &alog {
             a.push_req(method, path, 200);
         }
-        return stream_rpc(&mut stream, &body_text, agent, &cors, abort, &info).await;
+        return stream_rpc(&mut stream, &body_text, agent, &cors, abort, &info, root.as_ref()).await;
     }
 
     if method == "GET" && path == "/access-log" {
@@ -468,6 +476,7 @@ async fn stream_rpc(
     cors: &Option<String>,
     abort: &Arc<std::sync::atomic::AtomicBool>,
     info: &SharedInfo,
+    serve_root: &std::path::Path,
 ) -> std::io::Result<()> {
     use tokio::io::AsyncWriteExt;
     let head = format!(
@@ -510,17 +519,15 @@ async fn stream_rpc(
                     .and_then(|v| v.as_str())
                     .unwrap_or("")
                     .to_string();
-                let mut rx = g.user_turn_parts(
-                    serde_json::from_value(
-                        req.get("parts")
-                            .cloned()
-                            .unwrap_or_else(|| json!([{"type":"text","text":input}])),
-                    )
-                    .unwrap_or_else(|_| {
+                // no explicit `parts`: build them from the input, running
+                // the same in-line @image attachment the CLI prompt path uses
+                let parts = match req.get("parts") {
+                    Some(p) => serde_json::from_value(p.clone().clone()).unwrap_or_else(|_| {
                         vec![pi_ai::types::ContentPart::Text { text: input.clone() }]
                     }),
-                )
-                .await;
+                    None => crate::inline_image_parts(&input, serve_root),
+                };
+                let mut rx = g.user_turn_parts(parts).await;
                 while let Some(ev) = rx.recv().await {
                     let val = serde_json::to_value(ev)
                         .unwrap_or_else(|_| json!({"type":"error","message":"serialize"}));

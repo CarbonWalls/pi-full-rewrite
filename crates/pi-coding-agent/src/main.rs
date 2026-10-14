@@ -838,10 +838,13 @@ async fn run(cli: Cli) -> Result<()> {
             agent,
             cli.serve_addr.clone(),
             cli.port,
-            cli.serve_token.clone(),
-            cli.cors.clone(),
-            cli.access_log,
-            session_dir0.clone(),
+            serve::ServeOpts {
+                token: cli.serve_token.clone(),
+                cors: cli.cors.clone(),
+                access_log: cli.access_log,
+                session_dir: session_dir0.clone(),
+                root: root.clone(),
+            },
         )
         .await;
     }
@@ -951,13 +954,14 @@ const IMAGE_EXTS: [&str; 5] = ["png", "jpg", "jpeg", "webp", "gif"];
 /// `@file.png`-style tokens inside the prompt that resolve to an existing
 /// image under `root` are replaced with inline image parts (kept as text for
 /// non-vision models).
-fn build_user_parts(cli: &Cli, prompt: &str, root: &std::path::Path) -> Result<Vec<pi_ai::ContentPart>> {
+/// Scan `prompt` for in-line `@file.png` tokens and turn each resolvable
+/// image under `root` into an image ContentPart. Shared by the CLI prompt
+/// path and the HTTP/stdio RPC path so both attach identically.
+pub fn inline_image_parts(prompt: &str, root: &std::path::Path) -> Vec<pi_ai::types::ContentPart> {
     use pi_ai::types::{ContentPart, ImageSource};
 
     let mut parts: Vec<ContentPart> = Vec::new();
     let mut text = prompt.to_string();
-
-    // in-line @tokens (only for vision-capable default; keep harmless anyway)
     let mut i = 0;
     while let Some(at) = text[i..].find('@') {
         let start = i + at;
@@ -979,9 +983,7 @@ fn build_user_parts(cli: &Cli, prompt: &str, root: &std::path::Path) -> Result<V
             };
             if cand.is_file() {
                 if let Some(data) = base64_image(&cand) {
-                    if text[..start].trim().is_empty() {
-                        // leading token: keep buffer accumulation order sane
-                    } else {
+                    if !text[..start].trim().is_empty() {
                         parts.push(ContentPart::Text {
                             text: text[..start].to_string(),
                         });
@@ -1002,6 +1004,13 @@ fn build_user_parts(cli: &Cli, prompt: &str, root: &std::path::Path) -> Result<V
     if !text.trim().is_empty() {
         parts.push(ContentPart::Text { text });
     }
+    parts
+}
+
+fn build_user_parts(cli: &Cli, prompt: &str, root: &std::path::Path) -> Result<Vec<pi_ai::ContentPart>> {
+    use pi_ai::types::{ContentPart, ImageSource};
+
+    let mut parts = inline_image_parts(prompt, root);
 
     // explicit --image flags append after the text content (confined to root)
     for img in &cli.image {

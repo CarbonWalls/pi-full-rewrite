@@ -4422,6 +4422,14 @@ Per-round log (newest last). All work in /root/workspace/research.
   purged, gitignored, and the CI hygiene guard extended to cover every
   session-data shape. 134 tests, clippy 0.
 
+## Round 96 — RPC @-attachment asymmetry closed + ServeOpts refactor
+- Found: the RPC prompt path (HTTP /rpc + stdio) did NOT attach in-line
+  `@image.png` tokens — only the CLI path did (a real behavioral gap). The
+  @-scanner is now a shared `inline_image_parts` helper used by both paths;
+  the serve runtime gained a `ServeOpts` struct (8-arg lint went 0). Live
+  checks: CLI + serve rpc both attach Base64 image parts; explicit `parts`
+  still honored. 134 tests, clippy 0, verify 32/32, static rebuilt.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
