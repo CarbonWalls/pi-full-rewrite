@@ -5399,6 +5399,11 @@ Per-round log (newest last). All work in /root/workspace/research.
 - EOF with no frames and EOF after a prompt both exit 0 — the documented
   single-connection stdio boundary is graceful.
 
+## Round 306 — mock error + --fallback recovery re-verified
+- An error rule with a predicate fires; with `--fallback <REF>` the single
+  retry succeeds (AFTER_RETRY shown, error consumed once). The flag takes
+  a REF (bare --fallback correctly errors).
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
