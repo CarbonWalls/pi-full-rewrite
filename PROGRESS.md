@@ -4987,6 +4987,12 @@ Per-round log (newest last). All work in /root/workspace/research.
   (E2E_DONE + FILE_FIXED). The full user story (curl | install, then an
   agent fixing code) works on the target hardware.
 
+## Round 213 — port-conflict verified; box went back offline mid-bench
+- A second serve on an in-use port fails cleanly (os error 98, rc=1).
+- The box dropped again ("Connection closed") during the on-hardware
+  benchmark — the rounds 211-212 hardware proofs stand; benchmarks piggyback
+  on its next availability.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
