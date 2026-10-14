@@ -5278,6 +5278,11 @@ Per-round log (newest last). All work in /root/workspace/research.
 - The dry-run "would remove 2 (… ids …)" exactly matches the real run
   (4 -> 2) — the preview is trustworthy.
 
+## Round 279 — rpc usage frame aggregating verified
+- After two prompts, the usage frame reports the cumulative in-process
+  totals (in=4 out=16 = 2x2/2x8) — usage accounting is cumulative per
+  process.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
