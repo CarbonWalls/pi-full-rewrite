@@ -4766,6 +4766,11 @@ Per-round log (newest last). All work in /root/workspace/research.
 - Sessions land in the custom dir (1 file), none leak into root; --sessions
   lists from there. The override works end to end.
 
+## Round 166 — code/ask modes verified
+- --mode ask completes turns with the ask system and NO toolset (a
+  scenario tool rule yields nothing); code mode has the tools. The mode
+  surface works as documented.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
