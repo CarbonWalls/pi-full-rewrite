@@ -164,7 +164,7 @@ pi --man > pi.1 && man ./pi.1              # roff man page
 | `--mcp "<name> <cmd>"` | attach an MCP server's tools (repeatable) |
 | `--ext "<name> <cmd>"` | attach an extension process (repeatable) |
 | `--review` | feed git status + diff to the model as the prompt |
-| `--serve` / `--port` / `--serve-addr` / `--serve-token` / `--cors` / `--access-log` | HTTP JSON-RPC server controls |
+| `--serve` / `--port` / `--serve-addr` / `--serve-token` / `--cors` / `--access-log` | HTTP JSON-RPC server controls  `--serve-addr` takes IPv4/IPv6 literals (`::1`) and hostnames |
 | `--completion <shell>` / `--man` | shell completion / roff man page |
 | `--install-package <tar>` | install a pi package into `<root>/.pi/` |
 | `--export-all <dir>` | batch-export every session as `<id>.md` |
