@@ -5009,6 +5009,10 @@ Per-round log (newest last). All work in /root/workspace/research.
   pattern"); deep recursive patterns yield "no files match". No crashes on
   odd globs.
 
+## Round 217 — grep tool chain verified
+- A recursive grep found "needle-in-haystack" in root and the agent chain
+  closed on it.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
