@@ -299,8 +299,12 @@ impl Session {
     /// user push chains its parent from that entry; assistant/tool replies
     /// then chain from the new user message. `at == 0` starts a fresh lineage
     /// with no parent (everything before it is orphaned).
+    /// Rewind the next user-turn attach point to `entries[at]`. `head` is
+    /// stored as the 1-based "next index" (matching `current_tip`/`branch`),
+    /// so the fork point must be stored as `at + 1` — storing bare `at`
+    /// orphaned forks at entry 0 (current_tip read `head - 1`).
     pub fn fork_from(&mut self, at: usize) {
-        self.head = at;
+        self.head = at + 1;
     }
 
     fn flush(&self) {
@@ -402,4 +406,23 @@ mod tests {
             branch.iter().any(|e| e.kind == EntryKind::Compaction),
             "compaction entry survives branch replay"
         );
+    }
+
+    #[test]
+    fn fork_user_message_branches_from_fork_point() {
+        let mut s = Session::new(Some("f".into()));
+        s.push_message(ChatMessage::text_user("first"));
+        s.push_user_message(ChatMessage::text_user("second"));
+        let fork_at = 0usize; // rewind to the very first message
+        s.fork_from(fork_at);
+        let first_id = s.entries[fork_at].id.clone();
+        s.push_user_message(ChatMessage::text_user("branch"));
+        // the branched user message must chain from the fork point, NOT the
+        // linear last entry (a real divergent branch)
+        let last = s.entries.last().unwrap();
+        assert_eq!(last.parent, first_id, "forked message chains from fork point");
+        // and the branch must replay from the fork point
+        let branch = s.branch();
+        assert_eq!(branch.len(), 2, "replay covers fork point + new message");
+        assert_eq!(branch[0].id, first_id);
     }

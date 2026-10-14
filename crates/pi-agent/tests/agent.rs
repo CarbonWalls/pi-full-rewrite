@@ -306,9 +306,10 @@ fn fork_rewinds_parent_pointer() {
     s.push_message(pi_ai::types::ChatMessage::text_assistant("A")); // 1, child of 0
     assert_eq!(s.entries.len(), 2);
 
-    // rewind to the user message and branch a new reply (user pushes go
-    // through push_user_message, exactly like the agent loop)
-    s.fork_from(1);
+    // rewind to the user message (0-based entry 0 = alpha, matching the
+    // TUI's /fork contract) and branch a new reply (user pushes go through
+    // push_user_message, exactly like the agent loop)
+    s.fork_from(0);
     s.push_user_message(pi_ai::types::ChatMessage::text_user("beta")); // 2, child of 0
     s.push_message(pi_ai::types::ChatMessage::text_assistant("B")); // 3, chains from beta
     assert_eq!(s.entries.len(), 4);
@@ -358,8 +359,8 @@ fn session_round_trip_keeps_structure() {
     tres.tool_name = Some("bash".into());
     s.push_message(tres);
     s.push_message(ChatMessage::text_assistant("a2"));
-    // fork back two entries and branch
-    s.fork_from(2);
+    // fork to entry 1 (a1) and branch (0-based fork point, matching /fork)
+    s.fork_from(1);
     s.push_user_message(ChatMessage::text_user("u2 (fork)"));
     s.push_message(ChatMessage::text_assistant("a2b"));
     // compaction on the top of the branch

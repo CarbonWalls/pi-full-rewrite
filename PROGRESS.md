@@ -4632,6 +4632,14 @@ Per-round log (newest last). All work in /root/workspace/research.
 - The TUI /label slash command appends a `label` entry ('myturn') to the
   session JSONL — session labeling works (labels feed the stats listing).
 
+## Round 136 — /fork off-by-one bug fixed (real semantics)
+- fork_from(0-based i) stored the fork point 1-based, so /fork at entry 0
+  orphaned the next message (parent "") and every fork chained a step off.
+  head now stores the 1-based next-index (fork_from sets at+1); current_tip
+  reads entries[head-1], matching the TUI's "0-based entry" contract. Two
+  regression tests updated to the 0-based contract + a new fork test added.
+  Suite: 136, clippy 0; release + static rebuilt.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
