@@ -4700,6 +4700,10 @@ Per-round log (newest last). All work in /root/workspace/research.
 - A --no-session turn completes with usage and writes NOTHING to the
   session dir (0 files) — the in-memory path works.
 
+## Round 151 — TUI Ctrl-C abort verified live
+- Ctrl-C mid-turn stops an 8s delayed turn (output never lands), no panic,
+  terminal restored. The cooperative abort works at the user level.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
