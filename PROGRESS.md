@@ -5107,6 +5107,10 @@ Per-round log (newest last). All work in /root/workspace/research.
   blocks), while matching and wildcard(*) still work. 137 tests, clippy 0,
   static rebuilt. (v1.0.21 candidate.)
 
+## Round 240 — v1.0.21 released (strict CORS)
+- The preflight origin-match fix shipped (latest = v1.0.21).
+  Twenty-two releases (v1.0.0–v1.0.21).
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
