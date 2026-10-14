@@ -5225,6 +5225,10 @@ Per-round log (newest last). All work in /root/workspace/research.
 - Badge passing; recent master runs all success — the acceptance/docs
   commits kept the pipeline continuously green.
 
+## Round 267 — rpc session frame under --no-session verified
+- The session frame still returns an in-memory session id when no-session
+  is on (id present, nothing persisted). (Box still closed.)
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
