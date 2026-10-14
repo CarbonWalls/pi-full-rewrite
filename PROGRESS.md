@@ -5170,6 +5170,10 @@ Per-round log (newest last). All work in /root/workspace/research.
 - An ext command that doesn't exist warns ("extension 'dead' failed: io:
   No such file or directory") and the agent completes normally.
 
+## Round 255 — encoded path traversal safety verified
+- %2e%2e and %252e%252e paths return plain 404 (no decode, no escape) —
+  the router treats paths opaquely and stays safe.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
