@@ -5131,6 +5131,10 @@ Per-round log (newest last). All work in /root/workspace/research.
 - --stats --json emits structured fields (entries/branch_depth/file/…);
   --cost --json emits model_calls + totals — both parse cleanly.
 
+## Round 246 — package install path scoping verified
+- A tar containing other.txt (outside .pi/) is refused wholesale:
+  "package contains unsafe path" — nothing lands outside .pi (atomic).
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
