@@ -4910,6 +4910,10 @@ Per-round log (newest last). All work in /root/workspace/research.
   job: chain completes and 0 sleep processes survive. The bg
   start/poll/kill family is fully live-verified.
 
+## Round 198 — bg_read verified (100% bg coverage)
+- bg_read {"id":"bg0"} returns the completed job's output after bg_bash.
+  The ENTIRE bg family (bash/read/kill/list) is now live-verified.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
