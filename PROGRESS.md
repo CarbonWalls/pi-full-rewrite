@@ -4993,6 +4993,12 @@ Per-round log (newest last). All work in /root/workspace/research.
   benchmark — the rounds 211-212 hardware proofs stand; benchmarks piggyback
   on its next availability.
 
+## Round 214 — multi-turn markdown export structure verified
+- A real 2-turn session exports as numbered role headers in order (user(0)
+  -> assistant(1) -> user(2) -> assistant(3)) with content below each.
+  (The earlier "missing turn" was two separate CLI sessions, not an export
+  bug.)
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
