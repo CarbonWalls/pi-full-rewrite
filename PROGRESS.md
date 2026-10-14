@@ -4487,6 +4487,10 @@ Per-round log (newest last). All work in /root/workspace/research.
 - --version avg 13.4 ms; offline mock turn avg 34 ms (5 runs each). Both in
   the tens-of-ms interactive range; efficiency objective holds.
 
+## Round 109 — full capstone at HEAD
+- 134 tests, clippy 0, sign-off 32/32, tour 12/12, doctor all-ok (incl. the
+  new git-identity + offline-stack rows); CI badge passing.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
