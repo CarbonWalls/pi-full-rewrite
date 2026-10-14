@@ -5545,6 +5545,10 @@ Per-round log (newest last). All work in /root/workspace/research.
   each request is served on a fresh connection and clients reconnect. A
   deliberate, consistent lifecycle for the minimal server.
 
+## Round 336 — chunked Transfer-Encoding rpc handled
+- A POST /rpc with a chunked body returns 200 — clients that use chunked
+  transfer work against the minimal parser.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
