@@ -5468,6 +5468,11 @@ Per-round log (newest last). All work in /root/workspace/research.
   (tolerance confirmed end-to-end). My first probe used a hand-written
   shape that wasn't the real wrapper format — not a product issue.
 
+## Round 321 — compaction surface audited
+- No --compact CLI flag exists: the unknown flag errors cleanly and
+  compaction stays RPC-frame-only (verified earlier) — the documented
+  surface holds.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
