@@ -5243,6 +5243,10 @@ Per-round log (newest last). All work in /root/workspace/research.
 - The --serve-addr ::1 fix shipped (latest confirmed = v1.0.22, asset
   verified). Twenty-three releases (v1.0.0-v1.0.22).
 
+## Round 271 — v1.0.22 pipeline confirmed green
+- Both the ci and release runs for the v1.0.22 tag completed success — the
+  IPv6-bind release shipped through its own verified pipeline.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
