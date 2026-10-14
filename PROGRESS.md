@@ -4364,6 +4364,11 @@ Per-round log (newest last). All work in /root/workspace/research.
 - The --file/--image confinement fix shipped as v1.0.10 (pipeline green,
   asset verified). Eleven releases (v1.0.0–v1.0.10); CI badge passing.
 
+## Round 84 — stdio RPC robustness sweep
+- Malformed/partial frames (bad JSON, unknown type, empty, truncated) each
+  produce a proper `{"type":"error"}` frame — zero panics; real prompts
+  still complete with done/bye. The stdio protocol surface is robust.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
