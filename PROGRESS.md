@@ -5178,6 +5178,10 @@ Per-round log (newest last). All work in /root/workspace/research.
 - SIGINT stops the serve cleanly (no leftovers) — both SIGTERM and SIGINT
   are graceful.
 
+## Round 257 — malformed HTTP handling verified
+- Garbage/oversized/empty requests produce 404s or graceful closes (never
+  a crash), and the server answers healthz 200 afterward.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
