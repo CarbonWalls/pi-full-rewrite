@@ -4748,6 +4748,11 @@ Per-round log (newest last). All work in /root/workspace/research.
 - An extension that exits(7) right after ready doesn't affect the agent: a
   full mock turn completes (AGENT_ALIVE, rc=0). Extensions are isolated.
 
+## Round 162 — MCP disconnect resilience verified
+- A hostile MCP server exiting mid-session produces a warning; the agent
+  still completes a normal turn (rc=0). Both extension surfaces (ext in
+  round 161, MCP now) are isolated from subprocess failures.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
