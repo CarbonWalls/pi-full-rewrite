@@ -4881,6 +4881,10 @@ Per-round log (newest last). All work in /root/workspace/research.
 - Raw ÿþ bytes on the rpc stdin produce no panic; the process exits
   cleanly (rc=0).
 
+## Round 191 — --file large-input verified
+- A 6 MB --file prompt loads and the turn completes (rc=0, ~4s incl. the
+  mock echo) — no OOM or crash on large file prompts.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
