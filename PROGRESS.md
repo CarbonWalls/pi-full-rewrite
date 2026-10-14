@@ -4793,6 +4793,11 @@ Per-round log (newest last). All work in /root/workspace/research.
 - The served dashboard has ZERO external host references (no CDN/fonts) and
   one inline <script> — it works fully offline against the pi server.
 
+## Round 172 — batch RPC verified (exact accounting)
+- 20 batched prompts -> 20 done frames; a 5-prompt batch lands ONE session
+  with exactly 3 entries each (user/assistant/usage). Batch processing is
+  correct and lossless.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
