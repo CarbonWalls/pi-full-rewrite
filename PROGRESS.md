@@ -4957,6 +4957,10 @@ Per-round log (newest last). All work in /root/workspace/research.
   (Network note: the WSL box now says "No route to host" — a change from
   the earlier timeout; re-ping later.)
 
+## Round 208 — --init idempotence verified
+- Re-running --init re-templates pi.json (documented), preserves skills/
+  and sessions. Repeatable scaffold.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
