@@ -4812,6 +4812,10 @@ Per-round log (newest last). All work in /root/workspace/research.
 - 137 tests, clippy 0, sign-off 32/32, tour 12/12 — the re-armed era starts
   fully green.
 
+## Round 176 — forked-session export verified
+- A real /fork-0 session exports as markdown (renders the branch head
+  chain: # session + user turns). Branch-aware export works.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
