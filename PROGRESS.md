@@ -5152,6 +5152,11 @@ Per-round log (newest last). All work in /root/workspace/research.
 - 137 tests, clippy 0, sign-off 32/32, tour 12/12 — fully green through
   the entire post-v1.0.16 audit era.
 
+## Round 251 — pi-MCP standalone handshake verified
+- A standard MCP client handshake against `pi --mcp-server` succeeds:
+  initialize -> {name: pi, version 0.1.0}; tools/list -> 15 tools. The
+  server speaks the standard protocol for any MCP client.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
