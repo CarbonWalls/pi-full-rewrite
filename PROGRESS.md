@@ -5360,6 +5360,11 @@ Per-round log (newest last). All work in /root/workspace/research.
   removed the stray $HOME/.local/bin/pi my earlier DESTDIR test created
   (install.sh honors PREFIX, not DESTDIR) — no permanent footprint.
 
+## Round 297 — version/info identity verified
+- --version reports the crate version (pi-coding-agent 0.1.0); --info shows
+  "dev" for in-tree builds (PI_BUILD_SHA only set via release.sh) — both
+  documented behaviors. Release binaries carry the tag's sha.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
