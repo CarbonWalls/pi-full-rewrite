@@ -4771,6 +4771,10 @@ Per-round log (newest last). All work in /root/workspace/research.
   scenario tool rule yields nothing); code mode has the tools. The mode
   surface works as documented.
 
+## Round 167 — --no-tools + --system verified
+- --no-tools suppresses the toolset (a bash tool rule yields nothing);
+  --system override accepted and the turn completes.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
