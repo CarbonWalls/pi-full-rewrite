@@ -5291,6 +5291,10 @@ Per-round log (newest last). All work in /root/workspace/research.
 - A compact frame on a 0-message session returns ok:true with no crash
   (the len<2 guard skips summarization).
 
+## Round 282 — --doctor output parseable
+- The doctor table renders 7 flagged check rows (ok/FAIL) — stable column
+  layout for tooling.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
