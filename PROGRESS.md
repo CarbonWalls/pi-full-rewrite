@@ -4932,6 +4932,10 @@ Per-round log (newest last). All work in /root/workspace/research.
 - The --stats missing-file fix shipped (latest = v1.0.19). Twenty releases
   (v1.0.0–v1.0.19).
 
+## Round 203 — --tree session view verified
+- `--tree <session.jsonl>` renders the entry tree with ▶ head-branch
+  markers (user → assistant → usage chain shown).
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
