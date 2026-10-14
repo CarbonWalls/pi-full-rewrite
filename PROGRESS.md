@@ -5216,6 +5216,11 @@ Per-round log (newest last). All work in /root/workspace/research.
   download and the healthz probe — acceptance back to 6/6. No curl / file(1)
   dependencies anywhere in the tooling.
 
+## Round 265 — acceptance urllib download path verified
+- The latest-release download via the new urllib path works (ELF verified,
+  run checks arch-skipped on aarch64) — the python-only acceptance covers
+  both paths.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
