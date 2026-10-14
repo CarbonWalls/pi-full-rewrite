@@ -349,3 +349,40 @@ impl Session {
         hex::encode(h.finalize())
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn foreign_and_garbage_lines_are_tolerated() {
+        let d = std::env::temp_dir().join(format!("pi-sess-fc-{}", std::process::id()));
+        let _ = std::fs::remove_dir_all(&d);
+        std::fs::create_dir_all(&d).unwrap();
+        let f = d.join("s.jsonl");
+        // build a REAL-shaped line by serializing an actual Entry
+        let real = Entry {
+            id: "1".into(),
+            parent: String::new(),
+            kind: EntryKind::Label,
+            body: Body::Label { label: "L".into() },
+            ts_ms: 1,
+        };
+        let real_line = serde_json::to_string(&real).unwrap();
+        std::fs::write(
+            &f,
+            format!(
+                "{real_line}\n{{\"type\":\"future_event\",\"payload\":[\"x\"],\"id\":\"2\",\"parent\":\"1\",\"ts_ms\":2,\"extra\":{{}}}}\nnot json at all\n"
+            ),
+        )
+        .unwrap();
+        let mut s = Session::new(Some("s".into()));
+        s.attach_path(&d, false);
+        // garbage + unknown-type lines must not crash or corrupt the known one
+        assert_eq!(s.entries.len(), 1, "known line retained");
+        assert_eq!(s.entries[0].id, "1");
+        let branch = s.branch();
+        assert_eq!(branch.len(), 1);
+        let _ = std::fs::remove_dir_all(&d);
+    }
+}

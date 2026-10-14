@@ -4395,6 +4395,11 @@ Per-round log (newest last). All work in /root/workspace/research.
 - Theme-honesty fix shipped as v1.0.11 (pipeline green, asset verified).
   Twelve releases (v1.0.0–v1.0.11).
 
+## Round 90 — session forward-compat regression test
+- Locked the round-87 finding: a real-entry line + an unknown-type line +
+  garbage load without crashing, and the known entry is retained (using a
+  serialized real Entry for the guaranteed shape). 134 tests, clippy 0.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
