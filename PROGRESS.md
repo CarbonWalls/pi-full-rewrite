@@ -4375,6 +4375,10 @@ Per-round log (newest last). All work in /root/workspace/research.
   docs/usage.md so agents/users navigate with explicit paths rather than
   relying on hidden state.
 
+## Round 86 — periodic full capstone
+- All gates in one pass at HEAD: 133 tests, clippy 0, sign-off 32/32,
+  tour 12/12. Everything green; WSL box still offline.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
