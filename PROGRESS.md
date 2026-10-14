@@ -4753,6 +4753,11 @@ Per-round log (newest last). All work in /root/workspace/research.
   still completes a normal turn (rc=0). Both extension surfaces (ext in
   round 161, MCP now) are isolated from subprocess failures.
 
+## Round 163 — bash timeout + descendant reap verified
+- --tool-timeout 2000 kills a `sleep 30 & wait` job; a precise pgrep -x
+  shows 0 real sleep processes survive the reaper (earlier "2" was
+  command-line false matches).
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
