@@ -5540,6 +5540,11 @@ Per-round log (newest last). All work in /root/workspace/research.
   zero panics. 6 combos "timed out" only because they legitimately START
   a blocking serve (expected server lifetime, not a fault).
 
+## Round 335 — serve is per-request connections (Connection: close)
+- The serve advertises and honors Connection: close — no HTTP keep-alive;
+  each request is served on a fresh connection and clients reconnect. A
+  deliberate, consistent lifecycle for the minimal server.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
