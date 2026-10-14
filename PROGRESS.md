@@ -4491,6 +4491,12 @@ Per-round log (newest last). All work in /root/workspace/research.
 - 134 tests, clippy 0, sign-off 32/32, tour 12/12, doctor all-ok (incl. the
   new git-identity + offline-stack rows); CI badge passing.
 
+## Round 110 — compaction flow regression test
+- Investigated live auto-compaction (fires on a modeled Length stop, which
+  the mock can't emit — correct design, threshold-guarded). Added a direct
+  session-level test: push_compaction appends a Compaction entry that
+  survives branch replay. 135 tests, clippy 0.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)

@@ -386,3 +386,20 @@ mod tests {
         let _ = std::fs::remove_dir_all(&d);
     }
 }
+
+    #[test]
+    fn compaction_entry_is_appended_and_replayable() {
+        let mut s = Session::new(Some("c".into()));
+        s.push_message(ChatMessage::text_user("hello"));
+        let before = s.entries.len();
+        s.push_compaction("summary of earlier turns".to_string());
+        assert_eq!(s.entries.len(), before + 1, "compaction appends an entry");
+        let last = s.entries.last().unwrap();
+        assert_eq!(last.kind, EntryKind::Compaction);
+        // branch reaches the compaction entry (replay keeps it)
+        let branch = s.branch();
+        assert!(
+            branch.iter().any(|e| e.kind == EntryKind::Compaction),
+            "compaction entry survives branch replay"
+        );
+    }
