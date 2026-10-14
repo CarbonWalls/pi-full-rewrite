@@ -4856,6 +4856,11 @@ Per-round log (newest last). All work in /root/workspace/research.
   JSON that parses cleanly and lists all 3 (framing sane after the round-63
   audit).
 
+## Round 185 — mode conflicts detected
+- --rpc --serve -> "error: conflicting modes: --rpc, --serve (choose one)"
+  rc=1. --json --rpc and --serve --export follow the documented mode
+  precedence (rpc wins stdin; export short-circuits).
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
