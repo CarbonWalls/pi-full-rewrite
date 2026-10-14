@@ -4831,6 +4831,10 @@ Per-round log (newest last). All work in /root/workspace/research.
   literal text, legit in-root images still attach. 137 tests, clippy 0;
   static rebuilt. (Release: v1.0.18.)
 
+## Round 180 — v1.0.18 released (symlink-escape fix)
+- The @inline confinement fix shipped (latest = v1.0.18, asset verified).
+  Nineteen releases (v1.0.0–v1.0.18).
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
