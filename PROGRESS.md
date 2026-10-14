@@ -5338,6 +5338,10 @@ Per-round log (newest last). All work in /root/workspace/research.
 - All 15 MCP tools expose spec-conformant inputSchema (type object +
   properties) — valid for any MCP client.
 
+## Round 292 — MCP ping + initialized notification verified
+- JSON-RPC ping returns {} with the id echoed after notifications/
+  initialized — full MCP lifecycle conformance.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
