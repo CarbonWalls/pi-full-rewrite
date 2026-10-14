@@ -5315,6 +5315,10 @@ Per-round log (newest last). All work in /root/workspace/research.
 - Same safe "inline image" marker in TXT, no Base64 blobs — all three
   formats (md/html/txt) handle images without leaking binary data.
 
+## Round 287 — HEAD request handling verified
+- HEAD /healthz returns 200 with an empty body and no transfer-encoding —
+  HTTP-correct HEAD semantics.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
