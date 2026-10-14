@@ -4511,6 +4511,16 @@ Per-round log (newest last). All work in /root/workspace/research.
   optional arm64 step succeeds (or an aarch64 host's static build is
   attached manually).
 
+## Round 113 — arm64 asset story assessed; disk-constraint note
+- Diagnosed why arm64 releases lack assets: the pipeline's optional
+  aarch64-gnu step fails inside the tolerant build step (green run, no
+  asset). Evaluated adding a zig-cc aarch64-musl build to CI, but zig
+  (~400 MB) cannot fit the remaining workspace disk (119 MB free) and the
+  path must not be shipped unvalidated. The round-112 installer fix
+  (graceful arm64 degradation) remains the shipped behavior; an arm64
+  asset appears when the pipeline step succeeds or a host build is
+  attached. Kept in-tree toolchain: prune target/ whenever disk tightens.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
