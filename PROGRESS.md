@@ -5076,6 +5076,10 @@ Per-round log (newest last). All work in /root/workspace/research.
 - No token -> 401; Bearer token -> 200. Every serve route is guarded
   except healthz.
 
+## Round 233 — RPC respects --max-turns
+- Under --max-turns 2, an rpc prompt's tool loop stops at one tool_call
+  (the cap bounds the turn both in CLI and RPC paths).
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
