@@ -75,6 +75,12 @@ whitelist) · bg_bash/bg_read/bg_kill/bg_list (long-running jobs) · fs
   `cd src && …` within a single call, or root-relative paths in separate
   calls). This keeps behavior reproducible across hosts and sessions.
 
+## RPC abort semantics
+- HTTP `/rpc` supports mid-turn `{"type":"abort"}` over a **separate**
+  connection (the dashboard stop button). Stdio `--rpc` is a single
+  connection: a running prompt blocks the frame reader, so mid-turn abort
+  isn't available there — interrupt the process (Ctrl-C) instead.
+
 ## Agent loop behavior
 
 - **`--plan` / `-P`:** the agent creates a todo list and works through it.

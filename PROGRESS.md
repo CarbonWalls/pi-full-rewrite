@@ -4530,6 +4530,12 @@ Per-round log (newest last). All work in /root/workspace/research.
 - A second process with --continue appended to the SAME session (entries
   3→6, id unchanged) — cross-process resume appends correctly.
 
+## Round 116 — abort semantics audited + documented
+- Verified the stdio-RPC abort behavior: it's single-connection, so a
+  running prompt blocks the frame reader — mid-turn abort is an HTTP-only
+  feature (separate connection, verified earlier). Documented the boundary
+  in both rpc.rs's header and docs/usage.md. Release rebuilt: 135, clippy 0.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)

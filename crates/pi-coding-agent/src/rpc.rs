@@ -8,6 +8,11 @@
 //! {"id":2,"type":"model","ref":"a/b"}       -> {"id":2,"type":"model_result","ok":true}
 //! {"type":"compact"}                        -> {"type":"compact_result","ok":true}
 //! {"type":"quit"}
+//!
+//! Stdio RPC is a single connection: a running prompt blocks the frame
+//! reader, so there is no mid-turn abort frame here (interrupt the process
+//! itself, e.g. Ctrl-C). The HTTP /rpc endpoint DOES support mid-turn
+//! {"type":"abort"} over a separate connection (browser stop button).
 //! ```
 
 use pi_agent::{Agent, AgentEvent};
