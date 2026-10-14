@@ -4673,6 +4673,11 @@ Per-round log (newest last). All work in /root/workspace/research.
 - --json emits NDJSON: text-delta events then a done frame with usage. The
   streaming one-shot format is valid and machine-parseable.
 
+## Round 145 — concurrent serve prompts verified (+ suite)
+- Two simultaneous POST /rpc prompts both complete on the serve (turns
+  serialize via the agent lock by design — the concurrent_prompts test in
+  the suite passes); /info stays alive after.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
