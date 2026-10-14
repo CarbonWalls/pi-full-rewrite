@@ -4835,6 +4835,12 @@ Per-round log (newest last). All work in /root/workspace/research.
 - The @inline confinement fix shipped (latest = v1.0.18, asset verified).
   Nineteen releases (v1.0.0–v1.0.18).
 
+## Round 181 — template/skills escape audit (closed)
+- --template ../../x -> "error: template: invalid name" (hard validation);
+  --skills ../../x -> warning + never matches a discovered file (content
+  never loads). The ..-escape class is closed for every CLI path/token
+  resolver.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
