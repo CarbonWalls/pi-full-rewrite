@@ -4551,6 +4551,10 @@ Per-round log (newest last). All work in /root/workspace/research.
   the four-part checklist) and a full agent turn completes over it — the
   review loop closes end to end.
 
+## Round 120 — --cost aggregation verified live
+- Two sessions → --cost reports "2 model calls · in=7 out=19" summed across
+  them; per-provider breakdown shown.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
