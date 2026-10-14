@@ -5311,6 +5311,10 @@ Per-round log (newest last). All work in /root/workspace/research.
 - --serve --no-session runs with an in-memory session id and writes zero
   files — a fully ephemeral server mode.
 
+## Round 286 — TXT export with image parts verified
+- Same safe "inline image" marker in TXT, no Base64 blobs — all three
+  formats (md/html/txt) handle images without leaking binary data.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
