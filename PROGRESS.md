@@ -5174,6 +5174,10 @@ Per-round log (newest last). All work in /root/workspace/research.
 - %2e%2e and %252e%252e paths return plain 404 (no decode, no escape) —
   the router treats paths opaquely and stays safe.
 
+## Round 256 — SIGINT serve shutdown verified
+- SIGINT stops the serve cleanly (no leftovers) — both SIGTERM and SIGINT
+  are graceful.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
