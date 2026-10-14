@@ -4683,6 +4683,10 @@ Per-round log (newest last). All work in /root/workspace/research.
   binaries); VERSION refreshed with the current baked provenance
   (863dda2), dist/pi byte-identical to the release build.
 
+## Round 147 — install.sh verified (quiet defaults)
+- The local installer puts the binary at $HOME/.local/bin/pi (PREFIX
+  default), makes no .profile edits unless UPDATE_PROFILE=1, rc=0.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
