@@ -4536,6 +4536,11 @@ Per-round log (newest last). All work in /root/workspace/research.
   feature (separate connection, verified earlier). Documented the boundary
   in both rpc.rs's header and docs/usage.md. Release rebuilt: 135, clippy 0.
 
+## Round 117 — skills + MCP + ext integration
+- One run with --skills, --mcp (pi server, 15 tools), AND --ext (demo):
+  all three load; a scenario chained ext:demo_ping → bash → completion.
+  The extension surface composes correctly.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
