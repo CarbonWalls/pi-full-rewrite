@@ -4541,6 +4541,11 @@ Per-round log (newest last). All work in /root/workspace/research.
   all three load; a scenario chained ext:demo_ping → bash → completion.
   The extension surface composes correctly.
 
+## Round 118 — config file feature surface verified
+- `<root>/.pi/pi.json` (not root/pi.json!) loads model + skills + system:
+  "[skills] loaded 1 skill(s)" from the config's skills field; model from
+  config used. Config precedence works as documented.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
