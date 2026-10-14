@@ -5034,6 +5034,10 @@ Per-round log (newest last). All work in /root/workspace/research.
   README documents (prompt/tools/model/compact/usage/session/echo/quit) is
   now live-verified.
 
+## Round 223 — CI badge green for current master
+- The CI badge passes and recent master runs are all success — every
+  post-fix audit commit has been continuously green.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
