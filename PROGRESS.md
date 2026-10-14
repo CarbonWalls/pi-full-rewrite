@@ -5162,6 +5162,10 @@ Per-round log (newest last). All work in /root/workspace/research.
   returns the file content (isError false) — a full server round-trip with
   arguments works for any MCP client.
 
+## Round 253 — MCP server bad-args error verified
+- tools/call with empty arguments returns isError:true with an error
+  detail — the MCP server handles invalid calls cleanly.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
