@@ -4664,6 +4664,11 @@ Per-round log (newest last). All work in /root/workspace/research.
   cleanly; the cap is respected (earlier 0-call was scenario-rule dead-end,
   not a cap bug).
 
+## Round 143 — provider fallback verified live
+- The Error scenario rule fires on the primary → "[pi] provider error …,
+  falling back to mock/echo" → the fallback completes a turn with usage.
+  The --fallback mechanism works end to end.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
