@@ -4441,6 +4441,10 @@ Per-round log (newest last). All work in /root/workspace/research.
   explicit parts honored. ALL THREE prompt paths now behave identically.
   134 tests, clippy 0.
 
+## Round 99 — v1.0.14 released
+- Stdio RPC attachment fix shipped (pipeline green, asset verified).
+  Fifteen releases (v1.0.0–v1.0.14).
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
