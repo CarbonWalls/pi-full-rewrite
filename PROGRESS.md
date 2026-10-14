@@ -5004,6 +5004,11 @@ Per-round log (newest last). All work in /root/workspace/research.
   info on following lines) — the agent sees real failures, not silenced
   ones. (The earlier grep used the wrong pattern, not a tool issue.)
 
+## Round 216 — glob robustness verified
+- A malformed pattern errors cleanly ("glob: bad pattern: … invalid range
+  pattern"); deep recursive patterns yield "no files match". No crashes on
+  odd globs.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
