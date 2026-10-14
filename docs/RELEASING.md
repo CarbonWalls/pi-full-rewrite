@@ -24,7 +24,7 @@ Everything runs from this directory; nothing is installed elsewhere.
                             #   static binary. Must print
                             #   "32 passed, 0 failed".
 ./scripts/acceptance.sh  # latest-release acceptance (ELF/static + run checks on x86_64)"
-./build.sh test             # 133 tests across 6 crates
+./build.sh test             # 134 tests across 6 crates
 ./build.sh clippy           # zero warnings
 ```
 
@@ -44,6 +44,6 @@ Everything runs from this directory; nothing is installed elsewhere.
 
 ## Current release state (round 64)
 
-- 133 tests green, clippy 0, sign-off 28/28, `--version` ≈ 13 ms,
+- 134 tests green, clippy 0, sign-off 28/28, `--version` ≈ 13 ms,
   release 4.6 MB, static 4.7 MB.
 - Full history: `PROGRESS.md`, `CHANGELOG.md`.
