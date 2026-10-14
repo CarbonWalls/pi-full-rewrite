@@ -5157,6 +5157,11 @@ Per-round log (newest last). All work in /root/workspace/research.
   initialize -> {name: pi, version 0.1.0}; tools/list -> 15 tools. The
   server speaks the standard protocol for any MCP client.
 
+## Round 252 — direct MCP tools/call verified
+- tools/call {read_file data.txt} over the standard MCP stdio protocol
+  returns the file content (isError false) — a full server round-trip with
+  arguments works for any MCP client.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
