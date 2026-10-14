@@ -4603,6 +4603,10 @@ Per-round log (newest last). All work in /root/workspace/research.
   placeholders rendered through `--template` + `--set` into the actual
   prompt ("Analyze main.rs and return a verdict for pi-rs.").
 
+## Round 130 — current static fully accepted (6/6)
+- The aarch64 static binary passes the complete acceptance: build info,
+  offline turn + session, serve healthz, ELF/static checks — 6/6.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
