@@ -4434,6 +4434,13 @@ Per-round log (newest last). All work in /root/workspace/research.
 - RPC @-attachment fix shipped (pipeline green, asset verified). Fourteen
   releases (v1.0.0–v1.0.13).
 
+## Round 98 — stdio RPC @-attachment fixed (full parity)
+- The stdio RPC prompt path had the same gap as the HTTP one (round 96):
+  it now builds parts via the shared inline_image_parts helper (+ explicit
+  `parts` support). Live checks: @pic.png attaches Base64 in stdio rpc;
+  explicit parts honored. ALL THREE prompt paths now behave identically.
+  134 tests, clippy 0.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)

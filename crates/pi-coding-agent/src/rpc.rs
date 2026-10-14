@@ -42,7 +42,15 @@ pub async fn serve(mut agent: Agent, toolset: Option<Toolset>, cli: &crate::Cli)
                 let id = req.get("id").cloned().unwrap_or(json!(null));
                 let input = req.get("input").and_then(|v| v.as_str()).unwrap_or("");
                 let input = input.to_string();
-                run_prompt(&mut agent, id, input, &mut out).await;
+                // explicit `parts` win; otherwise build from input with the
+                // same in-line @image attachment as the CLI (CLI parity)
+                let parts = match req.get("parts") {
+                    Some(p) => serde_json::from_value(p.clone()).unwrap_or_else(|_| {
+                        vec![pi_ai::types::ContentPart::Text { text: input.clone() }]
+                    }),
+                    None => crate::inline_image_parts(&input, &cli.root),
+                };
+                run_prompt_parts(&mut agent, id, parts, &mut out).await;
             }
             "tools" => {
                 writeln!(out, "{}", json!({"type":"tools_result","tools":agent.tools.names()}))?;
@@ -105,8 +113,8 @@ pub async fn serve(mut agent: Agent, toolset: Option<Toolset>, cli: &crate::Cli)
     Ok(())
 }
 
-async fn run_prompt(agent: &mut Agent, id: serde_json::Value, input: String, out: &mut std::io::BufWriter<std::io::Stdout>) {
-    let mut rx = agent.user_turn(input).await;
+async fn run_prompt_parts(agent: &mut Agent, id: serde_json::Value, parts: Vec<pi_ai::types::ContentPart>, out: &mut std::io::BufWriter<std::io::Stdout>) {
+    let mut rx = agent.user_turn_parts(parts).await;
     while let Some(ev) = rx.recv().await {
         let val: serde_json::Value = serde_json::to_value(&ev).unwrap_or(json!(null));
         let _ = writeln!(out, "{}", json!({"id":id,"type":"event","event":val}));
