@@ -5018,6 +5018,10 @@ Per-round log (newest last). All work in /root/workspace/research.
   the agent (clear, no crash). (My scenario pattern said "not found" — the
   tool's actual wording is "no such file".)
 
+## Round 219 — write_file overwrite semantics verified
+- Two sequential write_file calls leave the latest content (V1 -> V2):
+  writes replace the file as documented. (The box flaked again mid-round.)
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
