@@ -5166,6 +5166,10 @@ Per-round log (newest last). All work in /root/workspace/research.
 - tools/call with empty arguments returns isError:true with an error
   detail — the MCP server handles invalid calls cleanly.
 
+## Round 254 — ext missing-binary degradation verified
+- An ext command that doesn't exist warns ("extension 'dead' failed: io:
+  No such file or directory") and the agent completes normally.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
