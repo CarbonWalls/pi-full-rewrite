@@ -5257,6 +5257,10 @@ Per-round log (newest last). All work in /root/workspace/research.
 - A session with an image part exports as a safe `![image/png](inline
   image)` placeholder — no base64 dumping or broken HTML.
 
+## Round 274 — HTML export with image parts verified
+- Same safe placeholder in HTML, no base64 blobs, valid document — both
+  export formats handle images without leaking binary content.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
