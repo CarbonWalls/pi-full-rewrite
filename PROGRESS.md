@@ -5135,6 +5135,10 @@ Per-round log (newest last). All work in /root/workspace/research.
 - A tar containing other.txt (outside .pi/) is refused wholesale:
   "package contains unsafe path" — nothing lands outside .pi (atomic).
 
+## Round 247 — non-tar install input rejected
+- Garbage input to --install-package -> "package error: tar list failed"
+  (rc=1), nothing installed.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
