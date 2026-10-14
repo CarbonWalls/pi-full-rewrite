@@ -4819,6 +4819,10 @@ Per-round log (newest last). All work in /root/workspace/research.
 ## Round 177 — --export-all multi-session verified
 - 2 sessions -> "exported 2 sessions" with 2 .md files written.
 
+## Round 178 — --review staged-diff verified
+- A staged-only change triggers the review prompt; the working tree is
+  untouched afterward (review is read-only).
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
