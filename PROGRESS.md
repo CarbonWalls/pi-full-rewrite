@@ -4779,6 +4779,11 @@ Per-round log (newest last). All work in /root/workspace/research.
 - An explicit --api-key is accepted for the selected provider; the mock
   path runs unaffected.
 
+## Round 169 — randomized CLI fuzz (30 combos, 0 panics)
+- 30 seeded random flag combinations (up to 6 flags, incl. conflicts and
+  invalid values) — no panics anywhere. The parser + dispatch stays safe
+  under random input.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
