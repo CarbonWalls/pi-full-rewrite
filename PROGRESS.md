@@ -4889,6 +4889,10 @@ Per-round log (newest last). All work in /root/workspace/research.
 - 137 tests, clippy 0, sign-off 32/32, tour 12/12 — after the post-fix-era
   audits the full surface still holds.
 
+## Round 193 — package reinstall verified
+- Installing the same package twice overwrites the metadata (version 1 ->
+  2); the install flow is idempotent and safe.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
