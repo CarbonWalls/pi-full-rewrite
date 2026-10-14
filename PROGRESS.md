@@ -4717,6 +4717,10 @@ Per-round log (newest last). All work in /root/workspace/research.
 - fs copy (op: copy, src/dst) copied a real file inside root through the
   agent chain. The fs manager (move/copy/remove/mkdir) works.
 
+## Round 155 — list_dir + --sessions verified
+- list_dir shows dir contents through the agent chain (LS_OK); --sessions
+  renders the id/label/entries/messages/size table.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
