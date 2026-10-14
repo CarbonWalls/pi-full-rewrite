@@ -5233,6 +5233,12 @@ Per-round log (newest last). All work in /root/workspace/research.
 - --gc-sessions on an empty dir reports "0 removed" in both dry-run and
   real modes (rc=0) — graceful on empty input.
 
+## Round 269 — IPv6 bind fix (--serve-addr ::1) plus verify
+- --serve-addr ::1 previously died doing a DNS lookup on the literal; two
+  fixes later the bracket logic is IPv6-only: "::1" -> "[::1]:port" works,
+  IPv4 stays unbracketed (Rust can't parse "[127.0.0.1]:p"). Both bind
+  paths verified 200. 137 tests, clippy 0; static rebuilt. (v1.0.22.)
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)

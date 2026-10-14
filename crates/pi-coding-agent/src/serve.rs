@@ -172,10 +172,13 @@ pub fn render_metrics(m: &Metrics) -> String {
 
 /// Bind a listener; with `port = 0` the OS picks a free port (tests).
 pub async fn bind_listener(addr: &str, port: u16) -> anyhow::Result<TcpListener> {
-    let bind = if addr.contains(':') {
-        addr.to_string()
-    } else {
-        format!("{addr}:{port}")
+    // bare IPv6 literals must be bracketed ("[::1]:port"); IPv4 literals
+    // and "host:port" strings pass through; plain hostnames get ":port".
+    let bind = match addr.parse::<std::net::IpAddr>() {
+        Ok(std::net::IpAddr::V6(_)) => format!("[{addr}]:{port}"),
+        Ok(_) => format!("{addr}:{port}"),
+        Err(_) if addr.contains(':') => addr.to_string(),
+        Err(_) => format!("{addr}:{port}"),
     };
     Ok(TcpListener::bind(&bind).await?)
 }
