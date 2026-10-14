@@ -5186,6 +5186,10 @@ Per-round log (newest last). All work in /root/workspace/research.
 - 1500 healthz requests change RSS by +332 kB (1932 -> 2264) — no memory
   leak; the serve stays ~2 MB under sustained traffic.
 
+## Round 259 — mid-turn /info responsiveness verified
+- While an rpc turn streams, /info always answers (lock-free atomics) —
+  the monitoring surface never blocks on a running turn.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
