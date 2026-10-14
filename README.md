@@ -27,7 +27,7 @@ No code was reused from the reference; everything here is original Rust.
 
 ```sh
 ./build.sh build --release -p pi-coding-agent   # → target/release/pi
-./build.sh test                                 # 135 tests, clippy-clean
+./build.sh test                                 # 136 tests, clippy-clean
 ./scripts/verify.sh                            # 32-point release sign-off
 ```
 
@@ -146,7 +146,7 @@ hand-rolled. 171 packages total in Cargo.lock.
 
 ## Testing & hardening
 
-- 135 tests across 6 crates, clippy-clean, `panic=abort` release profile.
+- 136 tests across 6 crates, clippy-clean, `panic=abort` release profile.
 - **Provider E2E, offline:** fake local API servers drive the REAL
   OpenAI-compat, Anthropic and Gemini code paths — request shaping, SSE
   parsing, tool-call deltas, real tool execution, tool-result round trips,
