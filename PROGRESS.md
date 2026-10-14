@@ -4971,6 +4971,15 @@ Per-round log (newest last). All work in /root/workspace/research.
   to the agent, which continues the turn (rc=0). Extension failures are
   informative, not fatal.
 
+## Round 211 — WSL box back ONLINE + 6/6 hardware acceptance
+- The box returned (was "No route to host"; now alive, x86_64 confirmed).
+  Ran the CURRENT release through scripts/acceptance.sh ON the box: the
+  amd64 static downloaded, ELF64/static verified, build info + offline
+  agent turn + session + serve healthz ALL PASS — acceptance 6/6 on real
+  x86_64 hardware (first since the v1.0.7 era).
+- Also: apply_diff with mismatched context errors cleanly and leaves the
+  file UNCHANGED (atomic), verified same round.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
