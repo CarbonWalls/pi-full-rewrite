@@ -4479,6 +4479,10 @@ Per-round log (newest last). All work in /root/workspace/research.
   → `export_result` with markdown. The full protocol surface (prompt,
   tools, model, compact, session, export, abort, quit) is now verified.
 
+## Round 107 — serve RSS re-benchmarked (leaner than ever)
+- Serve idle RSS 1940 kB; after 3 live rpc turns 2204 kB — down from the
+  earlier 3.3 MB figure. The efficiency objective keeps holding.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
