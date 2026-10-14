@@ -4607,6 +4607,11 @@ Per-round log (newest last). All work in /root/workspace/research.
 - The aarch64 static binary passes the complete acceptance: build info,
   offline turn + session, serve healthz, ELF/static checks — 6/6.
 
+## Round 131 — dashboard data surface verified
+- /metrics renders prometheus counters; /info's lock-free usage atomics
+  update after a turn; /cost aggregates model_calls + totals. The whole
+  dashboard data layer (metrics/info/cost) works.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
