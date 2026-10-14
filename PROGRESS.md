@@ -5519,6 +5519,10 @@ Per-round log (newest last). All work in /root/workspace/research.
   and nothing lands on disk — the tar-slip guard's symlink case verified
   end-to-end.
 
+## Round 331 — docs: IPv6 serve-addr example added
+- usage.md now spells out that --serve-addr takes IPv4/IPv6 literals
+  (::1) and hostnames — the round-269 IPv6 fix is documented.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
