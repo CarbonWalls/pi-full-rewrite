@@ -4704,6 +4704,11 @@ Per-round log (newest last). All work in /root/workspace/research.
 - Ctrl-C mid-turn stops an 8s delayed turn (output never lands), no panic,
   terminal restored. The cooperative abort works at the user level.
 
+## Round 152 — usage.md examples sweep (7/7)
+- one-shot, --cost, --export, --stats, mock turn, --version, --doctor all
+  run cleanly at HEAD — the docs' "every example works with the mock"
+  claim holds.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
