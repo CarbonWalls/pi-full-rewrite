@@ -5221,6 +5221,10 @@ Per-round log (newest last). All work in /root/workspace/research.
   run checks arch-skipped on aarch64) — the python-only acceptance covers
   both paths.
 
+## Round 266 — CI green through the recent era
+- Badge passing; recent master runs all success — the acceptance/docs
+  commits kept the pipeline continuously green.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
