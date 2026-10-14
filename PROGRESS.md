@@ -4936,6 +4936,11 @@ Per-round log (newest last). All work in /root/workspace/research.
 - `--tree <session.jsonl>` renders the entry tree with ▶ head-branch
   markers (user → assistant → usage chain shown).
 
+## Round 204 — RPC tools frame verified (protocol 100% frame-tested)
+- {"type":"tools"} -> tools_result with all 15 tools. Every protocol frame
+  type (prompt/tools/model/compact/session/export/usage/quit + HTTP abort)
+  is now live-verified.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
