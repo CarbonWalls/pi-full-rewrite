@@ -4593,6 +4593,11 @@ Per-round log (newest last). All work in /root/workspace/research.
   passed) → done. The final file shows the fixed code. The full agent loop
   works as a coding agent.
 
+## Round 128 — theme file-path form verified
+- `--theme /path/theme.json` loads in a real PTY session with no warning,
+  no panic, terminal restored. Both theme forms (inline JSON + file) now
+  verified live.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
