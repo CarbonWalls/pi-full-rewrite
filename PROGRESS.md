@@ -4730,6 +4730,12 @@ Per-round log (newest last). All work in /root/workspace/research.
 - start_line/end_line (40–42) returned the requested page through the agent
   chain — the documented paging contract works for big files.
 
+## Round 158 — --doctor keys-source honesty fix
+- The api-keys check only looked at env vars, so users with --login'ed keys
+  (keys.json) saw a misleading FAIL. Now it checks both sources and reports
+  which ("1 provider key(s) present (keys.json)" vs "(env)"). Verified both
+  paths. 136 tests, clippy 0; release rebuilt.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)

@@ -62,20 +62,31 @@ impl Report {
             if tty { "interactive TUI available" } else { "pipelines/non-tty: use print or --rpc modes" }.into(),
         ));
 
-        // api keys present in env
+        // api keys present in env or stored via --login in <root>/.pi/keys.json
         let mut keys = 0;
         for name in ["OPENAI_API_KEY", "ANTHROPIC_API_KEY", "GEMINI_API_KEY", "OPENROUTER_API_KEY"] {
             if std::env::var(name).map(|v| !v.is_empty()).unwrap_or(false) {
                 keys += 1;
             }
         }
+        let keys_src: &'static str = if keys > 0 {
+            "env"
+        } else {
+            let j = std::fs::read_to_string(crate::keys_file(&root)).and_then(|t| {
+                serde_json::from_str::<serde_json::Value>(&t).map_err(|e| std::io::Error::new(
+                    std::io::ErrorKind::InvalidData, e))
+            }).unwrap_or(serde_json::Value::Null);
+            let n = j.get("provider").and_then(|p| p.as_object()).map(|m| m.len()).unwrap_or(0);
+            keys = n;
+            if n > 0 { "keys.json" } else { "none" }
+        };
         checks.push((
             "api keys".into(),
             keys > 0,
             if keys > 0 {
-                format!("{keys} provider key(s) present in env")
+                format!("{keys} provider key(s) present ({keys_src})")
             } else {
-                "no provider keys in env (mock provider still works)".to_string()
+                "no provider keys (env or .pi/keys.json; mock provider still works)".to_string()
             },
         ));
 
