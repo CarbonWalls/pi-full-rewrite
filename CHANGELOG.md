@@ -58,6 +58,36 @@ All notable work on pi-rs (the Rust rewrite of pi).
   (symlinks, hard links, specials) — writing through a link could previously
   escape `<root>`. Regression-tested; 30-point matrix covers the valid path.
 
+## 1.0.14 — stdio RPC @-image attachment (prompt-path parity)
+- `--rpc` prompts now attach in-line `@file.png` tokens exactly like the
+  CLI and HTTP `/rpc` paths (a shared `inline_image_parts` helper); the
+  explicit `parts` frame field is honoured. All three prompt paths behave
+  identically.
+
+## 1.0.13 — HTTP RPC @-image attachment (CLI parity)
+- `POST /rpc` prompts without an explicit `parts` field now run the same
+  in-line `@image` attachment as the CLI prompt path. The serve runtime
+  gained a `ServeOpts` struct (argument-count lint stays zero).
+
+## 1.0.12 — --doctor diagnostics
+- `--doctor` now checks git identity (`user.name`/`user.email`, the
+  `--review` prerequisite) and runs a real offline mock turn to prove the
+  local stack end to end.
+
+## 1.0.11 — theme spec honesty
+- A `--theme`/`$PI_THEME` value that is neither inline JSON nor a readable
+  theme file now prints a one-time warning instead of silently falling back.
+
+## 1.0.9/1.0.10 — root confinement for file ingress
+- `--out`, `--file`, and `--image` are all resolved through the shared
+  `resolve_under` check: `..`/absolute paths that escape `--root` are
+  rejected with a clear error. The 32-point sign-off locks them.
+
+## 1.0.8 — deterministic session ordering + honest --export
+- Session ordering/GC now use sub-second mtime precision (same-second files
+  no longer sort arbitrarily). `--export <missing>` fails loudly (rc=1)
+  instead of silently exporting an empty session.
+
 ## 1.0.5 — MCP client hardening
 - `pi-mcp` reads are bounded (1 MiB per line) and tool output is capped at
   1 MiB with a truncation notice — a hostile MCP server can no longer grow
