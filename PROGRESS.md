@@ -5523,6 +5523,12 @@ Per-round log (newest last). All work in /root/workspace/research.
 - usage.md's --serve row now states --serve-addr accepts IPv4/IPv6
   literals (::1) and hostnames — the round-269 IPv6 fix is documented.
 
+## Round 332 — docs parity audit complete
+- Every feature era is documented: mcp-server (7 hits), install-package
+  (4), export-all (2), --gc-sessions + --gc-dry-run (usage.md rows),
+  fallback (16), serve-token/access-log/mcp-server/no-session, IPv6
+  serve-addr. (The gc "0" was my probe's single-dash pattern.)
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
