@@ -4726,6 +4726,10 @@ Per-round log (newest last). All work in /root/workspace/research.
   workflows (2), plus LICENSE/build.sh/README/Dockerfile/Makefile. No
   binaries, no session litter; largest tracked is PROGRESS.md.
 
+## Round 157 — read_file paging verified
+- start_line/end_line (40–42) returned the requested page through the agent
+  chain — the documented paging contract works for big files.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
