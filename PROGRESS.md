@@ -4980,6 +4980,13 @@ Per-round log (newest last). All work in /root/workspace/research.
 - Also: apply_diff with mismatched context errors cleanly and leaves the
   file UNCHANGED (atomic), verified same round.
 
+## Round 212 — on-hardware install + E2E agent kata (box)
+- The one-liner (install-remote.sh) installed the CURRENT static release on
+  the box; the agent E2E ran there: read_file -> edit_file (fixed the
+  a+b/a-b bug) -> bash (assert) -> done, with the real file showing the fix
+  (E2E_DONE + FILE_FIXED). The full user story (curl | install, then an
+  agent fixing code) works on the target hardware.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
