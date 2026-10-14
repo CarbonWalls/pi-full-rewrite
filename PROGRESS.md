@@ -5209,6 +5209,13 @@ Per-round log (newest last). All work in /root/workspace/research.
 - --mcp-server + --serve/--rpc reject with "conflicting modes"; the
   standalone stdio mode initializes cleanly.
 
+## Round 264 — acceptance.sh made curl-independent (real fix)
+- The acceptance gate caught its own environment drift: it used curl for the
+  healthz check, and curl left this environment (round 170), breaking the
+  serve step (5/6). The script now uses python3 (urllib) for both the
+  download and the healthz probe — acceptance back to 6/6. No curl / file(1)
+  dependencies anywhere in the tooling.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)

@@ -38,7 +38,10 @@ if [ -n "${LOCAL_BIN:-}" ]; then
   RUNNABLE=1
 else
   echo "== downloading $ASSET_URL"
-  curl -fL --retry 3 -o "$BIN" "$ASSET_URL"
+  python3 - "$ASSET_URL" "$BIN" <<'PYDL'
+import sys, urllib.request
+urllib.request.urlretrieve(sys.argv[1], sys.argv[2])
+PYDL
   chmod +x "$BIN"
 fi
 
@@ -79,7 +82,11 @@ if [ "$RUNNABLE" = "1" ]; then
   SPID=$!
   trap 'kill $SPID 2>/dev/null; rm -rf "$TMP"' EXIT
   sleep 1
-  if curl -fsS -o /dev/null "http://127.0.0.1:$PORT/healthz"; then ok "serve healthz"; else bad "serve healthz"; fi
+  if python3 - <<PYEO
+import urllib.request
+urllib.request.urlopen("http://127.0.0.1:$PORT/healthz", timeout=5).read()
+PYEO
+then ok "serve healthz"; else bad "serve healthz"; fi
   kill $SPID 2>/dev/null
   trap 'rm -rf "$TMP"' EXIT
 else
