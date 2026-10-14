@@ -4470,6 +4470,10 @@ Per-round log (newest last). All work in /root/workspace/research.
   (`provider` map) holds multiple providers, and keys load for the matching
   model/providers.
 
+## Round 105 — acceptance against v1.0.14 asset
+- The arch-aware acceptance verified the latest release (v1.0.14) asset:
+  ELF64 + static, no interpreter (2 pass, 4 arch-skips on aarch64).
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
