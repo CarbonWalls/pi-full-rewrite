@@ -5084,6 +5084,10 @@ Per-round log (newest last). All work in /root/workspace/research.
 - With a nonexistent --session-dir, the server creates it (healthz 200,
   dir present). First-run ergonomics work.
 
+## Round 235 — empty-prompt handling verified
+- CLI empty stdin -> "no prompt given (use -i…)" guidance; RPC whitespace
+  input completes cleanly (bye).
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
