@@ -4861,6 +4861,10 @@ Per-round log (newest last). All work in /root/workspace/research.
   rc=1. --json --rpc and --serve --export follow the documented mode
   precedence (rpc wins stdin; export short-circuits).
 
+## Round 186 — bind/addr options verified
+- --serve-addr 127.0.0.1 --port 8717 binds + serves (healthz 200);
+  --port 0 gets an OS-assigned port reported in the listening line.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
