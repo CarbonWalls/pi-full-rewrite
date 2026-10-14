@@ -4659,6 +4659,11 @@ Per-round log (newest last). All work in /root/workspace/research.
 - The local static binary reports arch/models/tools and build provenance
   (PI_BUILD_SHA) via --info; --version clean. Provenance plumbing works.
 
+## Round 142 — --max-turns cap verified live
+- A tool-driven turn under --max-turns 3 runs its calls and completes
+  cleanly; the cap is respected (earlier 0-call was scenario-rule dead-end,
+  not a cap bug).
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
