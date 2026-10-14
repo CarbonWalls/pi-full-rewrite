@@ -5283,6 +5283,10 @@ Per-round log (newest last). All work in /root/workspace/research.
   totals (in=4 out=16 = 2x2/2x8) — usage accounting is cumulative per
   process.
 
+## Round 280 — Content-Length-framed rpc verified
+- A client that sets Content-Length (rather than close-framing) gets a
+  200 with a done frame — both framing styles are accepted.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
