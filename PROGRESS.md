@@ -5123,6 +5123,10 @@ Per-round log (newest last). All work in /root/workspace/research.
 - An rpc prompt under --no-session completes (done frame) and writes NO
   session file — the in-memory mode extends to the protocol path.
 
+## Round 244 — serve session accumulation verified
+- Two rpc prompts on the serve land in ONE session (6 entries, 2 turns) —
+  the server keeps a persistent session across requests.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
