@@ -5365,6 +5365,11 @@ Per-round log (newest last). All work in /root/workspace/research.
   "dev" for in-tree builds (PI_BUILD_SHA only set via release.sh) — both
   documented behaviors. Release binaries carry the tag's sha.
 
+## Round 298 — skills dir + unknown-name behavior
+- A skills JSON file in .pi/skills loads cleanly (no format error) and an
+  unknown --skills name warns then exits cleanly ("no prompt given").
+  (Box still down; benchmark deferred on its uptime.)
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
