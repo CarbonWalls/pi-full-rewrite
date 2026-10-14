@@ -4740,6 +4740,10 @@ Per-round log (newest last). All work in /root/workspace/research.
 - The doctor api-keys honesty fix shipped (pipeline green, asset verified).
   Seventeen releases (v1.0.0–v1.0.16).
 
+## Round 160 — HTML export escaping verified
+- A session with `<script>alert(1)</script>` text exports as
+  `&lt;script&gt;` — no raw injection, valid full HTML doc.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
