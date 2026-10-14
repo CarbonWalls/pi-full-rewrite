@@ -4941,6 +4941,11 @@ Per-round log (newest last). All work in /root/workspace/research.
   type (prompt/tools/model/compact/session/export/usage/quit + HTTP abort)
   is now live-verified.
 
+## Round 205 — config session_dir + theme surface verified
+- pi.json's session_dir routes sessions to the custom dir (1 there, 0
+  default); theme in the string form parses (an OBJECT theme invalidates
+  the config by design — string is the documented type).
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
