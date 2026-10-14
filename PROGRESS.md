@@ -4762,6 +4762,10 @@ Per-round log (newest last). All work in /root/workspace/research.
 - Unknown model -> "error: unknown model '…'" rc=1; known refs
   (mock/echo, openai/gpt-4o-mini) resolve. Clean failure semantics.
 
+## Round 165 — custom --session-dir verified
+- Sessions land in the custom dir (1 file), none leak into root; --sessions
+  lists from there. The override works end to end.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
