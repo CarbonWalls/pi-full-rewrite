@@ -4379,6 +4379,12 @@ Per-round log (newest last). All work in /root/workspace/research.
 - All gates in one pass at HEAD: 133 tests, clippy 0, sign-off 32/32,
   tour 12/12. Everything green; WSL box still offline.
 
+## Round 87 — session forward-compat verified
+- A synthetic foreign session (unknown event types, extra fields) loads
+  without crashing through --stats, --export, and --resume (unknown entries
+  skipped cleanly; a resumed turn completes). Older/newer session files
+  won't break the current binary.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
