@@ -4445,6 +4445,11 @@ Per-round log (newest last). All work in /root/workspace/research.
 - Stdio RPC attachment fix shipped (pipeline green, asset verified).
   Fifteen releases (v1.0.0–v1.0.14).
 
+## Round 100 — CHANGELOG up to date
+- CHANGELOG gained the 1.0.8 → 1.0.14 entries (seven releases: ordering,
+  export honesty, root confinement, doctor, theme honesty, RPC attachment
+  parity). The record now matches the release history.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
