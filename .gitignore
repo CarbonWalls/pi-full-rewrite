@@ -16,3 +16,6 @@ scratch/
 
 # per-run session data (must never be versioned)
 .pi/
+
+# top-level session litter (must never be versioned)
+/*.jsonl

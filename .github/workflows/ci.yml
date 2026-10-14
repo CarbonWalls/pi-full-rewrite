@@ -34,9 +34,9 @@ jobs:
           ./build.sh test --doc
       - name: No session data may ever be tracked
         run: |
-          if git ls-files | grep -q '^\.pi/'; then
+          if { git ls-files | grep -q '^\.pi/' || git ls-files | grep -qE '^[^/]+\.jsonl$'; } then
             echo "::error::session data is committed to the repo"
-            git ls-files | grep '^\.pi/'
+            { git ls-files | grep -E '^\.pi/|^[^/]+\.jsonl$'; }
             exit 1
           fi
       - name: Clippy (all targets, no warnings)
