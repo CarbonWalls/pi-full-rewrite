@@ -4571,6 +4571,13 @@ Per-round log (newest last). All work in /root/workspace/research.
   wholesale-replace contract are confirmed. (A multi-rule mock chain didn't
   complete — a scenario/consume nuance, not a tool defect.)
 
+## Round 124 — README accuracy sweep
+- Verified every README headline claim against reality: ~4.5 MB static
+  binary, ~13 ms startup, 135 tests, 32-point sign-off, musl-clang static
+  path, REST/dashboard/rpc protocols, and the full comparisons table
+  (MCP/ext/images/skills/apply_diff/bg/git-read-only) — all current and
+  live-verified. No false claims found.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
