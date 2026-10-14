@@ -5253,6 +5253,10 @@ Per-round log (newest last). All work in /root/workspace/research.
   via /sessions and continued with --continue/resume on the CLI. No hidden
   continuation surprises.
 
+## Round 273 — markdown export with image parts verified
+- A session with an image part exports as a safe `![image/png](inline
+  image)` placeholder — no base64 dumping or broken HTML.
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
