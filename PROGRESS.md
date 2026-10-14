@@ -5478,6 +5478,11 @@ Per-round log (newest last). All work in /root/workspace/research.
   the effective model (CLI -m wins) and full tool list — no crash, clear
   surface.
 
+## Round 323 — serve-token applies to preflight too
+- With --serve-token, OPTIONS preflight also needs the token (401 without,
+  204 with) and POST /rpc 401->200 — the guard is uniform across preflight
+  and real requests (browsers send auth on preflight anyway).
+
 ## Milestones
 - [x] M0 scaffold + toolchain in-workspace
 - [x] M1 pi-ai providers + catalog (mock/tested; real providers untested w/o keys)
